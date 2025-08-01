@@ -5,4 +5,7 @@ public class Member_HeadController { // class start
     private Member_HeadController(){}
     private static final Member_HeadController instance = new Member_HeadController();
     public static Member_HeadController getInstance(){ return instance; }
+
+    // 전역변수 회원번호
+    public static int currentMno;
 }// class end
