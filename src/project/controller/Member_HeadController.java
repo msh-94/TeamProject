@@ -32,4 +32,12 @@ public class Member_HeadController { // class start
         boolean result = memberHeadDao.withdrawUser(mno);
         return result;
     }// func end
+
+    // 회원정보 수정 기능
+    public boolean updateProfile(int mno , String mPwd , String mPhone){
+        Member_HeadDto dto = new Member_HeadDto();
+        dto.setmPwd(mPwd);  dto.setmPhone(mPhone); dto.setMno(currentMno);
+        boolean result = memberHeadDao.updateProfile(dto);
+        return result;
+    }// func end
 }// class end
