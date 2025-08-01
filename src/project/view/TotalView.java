@@ -5,4 +5,5 @@ public class TotalView { // class start
     private TotalView(){}
     private static final TotalView instance = new TotalView();
     public static TotalView getInstance(){ return instance; }
+    //
 }// class end
