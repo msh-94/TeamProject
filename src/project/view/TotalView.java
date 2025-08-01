@@ -1,4 +1,4 @@
-package project.view; // 패키지명
+package project.view;
 
 import project.controller.*;
 import java.util.InputMismatchException;
