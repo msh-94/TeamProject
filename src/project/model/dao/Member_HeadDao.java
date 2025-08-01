@@ -3,6 +3,7 @@ package project.model.dao; // 패키지명
 import project.model.dto.Member_HeadDto;
 
 import java.sql.*;
+import java.util.ArrayList;
 
 public class Member_HeadDao { // class start
     // 싱글톤
@@ -40,7 +41,7 @@ public class Member_HeadDao { // class start
         return dto;
     }// func end
 
-    // 회원탈퇴기능
+    // 회원탈퇴 기능
     public boolean withdrawUser(int mno){
         try{
             String sql = "delete from Member_head where mno = ?";
@@ -51,4 +52,22 @@ public class Member_HeadDao { // class start
         } catch (SQLException e) { System.out.println(e); } // try end
         return false;
     }// func end
+
+    // 회원정보 수정 기능
+    public boolean updateProfile(Member_HeadDto dto){
+        try{
+            String sql = "update Member_head set mPwd = ? , mPhone = ? where mno = ? and mPwd = ?";
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setString(1,dto.getmPwd());
+            ps.setString(2,dto.getmPhone());
+            ps.setInt(3,dto.getMno());
+            ps.setString(4,dto.getmPwd());
+            int count = ps.executeUpdate();
+            if (count == 1)return true;
+        } catch (SQLException e) { System.out.println(e); }
+        return false;
+    }// func end
+
+    // 구독자 조회 기능
+    public ArrayList<>
 }// class end
