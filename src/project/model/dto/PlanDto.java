@@ -9,20 +9,20 @@ public class PlanDto {// class start
     // 생성자
     public PlanDto() {
     }
-    public PlanDto(int pno_pk, String pName, int pDate, int pMoney) {
-        this.pno = pno_pk;
+    public PlanDto(int pno, String pName, int pDate, int pMoney) {
+        this.pno = pno;
         this.pName = pName;
         this.pDate = pDate;
         this.pMoney = pMoney;
     }
     // getter/setter , toString()
 
-    public int getPno_pk() {
+    public int getPno() {
         return pno;
     }
 
-    public void setPno_pk(int pno_pk) {
-        this.pno = pno_pk;
+    public void setPno_pk(int pno) {
+        this.pno = pno;
     }
 
     public String getpName() {
