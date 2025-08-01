@@ -2,6 +2,7 @@ package project.model.dao;// 패키지명
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.util.Scanner;
 
 public class Member_SubDao { // class start
     // 싱글톤
@@ -20,4 +21,23 @@ public class Member_SubDao { // class start
             conn = DriverManager.getConnection(db_url,db_user,db_password);
         } catch (Exception e) { System.out.println(e); }// try end
     }// func end
+
+
+
+
+    // 로그아웃 기능 구현
+
+    public void signOut(){
+        while(true){
+            try{
+                int input = new Scanner(System.in).nextInt();
+                if(input == 2 ){
+                    System.out.println("[안내] 로그아웃 되었습니다.");
+                    break;
+                }
+            }catch (Exception e){
+                System.out.println("[오류]관리자 문의(000-0000)");
+            }
+        }
+    }
 }// class end
