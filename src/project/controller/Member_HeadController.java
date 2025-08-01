@@ -25,4 +25,11 @@ public class Member_HeadController { // class start
             return 3;
         }else return 2;
     }// func end
+
+    // 회원탈퇴 기능
+    public boolean withdrawUser(int mno){
+        mno = currentMno;
+        boolean result = memberHeadDao.withdrawUser(mno);
+        return result;
+    }// func end
 }// class end
