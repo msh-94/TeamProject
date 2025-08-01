@@ -16,9 +16,9 @@ public class Member_HeadController { // class start
     // 전역변수 회원번호
     public static int currentMno;
     public int signUp(int mno,int mCategory,String mId, String mPwd, String mName, String mPhone,String mDate){
-        Member_HeadDto memberHeadDto = new Member_HeadDto(0,0,mId,mPwd,mPhone,mName,null);
-        int result = Member_HeadDao.getInstance().signUp(0, mCategory, mId, mPwd, mName, mPhone, mDate);
-        return result;
+        Member_HeadDto memberHeadDto = new Member_HeadDto(0,mCategory,mId,mPwd,mPhone,mName,null);
+        int resultSignUp = Member_HeadDao.getInstance().signUp(0,mCategory,mId,mPwd,mName,mPhone,null);
+        return resultSignUp;
     }
 
 }// class end

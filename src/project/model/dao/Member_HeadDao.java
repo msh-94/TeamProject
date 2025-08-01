@@ -22,26 +22,27 @@ public class Member_HeadDao { // class start
         } catch (Exception e) { System.out.println(e); }// try end
     }// func end
 
-    //본사 회원가입
+    //[본사] 회원가입
     public int signUp(int mno,int mCategory,String mId, String mPwd, String mName, String mPhone,String mDate){
         try {
             // 1. SQL 작성한다.
-            String sql = "ISERT IN TO Member_head(mno,mCategory,mId,mPwd,mName,mPhone) values(?,?,?,?,?,?,?)";
+            String sql = "INSERT INTO Member_head(mCategory , mId , mPwd , mPhone , mName) VALUES(?,?,?,?,?)";
             // 2. SQL 기재한다..
             PreparedStatement ps = conn.prepareStatement(sql);
             // 3. SQL 매개변수 대입
-            ps.setInt(1,mno);
-            ps.setInt(2,mCategory);
-            ps.setString(3,mId);
-            ps.setString(4,mPwd);
-            ps.setString(5,mName);
-            ps.setString(6,mPhone);
-            ps.setString(7,mDate);
+            //ps.setInt(1,mno);
+            ps.setInt(1,mCategory);
+            ps.setString(2,mId);
+            ps.setString(3,mPwd);
+            ps.setString(4,mName);
+            ps.setString(5,mPhone);
             // 4. SQL 실행  , insert/update/delete 은 .executeUpdate();
-            int count = ps.executeUpdate();
+           int resultSignUp=ps.executeUpdate();
             // 5. sql 결과에 따른 로직/리턴/확인
-            return count;
+            if(resultSignUp==0) return 1;
+            else if(resultSignUp==1) return 2;
+            else if(resultSignUp==2) return 3;
         }catch (Exception e){System.out.println(e);}//catch end
-        return 1;
+        return 4;
     }//signUp end
 }// class end
