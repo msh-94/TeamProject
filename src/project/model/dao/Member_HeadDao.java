@@ -71,8 +71,8 @@ public class Member_HeadDao { // class start
         return false;
     }// func end
 
-    // 구독자 조회 기능
-    public ArrayList<>
+    //// 구독자 조회 기능
+    //public ArrayList<>
     //[본사] 회원가입
     public int signUp(int mno,int mCategory,String mId, String mPwd, String mName, String mPhone,String mDate){
         try {
