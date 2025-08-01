@@ -22,7 +22,7 @@ public class Member_HeadDao { // class start
         } catch (Exception e) { System.out.println(e); }// try end
     }// func end
 
-    // 로그인 정보 반환
+    // 로그인 회원 번호,아이디,비밀번호 반환 기능
     public Member_HeadDto logIn(String mId , String mPwd){
         Member_HeadDto dto = new Member_HeadDto();
         try {
@@ -38,5 +38,17 @@ public class Member_HeadDao { // class start
             }// while end
         } catch (SQLException e) { System.out.println(e); }
         return dto;
+    }// func end
+
+    // 회원탈퇴기능
+    public boolean withdrawUser(int mno){
+        try{
+            String sql = "delete from Member_head where mno = ?";
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setInt(1,mno);
+            int count = ps.executeUpdate();
+            if (count == 1) return true;
+        } catch (SQLException e) { System.out.println(e); } // try end
+        return false;
     }// func end
 }// class end
