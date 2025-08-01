@@ -7,7 +7,5 @@ public class CompanyController {// class start
     private static final CompanyController instance = new CompanyController();
     public static CompanyController getInstance(){ return instance; }
 
-    public boolean addWaiting(String phone, String count) {
-    }
 
 }// class end
