@@ -13,9 +13,9 @@ public class Member_SubDto {// class start
     // 생성자
     public Member_SubDto() {
     }
-    public Member_SubDto(int mno_pk, int cno_fk, int mCategory, String mId, String mPwd, String mNum, String mName, String mDate) {
-        this.mno = mno_pk;
-        this.cno = cno_fk;
+    public Member_SubDto(int mno, int cno, int mCategory, String mId, String mPwd, String mNum, String mName, String mDate) {
+        this.mno = mno;
+        this.cno = cno;
         this.mCategory = mCategory;
         this.mId = mId;
         this.mPwd = mPwd;
@@ -24,20 +24,20 @@ public class Member_SubDto {// class start
         this.mDate = mDate;
     }
     // getter/setter , toString()
-    public int getMno_pk() {
+    public int getMno() {
         return mno;
     }
 
-    public void setMno_pk(int mno_pk) {
-        this.mno = mno_pk;
+    public void setMno(int mno) {
+        this.mno = mno;
     }
 
-    public int getCno_fk() {
+    public int getCno() {
         return cno;
     }
 
-    public void setCno_fk(int cno_fk) {
-        this.cno = cno_fk;
+    public void setCno(int cno) {
+        this.cno = cno;
     }
 
     public int getmCategory() {
@@ -90,8 +90,8 @@ public class Member_SubDto {// class start
     @Override
     public String toString() {
         return "Member_SubDto{" +
-                "mno_pk=" + mno +
-                ", cno_fk=" + cno +
+                "mno=" + mno +
+                ", cno=" + cno +
                 ", mCategory=" + mCategory +
                 ", mId='" + mId + '\'' +
                 ", mPwd='" + mPwd + '\'' +

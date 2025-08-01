@@ -10,28 +10,28 @@ public class CompanyDto {// class start
     // 생성자
     public CompanyDto() {
     }
-    public CompanyDto(int cno_pk, int mno_fk, String cName, String area, String service) {
-        this.cno = cno_pk;
-        this.mno = mno_fk;
+    public CompanyDto(int cno, int mno, String cName, String area, String service) {
+        this.cno = cno;
+        this.mno = mno;
         this.cName = cName;
         this.area = area;
         this.service = service;
     }
     // getter/setter , toString()
-    public int getCno_pk() {
+    public int getCno() {
         return cno;
     }
 
-    public void setCno_pk(int cno_pk) {
-        this.cno = cno_pk;
+    public void setCno(int cno) {
+        this.cno = cno;
     }
 
-    public int getMno_fk() {
+    public int getMno() {
         return mno;
     }
 
-    public void setMno_fk(int mno_fk) {
-        this.mno = mno_fk;
+    public void setMno(int mno) {
+        this.mno = mno;
     }
 
     public String getcName() {
@@ -61,8 +61,8 @@ public class CompanyDto {// class start
     @Override
     public String toString() {
         return "CompanyDto{" +
-                "cno_pk=" + cno +
-                ", mno_fk=" + mno +
+                "cno=" + cno +
+                ", mno=" + mno +
                 ", cName='" + cName + '\'' +
                 ", area='" + area + '\'' +
                 ", service='" + service + '\'' +

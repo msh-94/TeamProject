@@ -12,8 +12,8 @@ public class Member_HeadDto { // class start
     // 생성자
     public Member_HeadDto() {
     }
-    public Member_HeadDto(int mno_pk, int mCategory, String mId, String mPwd, String mPhone, String mName, String mDate) {
-        this.mno = mno_pk;
+    public Member_HeadDto(int mno, int mCategory, String mId, String mPwd, String mPhone, String mName, String mDate) {
+        this.mno = mno;
         this.mCategory = mCategory;
         this.mId = mId;
         this.mPwd = mPwd;
@@ -22,12 +22,12 @@ public class Member_HeadDto { // class start
         this.mDate = mDate;
     }
     // getter/setter , toString()
-    public int getMno_pk() {
+    public int getMno() {
         return mno;
     }
 
-    public void setMno_pk(int mno_pk) {
-        this.mno = mno_pk;
+    public void setMno(int mno) {
+        this.mno = mno;
     }
 
     public int getmCategory() {
@@ -80,7 +80,7 @@ public class Member_HeadDto { // class start
     @Override
     public String toString() {
         return "Member_HeadDto{" +
-                "mno_pk=" + mno +
+                "mno=" + mno +
                 ", mCategory=" + mCategory +
                 ", mId='" + mId + '\'' +
                 ", mPwd='" + mPwd + '\'' +
