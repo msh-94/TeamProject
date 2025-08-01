@@ -21,7 +21,7 @@ public class PlanDto {// class start
         return pno;
     }
 
-    public void setPno_pk(int pno) {
+    public void setPno(int pno) {
         this.pno = pno;
     }
 
@@ -52,7 +52,7 @@ public class PlanDto {// class start
     @Override
     public String toString() {
         return "PlanDto{" +
-                "pno_pk=" + pno +
+                "pno=" + pno +
                 ", pName='" + pName + '\'' +
                 ", pDate=" + pDate +
                 ", pMoney=" + pMoney +

@@ -90,8 +90,8 @@ public class Member_SubDto {// class start
     @Override
     public String toString() {
         return "Member_SubDto{" +
-                "mno_pk=" + mno +
-                ", cno_fk=" + cno +
+                "mno=" + mno +
+                ", cno=" + cno +
                 ", mCategory=" + mCategory +
                 ", mId='" + mId + '\'' +
                 ", mPwd='" + mPwd + '\'' +

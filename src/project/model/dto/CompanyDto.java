@@ -61,8 +61,8 @@ public class CompanyDto {// class start
     @Override
     public String toString() {
         return "CompanyDto{" +
-                "cno_pk=" + cno +
-                ", mno_fk=" + mno +
+                "cno=" + cno +
+                ", mno=" + mno +
                 ", cName='" + cName + '\'' +
                 ", area='" + area + '\'' +
                 ", service='" + service + '\'' +

@@ -1,9 +1,11 @@
-package project; // 패키지명
+package project;
 
+import project.view.TotalView;
 
+public class AppStart {
+    public static void main(String[] args) {
 
-public class AppStart {// class start
-    public static void main(String[] args) { // main start
+        TotalView.getInstance().index(); // 본사 > 사용자단 > 메인공통화면(view)
 
-    }// main end
-}// class end
+    }
+}//class end

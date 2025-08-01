@@ -61,9 +61,9 @@ public class LogDto {// class start
     @Override
     public String toString() {
         return "LogDto{" +
-                "logno_pk=" + logno +
-                ", pno_fk=" + pno +
-                ", mno_fk=" + mno +
+                "logno=" + logno +
+                ", pno=" + pno +
+                ", mno=" + mno +
                 ", addDate='" + addDate + '\'' +
                 ", endDate='" + endDate + '\'' +
                 '}';

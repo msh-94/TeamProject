@@ -80,7 +80,7 @@ public class Member_HeadDto { // class start
     @Override
     public String toString() {
         return "Member_HeadDto{" +
-                "mno_pk=" + mno +
+                "mno=" + mno +
                 ", mCategory=" + mCategory +
                 ", mId='" + mId + '\'' +
                 ", mPwd='" + mPwd + '\'' +
