@@ -19,5 +19,6 @@ public class LogDao {// class start
             Class.forName("com.mysql.cj.jdbc.Driver");
             conn = DriverManager.getConnection(db_url,db_user,db_password);
         } catch (Exception e) { System.out.println(e); }// try end
+        //커밋용
     }// func end
 }// class end
