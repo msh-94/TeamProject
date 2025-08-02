@@ -67,8 +67,6 @@ System.out.println("""
                     else if( choose == 7 ) withdrawUser();
                     else if( choose == 8 ) subscribeCancle(); // 8.구독취소 : 구독중인 회원전용 메뉴
                     else System.out.println("\n[경고] 올바른 메뉴(숫자)를 입력하세요.\n");
-                }else if( currentMno == 3 ){
-                    System.out.println("\n[안내] 회원정보가 존재하지 않습니다.\n");
                 }else{ //★☆★☆ [본사]사용자단: 공통화면(로그인전/비회원/로그인 한 회원번호가 없는 경우_currentMno)
                     System.out.println("┌──────────────── MY CALL-TAXI 플랫폼(월구독형) ────────────────┐");
                     System.out.println("  1.회원가입   2.로그인   3.구독신청   4.데모체험   5.지역콜택시조회");
