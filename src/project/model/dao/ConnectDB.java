@@ -20,11 +20,11 @@ public class ConnectDB {
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
             conn = DriverManager.getConnection( db_url, db_user, db_password );
-            System.out.println("[안내] DB 연동 성공!" );
+            System.out.println("[안내] DB연동 성공!" );
         }catch( ClassNotFoundException e ){
-            System.out.println("[경고] 드라이버 연동 실패!" + e );
+            System.out.println("[경고] DB드라이버 연동 실패!" + e );
         }catch ( Exception e ){
-            System.out.println("[경고] DB 연동 실패!" + e );
+            System.out.println("[경고] DB연동 실패!" + e );
         }//catch end
     }//func end
 

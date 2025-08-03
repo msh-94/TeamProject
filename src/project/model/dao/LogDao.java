@@ -18,7 +18,7 @@ public class LogDao {
 
     /* [1] 본사 > 사용자단 -----------------------------------------------------------------------------------*/
     // 1-1. 구독신청
-    public boolean subscribeRequest(int pno , int mno , CompanyDto companyDto){
+    public boolean subscribeRequest( int mno , int pno , CompanyDto companyDto ){
         return true;
     }//func end
 
@@ -39,6 +39,5 @@ public class LogDao {
         ArrayList<LogDto> logDtos = new ArrayList<>();
         return logDtos;
     }//func end
-
 
 }//class end
