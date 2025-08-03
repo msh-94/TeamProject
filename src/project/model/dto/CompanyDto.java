@@ -1,12 +1,12 @@
-package project.model.dto; // 패키지명
+package project.model.dto;
 
-public class CompanyDto {// class start
-    // 멤버변수
-    private int cno;
-    private int mno;
-    private String cName;
-    private String area;
-    private String service;
+public class CompanyDto {
+    // 멤버변수              // Company(본사 구독자(회사) 부가정보 Table)
+    private int cno;        // 구독회사(구독자) 번호(pk)
+    private int mno;        // 본사회원번호(fk)
+    private String cName;   // 사이트명
+    private String area;    // 서비스지역
+    private String service; // 서비스내용
     // 생성자
     public CompanyDto() {
     }

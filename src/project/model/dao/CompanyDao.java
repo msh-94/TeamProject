@@ -20,4 +20,6 @@ public class CompanyDao {// class start
             conn = DriverManager.getConnection(db_url,db_user,db_password);
         } catch (Exception e) { System.out.println(e); }// try end
     }// func end
+
+
 }// class end

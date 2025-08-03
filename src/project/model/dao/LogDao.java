@@ -1,24 +1,44 @@
-package project.model.dao;// 패키지명
+package project.model.dao;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
+import project.model.dto.CompanyDto;
+import project.model.dto.LogDto;
+import java.util.ArrayList;
 
-public class LogDao {// class start
+// 구독신청(Log table)
+public class LogDao {
     // 싱글톤
-    private LogDao(){connect();}
+    private LogDao(){ connectDB.connectDB(); }
     private static final LogDao instance = new LogDao();
     public static LogDao getInstance(){ return instance; }
 
-    // db 연동
-    private String db_url = "jdbc:mysql://localhost:3306/본사";
-    private String db_user = "root";
-    private String db_password = "1234";
-    private Connection conn;
-    private void connect(){
-        try{
-            Class.forName("com.mysql.cj.jdbc.Driver");
-            conn = DriverManager.getConnection(db_url,db_user,db_password);
-        } catch (Exception e) { System.out.println(e); }// try end
-        //커밋용
-    }// func end
-}// class end
+    // 싱글톤 호출
+    private ConnectDB connectDB = ConnectDB.getInstance();
+
+    /* ======================================== ★ 단위기능 ★ ============================================== */
+
+    /* [1] 본사 > 사용자단 -----------------------------------------------------------------------------------*/
+    // 1-1. 구독신청
+    public boolean subscribeRequest(int pno , int mno , CompanyDto companyDto){
+        return true;
+    }//func end
+
+    // 1-2. 구독현황
+    public LogDto subscribeState( int mno ){
+        LogDto logDto = new LogDto();
+        return logDto;
+    }//func end
+
+    // 1-3. 구독취소
+    public boolean subscribeCancle( int mno ){
+        return true;
+    }//func end
+
+    /* [2] 본사 > 관리자단 -----------------------------------------------------------------------------------*/
+    // 2-1. 구독신청 내역조회
+    public ArrayList<LogDto> subscribelList(){
+        ArrayList<LogDto> logDtos = new ArrayList<>();
+        return logDtos;
+    }//func end
+
+
+}//class end

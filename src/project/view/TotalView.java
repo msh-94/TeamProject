@@ -91,90 +91,91 @@ System.out.println("""
 
     /* ======================================== ★ 사용자별 화면(view) ★ ============================================== */
 
-    /* (1) [본사]사용자단: 공통화면(로그인전/비회원/로그인 한 회원번호가 없는 경우_currentMno) ---------------------------------*/
-    // 1.1.회원가입
+    /* [1] 본사 > 사용자단 > 공통화면(로그인전/비회원/로그인 한 회원번호가 없는 경우_currentMno) --------------------------------*/
+    // 1-1.회원가입
     public void signUp(){
         System.out.println("\n1.회원가입\n");
     }//func end
 
-    // 1.2.로그인
+    // 1-2.로그인
     public void logIn(){
         System.out.println("\n2.로그인\n");
     }//func end
 
-    // 1.3.구독신청
+    // 1-3.구독신청
     public void subscribeRequest(){
         System.out.println("\n3.구독신청\n");
     }//func end
 
-    // 1.4.데모체험
+    // 1-4.데모체험
     public void siteManaser(){
         System.out.println("\n4.데모체험\n");
     }//func end
 
-    // 1.5.지역콜택시조회
+    // 1-5.지역콜택시조회
     public void taxiList(){
         System.out.println("\n5.지역콜택시조회\n");
     }//func end
 
-    /* (2) [본사]사용자단: 회원(구독X/구독O) 로그인 화면 -------------------------------------------------------------------*/
-    // 2.1.정보수정
+    /* [2] 본사 > 사용자단 > 회원 로그인화면(구독X/구독O) ------------------------------------------------------------------*/
+    // 2-1.정보수정
     public void updateProfile(){
         System.out.println("\n1.정보수정n");
     }//func end
 
-    // 2.2.로그아웃
+    // 2-2/3-8.로그아웃
     public void signOut(){
-        System.out.println("\n2.로그아웃\n");
+        System.out.println("\n2.로그아웃\n"); //2. 본사 > 사용자단 로그아웃
+        System.out.println("\n8.로그아웃\n"); //8. 본사 > 관리자단 로그아웃
     }//func end
 
-    // 2.6.구독현황
+    // 2-6.구독현황
     public void subscribeState(){
-        System.out.println("\n3.구독플랜 조회\n");
+        System.out.println("\n6.구독현황\n");
     }//func end
 
-    // 2.7.회원탈퇴
+    // 2-7.회원탈퇴
     public void withdrawUser(){
-        System.out.println("\n3.구독플랜 수정\n");
+        System.out.println("\n7.회원탈퇴\n");
     }//func end
 
-    // 2.8.구독취소 : 구독중인 회원전용 메뉴
+    // 2-8.구독취소 : 구독중인 회원전용 메뉴
     public void subscribeCancle(){
         System.out.println("\n8.구독취소\n");
     }//func end
 
-    /* (3) [본사]관리자단: admin(시스템관리자) 로그인 화면 -----------------------------------------------------------------*/
-    // 3.1.구독플랜 등록
+    /* [3] 본사 > 관리자단 > 로그인화면(admin/시스템로그인) ----------------------------------------------------------------*/
+    // 3-1.구독플랜 등록
     public void planAdd(){
         System.out.println("\n1.구독플랜 등록\n");
     }//func end
 
-    // 3.2.구독플랜 조회
+    // 3-2.구독플랜 조회
     public void planList(){
         System.out.println("\n2.구독플랜 조회\n");
     }//func end
 
-    // 3.3.구독플랜 수정
+    // 3-3.구독플랜 수정
     public void planEdit(){
         System.out.println("\n3.구독플랜 수정\n");
     }//func end
 
-    // 3.4.구독플랜 삭제
+    // 3-4.구독플랜 삭제
     public void planDelete(){
         System.out.println("\n4.구독플랜 삭제\n");
     }//func end
 
-    // 3.5.회원목록 조회
+    // 3-5.회원목록 조회
     public void userList(){
         System.out.println("\n5.회원목록 조회\n");
     }//func end
 
-    // 3.6.구독자목록 조회
+    // 3-6.구독자목록 조회
     public void planUserList(){
         System.out.println("\n6.구독자목록 조회\n");
     }//func end
 
-    // 3.7.구독신청 내역조회
+    // 3-7.구독신청 내역조회
     public void subscribePrint(){
         System.out.println("\n7.구독신청 내역조회\n");
     }//func end
