@@ -74,7 +74,7 @@ public class Member_HeadDao { // class start
     //// 구독자 조회 기능
     //public ArrayList<>
 
-    //[본사] 회원가입
+    //회원가입
     public int signUp(int mno,int mCategory,String mId, String mPwd, String mName, String mPhone,String mDate){
         try {
             // 1. SQL 작성한다.
@@ -82,8 +82,7 @@ public class Member_HeadDao { // class start
             // 2. SQL 기재한다..
             PreparedStatement ps = conn.prepareStatement(sql);
             // 3. SQL 매개변수 대입
-            //ps.setInt(1,mno);
-            ps.setInt(1,mCategory);
+                        ps.setInt(1,mCategory);
             ps.setString(2,mId);
             ps.setString(3,mPwd);
             ps.setString(4,mName);
@@ -91,8 +90,37 @@ public class Member_HeadDao { // class start
             // 4. SQL 실행  , insert/update/delete 은 .executeUpdate();
             int resultSignUp=ps.executeUpdate();
             // 5. sql 결과에 따른 로직/리턴/확인
-            if (resultSignUp == 1){return mCategory;}
+            if (resultSignUp == 1){return mCategory;} //반환값
         }catch (Exception e){System.out.println("[경고] 이미 등록된 아이디입니다. ");}//catch end
         return 0;
     }//func end
+
+    //회원목록 조회
+    public ArrayList<Member_HeadDto> userList(){
+        ArrayList<Member_HeadDto> member_headDto = new ArrayList<>();
+        try {
+            // 1. SQL 작성한다.
+            String sql = "SELECT *FROM Member_head;";
+            // 2. SQL 기재한다..
+            PreparedStatement ps = conn.prepareStatement(sql);
+            // 3. SQL 매개변수 대입
+            // 4. SQL 실행  , insert/update/delete 은 .executeUpdate();
+            ResultSet rs =  ps.executeQuery();
+            // 5. sql 결과에 따른 로직/리턴/확인
+            while(rs.next()) {
+                int mno = rs.getInt("mno");
+                int mCategory = rs.getInt("mCategory");
+                String mId = rs.getString("mId");
+                String mName = rs.getString("mName");
+                String mPhone = rs.getString("mPhone");
+                String mDate = rs.getString("mDate");
+
+                Member_HeadDto memberHeadDto = new Member_HeadDto(mno,mCategory,mId,mName,mPhone,mDate,mDate);
+                member_headDto.add(memberHeadDto);
+
+            }//while end
+        } catch (Exception e) {System.out.println(e);}
+        return member_headDto;
+    }//func end
+
 }// class end

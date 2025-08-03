@@ -1,6 +1,10 @@
 package project.view; // 패키지명
 
 import project.controller.*;
+import project.model.dto.Member_HeadDto;
+
+import java.util.ArrayList;
+import java.util.DoubleSummaryStatistics;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 import static project.controller.Member_HeadController.currentMno;
@@ -182,7 +186,14 @@ public class TotalView {
 
     // 3.5.회원목록 조회
     public void userList(){
-        System.out.println("\n5.회원목록 조회\n");
+        System.out.println("--------------------------------------------------------------------------------------------------------- ");
+        System.out.println("No 회원유형 아이디 이름 연락처 가입일");
+        ArrayList<Member_HeadDto> resultList = mhc.userList();
+        for(Member_HeadDto member_headDto:resultList){
+            System.out.printf("%d %d %s %s %s %s",
+                    member_headDto.getMno(),member_headDto.getmCategory(),member_headDto.getmId(), //회원번호,회원유형,아이디
+                    member_headDto.getmName(),member_headDto.getmPhone(),member_headDto.getmDate());//이름,연락처,가입일
+        }//for end
     }//func end
 
     // 3.6.구독자목록 조회

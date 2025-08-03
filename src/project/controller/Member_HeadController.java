@@ -3,6 +3,8 @@ package project.controller; // 패키지명
 import project.model.dao.Member_HeadDao;
 import project.model.dto.Member_HeadDto;
 
+import java.util.ArrayList;
+
 public class Member_HeadController { // class start
     // 싱글톤
     private Member_HeadController(){}
@@ -47,4 +49,10 @@ public class Member_HeadController { // class start
         int resultSignUp = memberHeadDao.signUp(0,mCategory,mId,mPwd,mName,mPhone,null);
         return resultSignUp;
     }// func end
+
+    //회원목록조회
+    public ArrayList<Member_HeadDto> userList() {
+        ArrayList<Member_HeadDto> resultList = Member_HeadDao.getInstance().userList();
+        return resultList;
+    }//func end
 }// class end
