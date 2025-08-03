@@ -73,6 +73,7 @@ public class Member_HeadDao { // class start
 
     //// 구독자 조회 기능
     //public ArrayList<>
+
     //[본사] 회원가입
     public int signUp(int mno,int mCategory,String mId, String mPwd, String mName, String mPhone,String mDate){
         try {
@@ -91,7 +92,7 @@ public class Member_HeadDao { // class start
             int resultSignUp=ps.executeUpdate();
             // 5. sql 결과에 따른 로직/리턴/확인
             if (resultSignUp == 1){return mCategory;}
-        }catch (Exception e){System.out.println(e);}//catch end
+        }catch (Exception e){System.out.println("[경고] 이미 등록된 아이디입니다. ");}//catch end
         return 0;
     }//func end
 }// class end
