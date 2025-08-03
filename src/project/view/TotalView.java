@@ -85,7 +85,32 @@ public class TotalView {
     /* (1) [본사]사용자단: 공통화면(로그인전/비회원/로그인 한 회원번호가 없는 경우_currentMno) ---------------------------------*/
     // 1.1.회원가입
     public void signUp(){
-        System.out.println("\n1.회원가입\n");
+        System.out.print("회원유형: ");
+        int mCategory = scan.nextInt();
+        System.out.print("아이디: ");
+        String mId = scan.next();
+        System.out.print("비밀번호: ");
+        String mPwd = scan.next();
+        System.out.print("이름: ");
+        String mName = scan.next();
+        System.out.print("전화번호: ");
+        String mPhone = scan.next();
+
+        int reultSignUp = mhc.signUp(mCategory,mId,mPwd,mName,mPhone);
+
+        if(mCategory < 1 || 3 > mCategory){ // 회원유형 1~3 이외 회원가입 불가
+            System.out.println("올바르지 않은 유형입니다.");
+            return;
+        }
+        if(reultSignUp==1){
+            System.out.println("일반회원으로 회원가입 하셨습니다.");
+        }else if(reultSignUp==2){
+            System.out.println("기사회원으로 회원가입 하셨습니다.");
+        }else if(reultSignUp==3){
+            System.out.println("사업자로 회원가입 하셨습니다.");
+        }else {
+            System.out.println("회원가입 실패. 다시 시도 해주세요");
+        } //if end
     }//func end
 
     // 1.2.로그인

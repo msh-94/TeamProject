@@ -1,5 +1,6 @@
 package project;
 
+import project.controller.Member_HeadController;
 import project.view.TotalView;
 
 public class AppStart {

@@ -90,10 +90,8 @@ public class Member_HeadDao { // class start
             // 4. SQL 실행  , insert/update/delete 은 .executeUpdate();
             int resultSignUp=ps.executeUpdate();
             // 5. sql 결과에 따른 로직/리턴/확인
-            if(resultSignUp==0) return 1;
-            else if(resultSignUp==1) return 2;
-            else if(resultSignUp==2) return 3;
+            if (resultSignUp == 1){return mCategory;}
         }catch (Exception e){System.out.println(e);}//catch end
-        return 4;
-    }//signUp end
+        return 0;
+    }//func end
 }// class end
