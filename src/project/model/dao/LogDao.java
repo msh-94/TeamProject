@@ -4,7 +4,7 @@ import project.model.dto.CompanyDto;
 import project.model.dto.LogDto;
 import java.util.ArrayList;
 
-// 구독신청(Log table)
+// 구독신청(Log table) 관련
 public class LogDao {
     // 싱글톤
     private LogDao(){ connectDB.connectDB(); }
