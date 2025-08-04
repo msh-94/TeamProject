@@ -2,6 +2,8 @@ package project.view; // 패키지명
 
 import project.controller.*;
 import project.model.dto.CompanyDto;
+import project.model.dto.Member_HeadDto;
+import project.model.dto.PlanDto;
 
 import java.util.InputMismatchException;
 import java.util.Scanner;

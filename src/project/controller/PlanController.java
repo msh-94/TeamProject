@@ -10,6 +10,13 @@ public class PlanController { // class start
     private PlanController(){}
     private static final PlanController instance = new PlanController();
     public static PlanController getInstance(){ return instance; }
+    //싱글톤 호출
+    public static PlanDao planDao = PlanDao.getInstance();
+    //구독플랜수정
+    public boolean planEdit(PlanDto planDto){
+         boolean result= planDao.planEdit(planDto);
+         return result;
+    }
 
     // 전역변수 플랜번호
     public static int currentPno;
@@ -32,5 +39,5 @@ public class PlanController { // class start
     public ArrayList<PlanDto> planList(){
         ArrayList<PlanDto> result = planDao.planList();
         return result;
-    }
+    }//func end
 }// class end
