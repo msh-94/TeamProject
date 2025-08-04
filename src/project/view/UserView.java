@@ -81,7 +81,12 @@ public class UserView { // class start
 
     // 2.2.로그아웃
     public void signOut(){
-        System.out.println("\n2.로그아웃\n");
+        if(currentMno > 0){
+            currentMno = 0;
+            System.out.println("로그아웃 되었습니다.");
+        }else {
+            System.out.println("[오류] 관리자 문의(000-0000)");
+        }
     }//func end
 
     // 2.4 내사이트가기
