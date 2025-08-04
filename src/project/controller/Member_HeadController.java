@@ -19,14 +19,10 @@ public class Member_HeadController { // class start
     private Member_HeadDao memberHeadDao = Member_HeadDao.getInstance();
 
     // 로그인 기능
-    public int logIn(String mId , String mPwd){
+    public Member_HeadDto logIn(String mId , String mPwd){
         Member_HeadDto result = memberHeadDao.logIn(mId, mPwd);
         currentMno = result.getMno();
-        if (result.getmId().equals("admin")){
-            return 1;
-        }else if (result == null){
-            return 3;
-        }else return 2;
+        return result;
     }// func end
 
     // 회원탈퇴 기능
