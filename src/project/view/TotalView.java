@@ -50,11 +50,11 @@ public class TotalView {
                     System.out.println("└──────────────────────────────────────────┘");
                     System.out.print("✔️메뉴선택 > ");
                     int choose = scan.nextInt();
-                    if( choose == 1 ) signUp();
-                    else if( choose == 2 ) logIn();
-                    else if( choose == 3 ) subscribeRequest();
-                    else if( choose == 4 ) siteManaser();
-                    else if( choose == 5 ) taxiList();
+                    if( choose == 1 ) uv.signUp();
+                    else if( choose == 2 ) uv.logIn();
+                    else if( choose == 3 ) uv.subscribeRequest();
+                    else if( choose == 4 ) uv.siteManaser();
+                    else if( choose == 5 ) uv.taxiList();
                     else System.out.println( "\n[경고] 해당하는 메뉴(숫자)를 입력하세요.\n" );
                 }else if( currentMno == 1 ){ //1.본사 관리자단(본사 관리자 전용메뉴): admin 로그인화면
                     System.out.println("┌─────────────<<🛡️ MY CALL-TAXI(본사관리자)🛡️>>───────────┐");
