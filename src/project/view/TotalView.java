@@ -70,5 +70,5 @@ public class TotalView { // class start
         System.out.println("\n5.지역콜택시조회\n");
 
     }//for end
-
+// 푸시용
 }// class end
