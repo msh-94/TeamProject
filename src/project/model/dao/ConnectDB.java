@@ -16,6 +16,8 @@ public class ConnectDB {
     private static Connection conn; // DB 연동결과 조작 인터페이스(java.sql)
     public static Connection getConn() { return conn; } // conn getter 생성
 
+    public Connection getConn() { return conn; }
+
     // DB연동 함수
     public void connectDB(){
         try {
