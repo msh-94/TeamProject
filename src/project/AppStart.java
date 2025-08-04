@@ -13,5 +13,5 @@ public class AppStart {
         ArrayList<Map<String,Object>> result = Member_HeadController.getInstance().planUserList();
         System.out.println(result);
 
-    } // 푸시용
+    } // 푸시용12
 }//class end
