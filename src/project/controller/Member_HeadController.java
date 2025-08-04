@@ -57,4 +57,17 @@ public class Member_HeadController { // class start
         }// for end
         return false;
     }// func end
+
+    //회원가입
+    public int signUp(int mCategory,String mId, String mPwd, String mName, String mPhone){
+        Member_HeadDto signDto = new Member_HeadDto (0,mCategory,mId,mPwd,mName,mPhone,null);
+        int resultSignUp = memberHeadDao.signUp(0,mCategory,mId,mPwd,mName,mPhone,null);
+        return resultSignUp;
+    }// func end
+
+    //회원목록조회
+    public ArrayList<Member_HeadDto> userList() {
+        ArrayList<Member_HeadDto> resultList = Member_HeadDao.getInstance().userList();
+        return resultList;
+    }//func end
 }// class end
