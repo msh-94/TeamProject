@@ -25,29 +25,18 @@ public class Member_HeadController { // class start
         return result;
     }// func end
 
-
-    // 로그아웃 기능
-    public void signOut(){
-        if(currentMno > 0){
-            currentMno = 0;
-            System.out.println("로그아웃 되었습니다.");
-        }else {
-            System.out.println("[오류] 관리자 문의(000-0000)");
-        }
-    }// func end
-
     // 회원탈퇴 기능
-    public boolean withdrawUser(int mno){
-        mno = currentMno;
-        boolean result = memberHeadDao.withdrawUser(mno);
+    public boolean withdrawUser(){
+        boolean result = memberHeadDao.withdrawUser(currentMno);
         return result;
     }// func end
 
     // 회원정보 수정 기능
-    public boolean updateProfile(int mno , String mPwd , String mPhone){
+    public int updateProfile(String mPwd , String mPhone , String mPwd1){
         Member_HeadDto dto = new Member_HeadDto();
         dto.setmPwd(mPwd);  dto.setmPhone(mPhone); dto.setMno(currentMno);
-        boolean result = memberHeadDao.updateProfile(dto);
+        dto.setmName(mPwd1);
+        int result = memberHeadDao.updateProfile(dto);
         return result;
     }// func end
 

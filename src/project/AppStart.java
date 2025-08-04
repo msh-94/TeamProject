@@ -12,6 +12,7 @@ public class AppStart {
         //TotalView.getInstance().index(); // 본사 > 사용자단 > 메인공통화면(view)
         ArrayList<Map<String,Object>> result = Member_HeadController.getInstance().planUserList();
         System.out.println(result);
+        TotalView.getInstance().index();
 
     } // 푸시용12
 }//class end

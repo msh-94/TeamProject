@@ -12,11 +12,6 @@ public class Member_SubController { // class start
 
     // Member_SubDao 싱글톤 가져오기
     private Member_SubDao memberSubDao = Member_SubDao.getInstance();
-    // 로그아웃 기능 구현
-
-    public void signOut(){
 
 
-
-    }
 }// class end
