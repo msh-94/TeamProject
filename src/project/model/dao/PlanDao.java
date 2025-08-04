@@ -2,6 +2,7 @@ package project.model.dao; // 패키지명
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 
 public class PlanDao {// class start
     // 싱글톤
@@ -20,4 +21,19 @@ public class PlanDao {// class start
             conn = DriverManager.getConnection(db_url,db_user,db_password);
         } catch (Exception e) { System.out.println(e); }// try end
     }// func end
+
+    //구독플랜삭제
+    public boolean planDelete(int pno) {
+        try {
+            String sql = "DELETE FROM plan WHERE pno=?;";
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setInt(1,pno);
+            int count = ps.executeUpdate();
+            if(count==1) return true;
+            return false;
+        } catch (Exception e) {
+            System.out.println("[경고] 구독중인 구독자가 있는 구독플랜은 삭제가 불가합니다.");
+        }//catch end
+        return false;
+    }//func end
 }// class end
