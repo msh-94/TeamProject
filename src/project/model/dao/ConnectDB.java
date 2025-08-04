@@ -13,7 +13,8 @@ public class ConnectDB {
     private String db_url = "jdbc:mysql://localhost:3306/본사";
     private String db_user = "root";
     private String db_password = "1234";
-    private Connection conn; // DB 연동결과 조작 인터페이스(java.sql)
+    private static Connection conn; // DB 연동결과 조작 인터페이스(java.sql)
+    public static Connection getConn() { return conn; } // conn getter 생성
 
     // DB연동 함수
     public void connectDB(){
