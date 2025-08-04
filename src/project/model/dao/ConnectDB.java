@@ -15,6 +15,8 @@ public class ConnectDB {
     private String db_password = "1234";
     private Connection conn; // DB 연동결과 조작 인터페이스(java.sql)
 
+    public Connection getConn() { return conn; }
+
     // DB연동 함수
     public void connectDB(){
         try {
