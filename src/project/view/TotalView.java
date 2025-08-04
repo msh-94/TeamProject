@@ -21,7 +21,7 @@ public class TotalView {
     private AdminView av = AdminView.getInstance();
 
     // 전역변수
-    Scanner scan = new Scanner(System.in);
+    public static Scanner scan = new Scanner(System.in);
 
     /* ============================================ ★ Method(공통) ★ ================================================ */
     // 본사 > 사용자단 > 공통화면( 비회원/로그인 전 )
