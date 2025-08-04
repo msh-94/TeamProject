@@ -19,6 +19,18 @@ public class LogDao {
     /* [1] 본사 > 사용자단 -----------------------------------------------------------------------------------*/
     // 1-1. 구독신청
     public boolean subscribeRequest( int mno , int pno , CompanyDto companyDto ){
+        // 1) 최초 구독신청 : 본사 구독신청을 1번도 안한 경우
+            // log 테이블 > mno(currentMno) 없는 경우 -->log 레코드 insert
+
+        // 2) 구독종료 후, 구독신청 : 베이직
+            // log 테이블 > mno(currentMno) 있지만 레코드 내역 중 종료일(endDate)이 오늘 이전인 경우 -->log 레코드 insert
+
+        // 3) 같은플랜 구독연장 : 이미 베이직 상품 구독 중인데,추가 신청(기간 연장 + 6개월)
+            // log 테이블 > mno(currentMno) 있지만 레코드 내역 중 마지막 종료일(endDate)에 해당신청 플랜 구독기간 추가
+
+        // 4) 다른 플랜 구독변경 :" 이미 베이직 상품 구독 중인데, 프리미엄 상품으로 갱신하는 경우
+             // log 테이블 > mno(currentMno) 있지만 레코드 내역 중 마지막 종료일(endDate)에 해당신청 플랜 구독기간 추가
+
         return true;
     }//func end
 
