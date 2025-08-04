@@ -68,7 +68,8 @@ insert into Member_head( mCategory , mId , mPwd , mPhone , mName , mDate) values
 ( 1, 'starfish', 'ef789012', '010-3333-3333', '김용만', '2024-03-20'),
 ( 1, 'blackdog', 'gh012345', '010-4444-4444', '서경석', '2024-03-28'),
 ( 3, 'markhani', 'qwe123', '010-4444-4444', '이수근', '2024-03-28'),
-( 2, 'orange88', 'ij345678', '010-5555-5555', '이경규', '2024-03-29');
+( 2, 'orange88', 'ij345678', '010-5555-5555', '이경규', '2024-03-29'),
+( 2, 'test', '1234', '010-5555-5555', '김진숙', '2025-05-29');
 
 # 3. 샘플데이터(company Table): 본사 구독자사이트(=본사 하위사이트) 부가정보
 insert into company (mno,cName,area,service) values
