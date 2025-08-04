@@ -2,6 +2,7 @@ package project.view; // 패키지명
 
 import project.controller.*;
 import project.model.dto.Member_HeadDto;
+import project.model.dto.PlanDto;
 
 import java.util.ArrayList;
 import java.util.DoubleSummaryStatistics;
@@ -89,29 +90,17 @@ public class TotalView {
     /* (1) [본사]사용자단: 공통화면(로그인전/비회원/로그인 한 회원번호가 없는 경우_currentMno) ---------------------------------*/
     // 1.1.회원가입
     public void signUp(){
-        System.out.print("회원유형(1.일반회원  2.택시기사  3.사업자) :  ");
-        int mCategory = scan.nextInt();
-        System.out.print("아이디: ");
-        String mId = scan.next();
-        System.out.print("비밀번호: ");
-        String mPwd = scan.next();
-        System.out.print("이름: ");
-        String mName = scan.next();
-        System.out.print("전화번호: ");
-        String mPhone = scan.next();
+        System.out.print("회원유형(1.일반회원  2.택시기사  3.사업자) :  "); int mCategory = scan.nextInt();
+        System.out.print("아이디: "); String mId = scan.next();
+        System.out.print("비밀번호: "); String mPwd = scan.next();
+        System.out.print("이름: "); String mName = scan.next();
+        System.out.print("전화번호: "); String mPhone = scan.next();
 
-        int reultSignUp = mhc.signUp(mCategory,mId,mPwd,mName,mPhone);
-
-        if(mCategory < 1 || 3 > mCategory){ // 회원유형 1~3 이외 회원가입 불가
-            System.out.println("[경고] 올바르지 않은 유형입니다.");
-            return;
-        }
-        if(reultSignUp==1){
+        int result = mhc.signUp(mCategory,mId,mPwd,mName,mPhone);
+        if(result==1){
             System.out.println("[안내] 회원가입이 완료되었습니다.");
-        }else if(reultSignUp==2){
-            System.out.println("[안내] 택시기사 회원가입이 완료되었습니다.");
-        }else if(reultSignUp==3){
-            System.out.println("[안내] 사업자 회원가입이 완료되었습니다.");
+        }else if(result==2){
+            System.out.println("[경고] 이미 존재하는 아이디 입니다.");
         }else {
             System.out.println("[경고] 회원가입 실패. 다시 시도 해주세요");
         } //if end
@@ -176,12 +165,22 @@ public class TotalView {
 
     // 3.3.구독플랜 수정
     public void planEdit(){
-        System.out.println("\n3.구독플랜 수정\n");
+        System.out.print("3. 구독플랜 수정");
+        System.out.print("수정할 구독번호: "); int pno = scan.nextInt();
+        System.out.print("- 구독플랜명 : "); String pName = scan.next();
+        System.out.print("- 구독기간(월단위) : "); int pDate = scan.nextInt();
+        System.out.print("- 금액(VAT포함가: "); int pMoney = scan.nextInt();
+        boolean result = pc.planEdit(new PlanDto(pno,pName,pDate,pMoney));
+
+
     }//func end
 
     // 3.4.구독플랜 삭제
     public void planDelete(){
-        System.out.println("\n4.구독플랜 삭제\n");
+        System.out.print("삭제할 플랜번호: "); int pno = scan.nextInt();
+        boolean result = pc.planDelete(pno);
+        if(result){System.out.println("[안내] 구독플랜이 삭제되었습니다.");
+        }else{System.out.println("[오류] 개발팀 문의(1111-1111) ");}//if end
     }//func end
 
     // 3.5.회원목록 조회

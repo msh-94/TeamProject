@@ -10,6 +10,11 @@ public class PlanController { // class start
     public static PlanController getInstance(){ return instance; }
     //싱글톤 호출
     public static PlanDao planDao = PlanDao.getInstance();
+    //구독플랜수정
+    public boolean planEdit(PlanDto planDto){
+         boolean result= planDao.planEdit(planDto);
+         return result;
+    }
 
     //구독플랜삭제
     public boolean planDelete(int pno){

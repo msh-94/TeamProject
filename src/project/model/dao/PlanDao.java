@@ -1,8 +1,8 @@
 package project.model.dao; // 패키지명
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
+import project.model.dto.PlanDto;
+
+import java.sql.*;
 
 public class PlanDao {// class start
     // 싱글톤
@@ -21,6 +21,22 @@ public class PlanDao {// class start
             conn = DriverManager.getConnection(db_url,db_user,db_password);
         } catch (Exception e) { System.out.println(e); }// try end
     }// func end
+
+    //구독플랜수정
+    public boolean  planEdit(PlanDto planDto){
+        try {
+            String sql = "UPDATE plan SET pName=?,pDate=?,pMoney=? WHERE pno=?;";
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setString(1, planDto.getpName());
+            ps.setInt(2,planDto.getpDate());
+            ps.setInt(3,planDto.getpMoney());
+            ps.setInt(4,planDto.getPno());
+            int count= ps.executeUpdate();
+            if(count==1) return true;
+            return false;
+        } catch (Exception e) {System.out.println(e);}//catch end
+        return false;
+    }//func end
 
     //구독플랜삭제
     public boolean planDelete(int pno) {
