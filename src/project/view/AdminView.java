@@ -1,6 +1,7 @@
 package project.view; // 패키지명
 
 import project.controller.*;
+import project.model.dto.PlanDto;
 
 import java.util.ArrayList;
 import java.util.Map;
@@ -34,6 +35,10 @@ public class AdminView {// class start
 
     // 3.2.구독플랜 조회
     public void planList(){
+        ArrayList<PlanDto> result = pc.planList();
+        System.out.println("--------------------------------------------------------------------------------------------- ");
+        System.out.println("No     구독플랜명     구독기간     금액(원)");
+        System.out.println("--------------------------------------------------------------------------------------------- ");
 
     }//func end
 
