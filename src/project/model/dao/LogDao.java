@@ -128,7 +128,29 @@ public class LogDao {
     // 2-1. 구독신청 내역조회
     public ArrayList<LogDto> subscribelList(){
         ArrayList<LogDto> logDtos = new ArrayList<>();
-        return logDtos;
+//        try {
+//            /* 01. 로그 테이블 > mno 존재여부 순회 */
+//            // 1.SQL 작성
+//            String sql =  "select * from log order by logno";
+//            // 2.SQL 기재
+//            PreparedStatement ps = connectDB.getConn().prepareStatement(sql);
+//            // 3.SQL 매개변수 대입
+//            ps.setInt(1, mno);
+//            // 4.SQL 실행
+//            ResultSet rs = ps.executeQuery();
+//            // 5.SQL 실행결과 로직/리턴/확인
+//            while ( rs.next() ){
+//                int logno = rs.getInt("logno");
+//                int pno = rs.getInt("pno");
+//                mno = rs.getInt("mno");
+//                String addDate = rs.getString("addDate");
+//                String endDate = rs.getString("endDate");
+//                LogDto logDto = new LogDto( logno, pno, mno, addDate, endDate ); // LogDto 객체에 SQL 속성값 대입
+//                System.out.println( logDto );
+//                return logDto;
+//            } //while end
+//        }catch ( Exception e ){System.out.println( e ); }
+        return null;
     }//func end
 
 }//class end
