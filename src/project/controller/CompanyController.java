@@ -19,4 +19,6 @@ public class CompanyController {// class start
         return result;
     }// func end
 
+    // 구독자목록에 로그인한 회원이 존재하는지 안하는지
+
 }// class end
