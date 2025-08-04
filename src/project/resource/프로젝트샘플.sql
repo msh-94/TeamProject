@@ -4,7 +4,7 @@ use 본사;
 set sql_safe_updates = 0;
 
 create table plan( -- 구독플랜
-	pno int auto_increment primary key , -- 플랜번호
+	pno int auto_increment primary key , 	-- 플랜번호
     pName varchar(10) not null unique ,		-- 플랜명
     pDate int default 1 , 					-- 기간
     pMoney int default 0 					-- 금액
@@ -67,6 +67,7 @@ insert into Member_head( mCategory , mId , mPwd , mPhone , mName , mDate) values
 ( 3, 'markhani', 'qwe123', '010-4444-4444', '이수근', '2024-03-28'),
 ( 2, 'orange88', 'ij345678', '010-5555-5555', '이경규', '2024-03-29');
 
+
 insert into company (mno,cName,area,service) values( 11, '바로 택시온', '서울', '신규회원 5000point  + 택시요금 3% 적립'),
 ( 3 , '콜마이택시', '부산', '신규회원 5000point  + 택시요금 3% 적립'),
 ( 2 , '스마트카택시', '대구', '신규회원 4000point + 택시요금 4% 적립'),
@@ -110,6 +111,8 @@ INSERT INTO Member_sub (cno,mCategory,mId,mPwd,mPhone,mName,mDate) VALUES
 ( 8 , 2 , 'edcrfv', '901901', '010-8888-9999', '전지현', '2025-08-09'),
 ( 9 , 2 , 'tgbnhy', '012012', '010-9999-0000', '김수현', '2025-08-10'),
 ( 10 , 2 , 'plmokn', '345678', '010-1234-5678', '김하늘', '2025-08-11');
+
+
 
 select * from plan;
 select * from company;

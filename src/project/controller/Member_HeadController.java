@@ -3,6 +3,9 @@ package project.controller; // 패키지명
 import project.model.dao.Member_HeadDao;
 import project.model.dto.Member_HeadDto;
 
+import java.util.ArrayList;
+import java.util.Map;
+
 public class Member_HeadController { // class start
     // 싱글톤
     private Member_HeadController(){}
@@ -38,6 +41,12 @@ public class Member_HeadController { // class start
         Member_HeadDto dto = new Member_HeadDto();
         dto.setmPwd(mPwd);  dto.setmPhone(mPhone); dto.setMno(currentMno);
         boolean result = memberHeadDao.updateProfile(dto);
+        return result;
+    }// func end
+
+    // 구독자 조회
+    public ArrayList<Map<String,Object>> planUserList(){
+        ArrayList<Map<String,Object>> result = memberHeadDao.planUserList();
         return result;
     }// func end
 }// class end
