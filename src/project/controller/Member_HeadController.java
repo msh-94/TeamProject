@@ -25,6 +25,17 @@ public class Member_HeadController { // class start
         return result;
     }// func end
 
+
+    // 로그아웃 기능
+    public void signOut(){
+        if(currentMno > 0){
+            currentMno = 0;
+            System.out.println("로그아웃 되었습니다.");
+        }else {
+            System.out.println("[오류] 관리자 문의(000-0000)");
+        }
+    }// func end
+
     // 회원탈퇴 기능
     public boolean withdrawUser(int mno){
         mno = currentMno;

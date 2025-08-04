@@ -1,7 +1,12 @@
 package project.model.dao; // 패키지명
 
+import project.model.dto.CompanyDto;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.util.ArrayList;
 
 public class CompanyDao {// class start
     // 싱글톤
@@ -20,4 +25,25 @@ public class CompanyDao {// class start
             conn = DriverManager.getConnection(db_url,db_user,db_password);
         } catch (Exception e) { System.out.println(e); }// try end
     }// func end
+
+    // 지역 콜택시 조회 - company 전체 반환 기능
+    public ArrayList<CompanyDto> taxiList(){
+        ArrayList<CompanyDto> list = new ArrayList<>();
+        try{
+            String sql = "select * from company";
+            PreparedStatement cs = conn.prepareStatement(sql);
+            ResultSet rs = cs.executeQuery();
+            while (rs.next()){
+                CompanyDto dto = new CompanyDto(
+                        rs.getInt("cno"),
+                        rs.getInt("mno"),
+                        rs.getString("cName"),
+                        rs.getString("area"),
+                        rs.getString("service")
+                );list.add(dto);
+            }
+        } catch (Exception e) {
+            System.out.println(e);
+        }return list;
+    }
 }// class end

@@ -40,7 +40,7 @@ public class TotalView {
                     else if( choose == 5 ) userList();
                     else if( choose == 6 ) planUserList();
                     else if( choose == 7 ) subscribePrint();
-                    else if( choose == 8 ) signOut();
+                    else if( choose == 8 ) {signOut(); break;}
                     else System.out.println("\n[경고] 올바른 메뉴(숫자)를 입력하세요.\n");
                 }else if( currentMno >= 2 ){ //★☆★☆ [본사]사용자단: 회원(구독X/구독O) 로그인 화면
                     System.out.println("============== MY_CALL (본사 ★ 지역콜택시 플랫폼) =================");
@@ -50,7 +50,7 @@ public class TotalView {
                     System.out.print("선택 > ");
                     int choose = scan.nextInt();
                     if( choose == 1 ) updateProfile();
-                    else if( choose == 2 ) signOut();
+                    else if( choose == 2 ) {signOut(); break;}
                     else if( choose == 3 ) subscribeRequest();
                     else if( choose == 4 ) siteManaser();
                     else if( choose == 5 ) taxiList();
