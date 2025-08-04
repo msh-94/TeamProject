@@ -45,4 +45,16 @@ public class Member_HeadController { // class start
         ArrayList<Map<String,Object>> result = memberHeadDao.planUserList();
         return result;
     }// func end
+
+    // 로그인한 회원 구독자목록에 존재하는지 확인
+    public boolean checkMember(){
+        ArrayList<Map<String,Object>> result = memberHeadDao.planUserList();
+        for (int i = 0; i < result.size(); i++){
+            Map<String,Object> map = result.get(i);
+            if (map.get("번호").equals(currentMno)){
+                return true;
+            }// if end
+        }// for end
+        return false;
+    }// func end
 }// class end

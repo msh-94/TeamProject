@@ -41,21 +41,21 @@ public class UserView { // class start
     }//func end
 
     // 1.4.데모체험
-    public void siteManaser(){
-        CompanyDto result = cc.siteManaser(currentMno);
-        if (result != null){
-            System.out.println("------------------------------------------------------------------------------------------------------------");
-            System.out.printf("< %s >    1.관리자단(ADMIN)         2. 사용자단(USER)         3. 본사바로가기\n" ,result.getcName());
-            System.out.println("------------------------------------------------------------------------------------------------------------");
-            System.out.print("선택 > ");
-            int choose = TotalView.scan.nextInt();
-        }else {
+    public void siteManasers(){
+        for ( ; ; ){
             System.out.println("------------------------------------------------------------------------------------------------------------");
             System.out.println("< 데모체험 >  1.관리자단(ADMIN)         2. 사용자단(USER)         3. 본사바로가기");
             System.out.println("------------------------------------------------------------------------------------------------------------");
             System.out.print("선택 > ");
             int choose = TotalView.scan.nextInt();
-        }// if end
+            if (choose == 1){
+                System.out.println("관리자단");
+            }else if (choose == 2){
+                System.out.println("사용자단");
+            } else if (choose == 3) {
+                break;
+            }// if end
+        }// for end
     }//func end
 
     // 1.5.지역콜택시조회
@@ -84,6 +84,25 @@ public class UserView { // class start
         System.out.println("\n2.로그아웃\n");
     }//func end
 
+    // 2.4 내사이트가기
+    public void siteManaser(){
+        CompanyDto result = cc.siteManaser(currentMno);
+        for ( ; ;){
+            System.out.println("------------------------------------------------------------------------------------------------------------");
+            System.out.printf("< %s >    1.관리자단(ADMIN)         2. 사용자단(USER)         3. 본사바로가기\n" ,result.getcName());
+            System.out.println("------------------------------------------------------------------------------------------------------------");
+            System.out.print("선택 > ");
+            int choose = TotalView.scan.nextInt();
+            if (choose == 1){
+                System.out.println("관리자단");
+            }else if (choose == 2){
+                System.out.println("사용자단");
+            } else if (choose == 3) {
+                break;
+            }// if end
+        }// for end
+    }// func end
+
     // 2.6.구독현황
     public void subscribeState(){
         System.out.println("\n3.구독플랜 조회\n");
@@ -103,4 +122,5 @@ public class UserView { // class start
     public void subscribeCancle(){
         System.out.println("\n8.구독취소\n");
     }//func end
+
 }// class end
