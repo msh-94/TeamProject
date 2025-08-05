@@ -22,7 +22,7 @@ public class PlanController { // class start
     //구독플랜 수정
     public int planEdit(PlanDto planDto){
         if(planDao.planEditLog(planDto.getPno())){
-            return 4;
+            return 2;
         }
         int result = planDao.planEdit(planDto);
         return result;

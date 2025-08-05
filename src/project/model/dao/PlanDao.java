@@ -37,8 +37,8 @@ public class PlanDao extends Dao {// class start
         try{
             String sql= "select *from log where pno=?;";
             PreparedStatement ps = conn.prepareStatement(sql);
-            ResultSet rs = ps.executeQuery();
             ps.setInt(1, pno);
+            ResultSet rs = ps.executeQuery();
             while(rs.next()) {
                 return true;
             }//while end
