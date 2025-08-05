@@ -4,8 +4,6 @@ package project.controller; // 패키지명
 import project.model.dao.CompanyDao;
 import project.model.dto.CompanyDto;
 
-import project.model.dao.CompanyDao;
-import project.model.dto.CompanyDto;
 
 import java.util.ArrayList;
 
@@ -24,12 +22,9 @@ public class CompanyController {// class start
         return result;
     }// func end
 
-    // 구독자목록에 로그인한 회원이 존재하는지 안하는지
     // 전역변수 플랜번호
     public static int currentCno;
 
-    //dao 가져오기
-    private CompanyDao companyDao = CompanyDao.getInstance();
 
     // 지역콜택시 조회 기능
     public ArrayList<CompanyDto> taxiList(){
