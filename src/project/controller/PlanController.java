@@ -1,8 +1,8 @@
 package project.controller; // 패키지명
 
+
 import project.model.dao.PlanDao;
 import project.model.dto.PlanDto;
-
 import java.util.ArrayList;
 
 public class PlanController { // class start
@@ -12,17 +12,27 @@ public class PlanController { // class start
     public static PlanController getInstance(){ return instance; }
     //싱글톤 호출
     public static PlanDao planDao = PlanDao.getInstance();
-    //구독플랜수정
-    public boolean planEdit(PlanDto planDto){
-         boolean result= planDao.planEdit(planDto);
-         return result;
+
+    //구독플랜 (로그 PNO 호출)
+    public boolean planEditLog(int pno){
+        boolean result=planDao.planEditLog(pno);
+        return result;
     }
+
+    //구독플랜 수정
+    public int planEdit(PlanDto planDto){
+        if(planDao.planEditLog(planDto.getPno())){
+            return 4;
+        }
+        int result = planDao.planEdit(planDto);
+        return result;
+    }
+
+
+
 
     // 전역변수 플랜번호
     public static int currentPno;
-    // dao 가져오기
-    private PlanDao planDao = PlanDao.getInstance();
-
 
     // 구독플랜 등록 기능
     public boolean planAdd(String pName, int pDate, int pMoney) {

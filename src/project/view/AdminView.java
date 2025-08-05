@@ -44,7 +44,14 @@ public class AdminView {// class start
 
     // 3.3.구독플랜 수정
     public void planEdit(){
-        System.out.println("\n4.구독플랜 수정\n");
+        System.out.print("- 수정할구독플랜 번호 : "); int pno = TotalView.scan.nextInt();
+        System.out.print("- 구독플랜명 : "); String pName = TotalView.scan.next();
+        System.out.print("- 구독기간(월단위) : "); int pDate = TotalView.scan.nextInt();
+        System.out.print("- 금액(VAT포함가) : "); int pMoney = TotalView.scan.nextInt();
+        int result = pc.planEdit(new PlanDto(pno,pName,pDate,pMoney));  //플랜수정 호출
+        if(result==1){
+
+        }
     }//func end
 
     // 3.4.구독플랜 삭제
