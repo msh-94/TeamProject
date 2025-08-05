@@ -53,7 +53,7 @@ public class TotalView {
                     if( choose == 1 ) uv.signUp();
                     else if( choose == 2 ) uv.logIn();
                     else if( choose == 3 ) uv.subscribeRequest();
-                    else if( choose == 4 ) uv.siteManaser();
+                    else if( choose == 4 ) uv.siteManasers();
                     else if( choose == 5 ) uv.taxiList();
                     else System.out.println( "\n[경고] 해당하는 메뉴(숫자)를 입력하세요.\n" );
                 }else if( currentMno == 1 ){ //1.본사 관리자단(본사 관리자 전용메뉴): admin 로그인화면
