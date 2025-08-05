@@ -48,7 +48,11 @@ public class UserView { // class start
         System.out.print("아이디 : ");     String mId = TotalView.scan.next();
         System.out.print("비밀번호 : ");    String mPwd = TotalView.scan.next();
         Member_HeadDto result = mhc.logIn(mId,mPwd);
-        System.out.printf("\n[안내] 반갑습니다 %s님\n",result.getmName());
+        if (result.getmId() == null){
+            System.out.println("[경고] 존재하지 않는 계정입니다.");
+        }else {
+            System.out.printf("\n[안내] 반갑습니다 %s님\n",result.getmName());
+        }// if end
     }//func end
 
     // 1.3.구독신청
