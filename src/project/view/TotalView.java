@@ -68,7 +68,7 @@ public class TotalView {
                     else if( choose == 3 ) av.planEdit();
                     else if( choose == 4 ) av.planDelete();
                     else if( choose == 5 ) av.userList();
-                    else if( choose == 6 ) av.planUserList();
+                    else if( choose == 6 ) { av.planUserList(); av.planEndUserList(); }
                     else if( choose == 7 ) av.subscribePrint();
                     else if( choose == 8 ) uv.signOut();
                     else System.out.println("\n[경고] 올바른 메뉴(숫자)를 입력하세요.\n");
