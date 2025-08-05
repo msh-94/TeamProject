@@ -52,20 +52,35 @@ public class PlanDao extends Dao {// class start
         return list;
     }//func end
 
+    //구독플수정(로그 PNO 호출)
+    public boolean planEditLog(int pno){
+        try{
+            String sql= "select *from log where pno=?;";
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+            ps.setInt(1, pno);
+            while(rs.next()) {
+                return true;
+            }//while end
+            return false;
+        } catch (Exception e) {System.out.println(e);}
+        return false;
+    }//func end
+
     //구독플랜수정
-    public boolean  planEdit(PlanDto planDto){
+    public int planEdit(PlanDto planDto){
         try {
-            String sql = "UPDATE plan SET pName=?,pDate=?,pMoney=? WHERE pno=?;";
+            String sql = "UPDATE plan SET pName=?,pMoney=?,pDate=? where pno=?;";
             PreparedStatement ps = conn.prepareStatement(sql);
             ps.setString(1, planDto.getpName());
-            ps.setInt(2,planDto.getpDate());
-            ps.setInt(3,planDto.getpMoney());
-            ps.setInt(4,planDto.getPno());
-            int count= ps.executeUpdate();
-            if(count==1) return true;
-            return false;
-        } catch (Exception e) {System.out.println(e);}//catch end
-        return false;
+            ps.setInt(2, planDto.getpMoney());
+            ps.setInt(3, planDto.getpDate());
+            ps.setInt(4, planDto.getPno());
+            int result = ps.executeUpdate();
+            if(result==1) return 1;
+            return 2;
+        } catch (Exception e) {System.out.println(e);}
+        return 3;
     }//func end
 
     //구독플랜삭제
