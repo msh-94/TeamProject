@@ -13,7 +13,11 @@ public class LogDao extends Dao{
     private LogDao(){}
     private static final LogDao instance = new LogDao();
     public static LogDao getInstance(){ return instance; }
-    
+
+    // 날짜 객체
+    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd"); //날짜포맷
+    LocalDate toDay = LocalDate.now(); //오늘날짜 객체
+
     /* ======================================== ★ 단위기능 ★ ============================================== */
     // 1. 구독신청(본사 사용자단)
     public boolean subscribeRequest( Map<String, Object> subscribeInfo ){
@@ -26,10 +30,6 @@ public class LogDao extends Dao{
             String area = (String) subscribeInfo.get("area");
             String service = (String) subscribeInfo.get("service");
 
-            /* 날짜 객체 */
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd"); //날짜포맷
-            LocalDate toDay = LocalDate.now(); //오늘날짜 객체
-            
             /* Log 테이블(DB) > mno(fk) 마지막 구독기록 1건 조회 */
             String sql_log = "select * from log where mno = ? order by endDate desc limit 1";
             PreparedStatement ps = conn.prepareStatement(sql_log);
@@ -47,7 +47,7 @@ public class LogDao extends Dao{
                 String endDate = toDay.plusMonths( pDate ).toString();
                 ps2.setString(3, endDate );
 
-                int logno = 0;  // r
+                int logno = 0;  //
                 int result_log = ps2.executeUpdate();
                 ResultSet generatedKeys = ps2.getGeneratedKeys(); // insert후 생성된 행의 키 받아오기
                 if (generatedKeys.next()) {
@@ -127,12 +127,17 @@ public class LogDao extends Dao{
         return null;
     }//func end
 
-    // 3. 구독취소(본사 사용자단)
+    // 3. 구독취소(본사 사용자단)_로그를 삭제 하지 않고 종료일을 구독취소일(당일)로 변경
     public boolean subscribeCancle( int mno ){
         try {
-            String sql =  "delete from log where mno = ? order by endDate desc limit 1";
+            //String sql =  "delete from log where mno = ? order by endDate desc limit 1";
+            String sql = "update log set endDate = ? where mno = ? order by endDate desc , logno desc limit 1;";
             PreparedStatement ps = conn.prepareStatement(sql);
-            ps.setInt(1, mno);
+            String endDate = toDay.toString();
+
+            ps.setString(1, endDate);
+            ps.setInt(2, mno);
+            System.out.println( "취소일 :" + endDate );
             int count = ps.executeUpdate(); 
             if( count == 1 ) return true;
             else return false;

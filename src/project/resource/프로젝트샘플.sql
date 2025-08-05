@@ -125,3 +125,9 @@ select * from Member_head; -- 본사회원
 select * from log;		   -- 구독로그(구독신청내역)
 select * from company;     -- 구독회사 부가정보(=본사 하위사이트) 
 select * from Member_sub;  -- 구독회사(=본사 하위사이트) 가입회원
+
+update log set endDate = '2025-08-06' where mno = 12 order by endDate desc, logno asc limit 1;
+update log set endDate = '2025-08-06' where mno = 12 order by endDate desc, logno asc limit 1;
+
+
+
