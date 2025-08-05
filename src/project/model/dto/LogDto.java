@@ -1,12 +1,12 @@
-package project.model.dto; // 패키지명
+package project.model.dto;
 
-public class LogDto {// class start
-    // 멤버변수
-    private int logno;
-    private int pno;
-    private int mno;
-    private String addDate;
-    private String endDate;
+public class LogDto {
+    // 멤버변수              // Log(본사 구독로그 Table)
+    private int logno;      // 구독로그번호(pk)
+    private int pno;        // 구독플랜번호(fk)
+    private int mno;        // 본사회원번호(fk)
+    private String addDate; // 구독신청일
+    private String endDate; // 구독종료일
     //생성자
     public LogDto() {
     }

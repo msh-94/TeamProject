@@ -122,7 +122,3 @@ select * from log;         -- 구독로그(구독신청내역)
 select * from Member_head; -- 본사 가입회원
 select * from Member_sub;  -- 구독회사(=본사 하위사이트) 가입회원
 
-
-
-
-

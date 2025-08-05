@@ -1,11 +1,11 @@
-package project.model.dto;// 패키지명
+package project.model.dto;
 
-public class PlanDto {// class start
-    // 멤버변수
-    private int pno;
-    private String pName;
-    private int pDate;
-    private int pMoney;
+public class PlanDto {
+    // 멤버변수              // Plan( 본사전용상품 > 구독플랜 Table)
+    private int pno;        // 구독플랜번호(pk)
+    private String pName;   // 구독플랜명
+    private int pDate;      // 구독기간(월단위)
+    private int pMoney;     // 구독금액(원)
     // 생성자
     public PlanDto() {
     }
