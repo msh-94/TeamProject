@@ -49,7 +49,7 @@ public class AdminView {// class start
         System.out.print("- 구독기간(월단위) : "); int pDate = TotalView.scan.nextInt();
         System.out.print("- 금액(VAT포함가) : "); int pMoney = TotalView.scan.nextInt();
         int result = pc.planEdit(new PlanDto(pno,pName,pDate,pMoney));  //플랜수정 호출
-        if(result==1){
+        if(result==1){//확인
 
         }
     }//func end
