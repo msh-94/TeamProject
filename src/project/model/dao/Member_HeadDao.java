@@ -63,13 +63,14 @@ public class Member_HeadDao extends Dao { // class start
         return 3;
     }// func end
 
-    // 구독자 조회 기능
+    // 구독중인 사람 조회 기능
     public ArrayList<Map<String,Object>> planUserList(){
         ArrayList<Map<String,Object>> maps = new ArrayList<>();
         try{
-            String sql = "select m.mno , c.area , p.pName , m.mId , m.mName , m.mCategory , m.mPhone , l.addDate , l.endDate from plan p join Log l on p.pno  = l.pno\n" +
+            String sql = "select m.mno , c.area , p.pName , m.mId , m.mName , m.mCategory , m.mPhone , MIN(l.addDate) as firstDate " +
+                    ", MAX(l.endDate) as lastDate from plan p join Log l on p.pno  = l.pno\n" +
                     "join Member_head m on m.mno = l.mno\n" +
-                    "join company c on m.mno = c.mno where l.endDate >= current_date();";
+                    "join company c on m.mno = c.mno group by m.mno, c.area, p.pName, m.mId, m.mName, m.mCategory, m.mPhone having lastDate >= current_date() order by mno asc";
             PreparedStatement ps = conn.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
             while (rs.next()){
@@ -81,8 +82,35 @@ public class Member_HeadDao extends Dao { // class start
                 map.put("이름",rs.getObject("mName"));
                 map.put("유형" , rs.getObject("mCategory"));
                 map.put("핸드폰번호", rs.getObject("mPhone"));
-                map.put("시작일" , rs.getObject("addDate"));
-                map.put("종료일",rs.getObject("endDate"));
+                map.put("시작일" , rs.getObject("firstDate"));
+                map.put("종료일",rs.getObject("lastDate"));
+                maps.add(map);
+            }// while end
+        } catch (Exception e) { System.out.println(e); }
+        return maps;
+    }// func end
+
+    // 구독만료된 사람 조회 기능
+    public ArrayList<Map<String,Object>> planEndUserList(){
+        ArrayList<Map<String,Object>> maps = new ArrayList<>();
+        try{
+            String sql = "select m.mno , c.area , p.pName , m.mId , m.mName , m.mCategory , m.mPhone , MIN(l.addDate) as firstDate " +
+                    ", MAX(l.endDate) as lastDate from plan p join Log l on p.pno  = l.pno \n" +
+                    " join Member_head m on m.mno = l.mno join company c on m.mno = c.mno" +
+                    " group by m.mno, c.area, p.pName, m.mId, m.mName, m.mCategory, m.mPhone having lastDate < current_date() order by mno asc";
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()){
+                Map<String,Object> map = new HashMap<>();
+                map.put("번호" , rs.getObject("mno"));
+                map.put("지역",rs.getObject("area"));
+                map.put("플랜이름" , rs.getObject("pName"));
+                map.put("아이디" , rs.getObject("mId"));
+                map.put("이름",rs.getObject("mName"));
+                map.put("유형" , rs.getObject("mCategory"));
+                map.put("핸드폰번호", rs.getObject("mPhone"));
+                map.put("시작일" , rs.getObject("firstDate"));
+                map.put("종료일",rs.getObject("lastDate"));
                 maps.add(map);
             }// while end
         } catch (Exception e) { System.out.println(e); }

@@ -122,3 +122,37 @@ select * from log;         -- 구독로그(구독신청내역)
 select * from Member_head; -- 본사 가입회원
 select * from Member_sub;  -- 구독회사(=본사 하위사이트) 가입회원
 
+-- 구독신청 테스트_김진숙_250804( log insert )
+select * from log; 
+-- 1) 최초 구독신청 : 본사 구독신청을 1번도 안한 경우
+-- log 테이블 > mno(currentMno) 없는 경우 -->log 레코드 insert //#.case : (신규회원)번호 12)
+insert into log( pno , mno , addDate , endDate ) values( 1 , 12 , '2025-08-04' , '2025-09-04');
+
+-- 2) 구독종료 후, 구독신청 : 프리미엄
+-- log 테이블 > mno(currentMno) 있지만 레코드 내역 중 종료일(endDate)이 오늘 이전인 경우 //#.case : (기존회원: 3)조나단 : fff_dd , 2025-06-10)
+insert into log( pno , mno , addDate , endDate ) values( 3 , 3 , '2025-08-04' , '2026-09-04');
+
+-- 3) 같은플랜 구독연장 : 이미 베이직 상품 구독 중인데,추가 신청(기간 연장 + 6개월)  //#.case : (기존회원: 2)강호동 : Adni ,2025-12-15)
+-- log 테이블 > mno(currentMno) 있지만 레코드 내역 중 마지막 종료일(endDate)에 해당신청 플랜 구독기간 추가_베이직
+insert into log( pno , mno , addDate , endDate ) values( 2 , 2 , '2025-08-04' , '2026-06-15');
+
+-- 4) 다른 플랜 구독변경 :" 이미 베이직 상품 구독 중인데, 프리미엄 상품으로 갱신하는 경우 //#.case : (기존회원: 8)김용만 : starfish , 2026-01-15)
+-- log 테이블 > mno(currentMno) 있지만 레코드 내역 중 마지막 종료일(endDate)에 해당신청 플랜 구독기간 추가_베이직
+-- 구독플랜 다운그레이드 불가/ 
+insert into log( pno , mno , addDate , endDate ) values( 3 , 8 , '2025-08-04' , '2026-09-04');
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -40,9 +40,15 @@ public class Member_HeadController { // class start
         return result;
     }// func end
 
-    // 구독자 조회
+    // 구독중인 사람 조회
     public ArrayList<Map<String,Object>> planUserList(){
         ArrayList<Map<String,Object>> result = memberHeadDao.planUserList();
+        return result;
+    }// func end
+
+    // 구독 만료된 사람 조회
+    public ArrayList<Map<String,Object>> planEndUserList(){
+        ArrayList<Map<String,Object>> result = memberHeadDao.planEndUserList();
         return result;
     }// func end
 

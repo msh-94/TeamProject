@@ -2,16 +2,11 @@ package project.model.dao; // 패키지명
 
 import project.model.dto.CompanyDto;
 
-import project.model.dto.CompanyDto;
-
-import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
+
 
 public class CompanyDao extends Dao {// class start
     // 싱글톤
