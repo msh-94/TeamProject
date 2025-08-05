@@ -134,7 +134,7 @@ public class UserView { // class start
 
     // 2.6.구독현황
     public void subscribeState(){
-        System.out.println("\n3.구독플랜 조회\n");
+        System.out.println("\n6.구독현황 조회\n");
     }//func end
 
     // 2.7.회원탈퇴

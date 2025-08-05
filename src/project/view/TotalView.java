@@ -108,7 +108,7 @@ public class TotalView {
         else if( choose == 4 ) uv.siteManasers();
         else if( choose == 5 ) uv.taxiList();
         else if( choose == 6 ) uv.subscribeState();
-        else if( choose == 7 ) uv.withdrawUser();
+        else if( choose == 7 ) { uv.withdrawUser(); currentMno = 0; }
         else if( choose == 8 ) uv.subscribeCancle();
         else System.out.println("\n[경고] 올바른 메뉴(숫자)를 입력하세요.\n");
     }// func end
@@ -127,7 +127,7 @@ public class TotalView {
         else if( choose == 4 ) {uv.siteManaser(); currentCno = cc.siteManaser(currentMno).getCno();}
         else if( choose == 5 ) uv.taxiList();
         else if( choose == 6 ) uv.subscribeState();
-        else if( choose == 7 ) uv.withdrawUser();
+        else if( choose == 7 ) { uv.withdrawUser(); currentMno = 0; }
         else if( choose == 8 ) uv.subscribeCancle();
         else System.out.println("\n[경고] 올바른 메뉴(숫자)를 입력하세요.\n");
     }// func end
