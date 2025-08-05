@@ -15,21 +15,6 @@ public class Member_SubDao extends Dao { // class start
     // 서브사이트 회원번호 전역변수
     public static int currentSubMno;
 
-    // 로그아웃 기능 구현
-    public void signOut(){
-        while(true){
-            try{
-                int input = new Scanner(System.in).nextInt();
-                if(input == 2 ){
-                    System.out.println("[안내] 로그아웃 되었습니다.");
-                    break;
-                }
-            }catch (Exception e){
-                System.out.println("[오류]관리자 문의(000-0000)");
-            }
-        }
-    }
-
     // [구독회사] 회원가입 (구독회사 테이블 만들어지고 구현)
     public int signUp(int mno,int mCategory,String mId, String mPwd, String mName, String mPhone,String mDate){
         try {

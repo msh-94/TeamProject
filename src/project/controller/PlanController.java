@@ -15,20 +15,16 @@ public class PlanController { // class start
     public static PlanController getInstance(){ return instance; }
 
     // 전역변수 플랜번호
-    public static int currentPno;
+
     // dao 가져오기
     private PlanDao planDao = PlanDao.getInstance();
 
 
     // 구독플랜 등록 기능
     public boolean planAdd(String pName, int pDate, int pMoney) {
-        PlanDto result = planDao.planAdd(pName, pDate, pMoney);
-        if (result != null) {
-            currentPno = result.getPno();
-            return true;
-        }else {
-            return false;
-        }
+       PlanDto planDto = new PlanDto(0,pName,pDate,pMoney);
+       boolean result = planDao.planAdd(planDto);
+       return result;
     }
 
     // 구독플랜 조회 기능

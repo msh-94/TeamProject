@@ -15,24 +15,20 @@ public class PlanDao extends Dao {// class start
     public static PlanDao getInstance(){ return instance; }
 
     // 플랜 등록 - 플랜 번호, 구독플랜명, 구독기간, 금액 반환 기능
-    public PlanDto planAdd(String pName, int pDate, int pMoney){
-        PlanDto planDto = new PlanDto();
+    public boolean planAdd(PlanDto planDto){
         try{
-            String sql = "select * from Member_Head where pName = ? and pDate = ? and pMoney = ?";
+            String sql = "INSERT INTO plan (pName, pDate,pMoney) VALUES(?,?,?) ";
             PreparedStatement ps = conn.prepareStatement(sql);
-            ps.setString(1,pName);
-            ps.setInt(2,pDate);
-            ps.setInt(3,pMoney);
-            ResultSet rs = ps.executeQuery();
-            while (rs.next()){
-                planDto.setPno(rs.getInt("pno"));
-                planDto.setpName(rs.getString("pName"));
-                planDto.setpDate(rs.getInt("pDate"));
-                planDto.setpMoney(rs.getInt("pMoney"));
-            }//while end
-        }catch (SQLException e){
+            ps.setString(1,planDto.getpName());
+            ps.setInt(2,planDto.getpDate());
+            ps.setInt(3,planDto.getpMoney());
+            int count = ps.executeUpdate();
+            if(count>=1) return true;
+            return false;
+        }//while end
+        catch (SQLException e){
             System.out.println(e);
-        }return planDto;
+        }return false;
     }//func end
 
     // 플랜 조회 - 플랜 전체 반환 기능
