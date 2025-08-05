@@ -39,7 +39,9 @@ public class AdminView {// class start
         System.out.println("--------------------------------------------------------------------------------------------- ");
         System.out.println("No     구독플랜명     구독기간     금액(원)");
         System.out.println("--------------------------------------------------------------------------------------------- ");
-
+        for(PlanDto dto : result){
+        System.out.printf("%d\t   %s\t    %d개월\t    %d\t \n", dto.getPno(), dto.getpName(), dto.getpDate(), dto.getpMoney());
+        }//for e
     }//func end
 
     // 3.3.구독플랜 수정

@@ -4,6 +4,8 @@ import project.controller.*;
 import project.model.dto.CompanyDto;
 import project.model.dto.Member_HeadDto;
 
+import java.util.ArrayList;
+
 import static project.controller.Member_HeadController.currentMno;
 
 public class UserView { // class start
@@ -58,10 +60,20 @@ public class UserView { // class start
         }// for end
     }//func end
 
+
     // 1.5.지역콜택시조회
     public void taxiList(){
-        System.out.println("\n5.지역콜택시조회\n");
+        ArrayList<CompanyDto> result = cc.taxiList();
+        System.out.println("--------------------------------------------------------------------------------------------- ");
+        System.out.println("No     지역    콜택시사이트명          서비스내용");
+        System.out.println("--------------------------------------------------------------------------------------------- ");
+        for(CompanyDto cdto : result){
+            System.out.printf("%d\t  [%s]\t   %s\t     %s\t \n", cdto.getCno(), cdto.getArea(), cdto.getcName(), cdto.getService());
+        }
+        System.out.println("--------------------------------------------------------------------------------------------- ");
     }//func end
+
+
 
     /* (2) [본사]사용자단: 회원(구독X/구독O) 로그인 화면 -------------------------------------------------------------------*/
     // 2.1.정보수정
