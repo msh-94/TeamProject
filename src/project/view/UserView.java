@@ -3,7 +3,7 @@ package project.view; // 패키지명
 import project.controller.*;
 import project.model.dto.CompanyDto;
 import project.model.dto.Member_HeadDto;
-
+import static project.controller.CompanyController.currentCno;
 import static project.controller.Member_HeadController.currentMno;
 
 public class UserView { // class start
@@ -103,6 +103,7 @@ public class UserView { // class start
             }else if (choose == 2){
                 System.out.println("사용자단");
             } else if (choose == 3) {
+                currentCno = 0;
                 break;
             }// if end
         }// for end

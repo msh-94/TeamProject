@@ -6,6 +6,7 @@ import project.model.dto.CompanyDto;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 import static project.controller.Member_HeadController.currentMno;
+import static project.controller.CompanyController.currentCno;
 
 public class TotalView {
     // 싱글톤 생성
@@ -133,7 +134,7 @@ public class TotalView {
         if( choose == 1 ) uv.updateProfile();
         else if( choose == 2 ) uv.signOut();
         else if( choose == 3 ) uv.subscribeRequest();
-        else if( choose == 4 ) uv.siteManaser();
+        else if( choose == 4 ) {uv.siteManaser(); currentCno = cc.siteManaser(currentMno).getCno();}
         else if( choose == 5 ) uv.taxiList();
         else if( choose == 6 ) uv.subscribeState();
         else if( choose == 7 ) uv.withdrawUser();
