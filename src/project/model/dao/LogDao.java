@@ -40,27 +40,17 @@ public class LogDao extends Dao{
                 /* (1) 최초 구독신청 : 구독신청을 1번도 안한 경우 */
                 /* 1_Log 테이블 insert */
                 String sql = "insert into log( pno, mno, endDate ) values( ?,?,? )";
-                PreparedStatement ps2 = conn.prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS);
+                PreparedStatement ps2 = conn.prepareStatement(sql);
                 ps2.setInt(1, pno );
                 ps2.setInt(2, mno );
                 /* 종료일 날짜계산 : 오늘날짜 + 해당 플랜 구독기간(월) */
                 String endDate = toDay.plusMonths( pDate ).toString();
                 ps2.setString(3, endDate );
-
-                int logno = 0;  //
                 int result_log = ps2.executeUpdate();
-                ResultSet generatedKeys = ps2.getGeneratedKeys(); // insert후 생성된 행의 키 받아오기
-                if (generatedKeys.next()) {
-                    logno = generatedKeys.getInt(1);
-                    System.out.println("생성된 logno: " + logno);
-                } else {
-                    System.out.println("logno 생성 실패");
-                    return false;
-                }
                 /* 2_Company 테이블 insert */
-                String sql_company = "insert into company( logno, cName, area, service ) values( ?,?,?,? )";
+                String sql_company = "insert into company( mno, cName, area, service ) values( ?,?,?,? )";
                 PreparedStatement ps3 = conn.prepareStatement(sql_company);
-                ps3.setInt(1, logno);
+                ps3.setInt(1, mno);
                 ps3.setString(2, cName);
                 ps3.setString(3, area);
                 ps3.setString(4, service);
@@ -70,8 +60,7 @@ public class LogDao extends Dao{
             }else{ // Log 테이블 > mno 있음( 구독기록 있음(O) )
                 /* Log 테이블(DB) > mno(fk) 마지막 구독기록 1건 Data 변수에 담기! */
                 String endDate = rs.getString("endDate");
-
-                System.out.println( "(1.신청이전)구독종료일 확인용(Test):" + endDate ); //(콘솔 테스트 확인용!)
+                //System.out.println( "(1.신청이전)구독종료일 확인용(Test):" + endDate ); //(콘솔 테스트 확인용!)
                 if( endDate != null && !endDate.isEmpty() ){
                     /* 날짜 문자열을 LocalDate 로 타입변환(*오늘날짜 기준, 구독종료일(구독상태)을 확인하기 위함) */
                     LocalDate endDateLog = LocalDate.parse(endDate, formatter);
@@ -95,7 +84,7 @@ public class LogDao extends Dao{
                         ps2.setInt(2, mno);
                         endDate = endDateLog.plusMonths(pDate).toString();// ****구독종료일 계산: 현재 구독중인 종료일 + 해당플랜 구독기간(월)
                         ps2.setString(3, endDate);
-                        System.out.println( "(2.신청이후)구독종료일 확인용(Test):" + endDate ); //(콘솔 테스트 확인용!)
+                        //System.out.println( "(2.신청이후)구독종료일 확인용(Test):" + endDate ); //(콘솔 테스트 확인용!)
                         int count = ps2.executeUpdate();
                         if (count == 1) return true;
                         else return false;
@@ -120,7 +109,7 @@ public class LogDao extends Dao{
                 String addDate = rs.getString("addDate");
                 String endDate = rs.getString("endDate");
                 LogDto logDto = new LogDto( logno, pno, mno, addDate, endDate );
-                System.out.println( logDto );
+                //System.out.println( logDto );
                 return logDto;
             } //while end
         }catch ( Exception e ){System.out.println( "예외발생" + e ); }
@@ -137,7 +126,7 @@ public class LogDao extends Dao{
 
             ps.setString(1, endDate);
             ps.setInt(2, mno);
-            System.out.println( "취소일 :" + endDate );
+            System.out.println( "취소일: " + endDate );
             int count = ps.executeUpdate(); 
             if( count == 1 ) return true;
             else return false;

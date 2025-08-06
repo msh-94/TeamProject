@@ -17,8 +17,6 @@ public class TotalView {
     // 싱글톤 호출
     private Member_HeadController mhc = Member_HeadController.getInstance();
     private Member_SubController msc = Member_SubController.getInstance();
-    private PlanController pc = PlanController.getInstance();
-    private LogController lc = LogController.getInstance();
     private CompanyController cc = CompanyController.getInstance();
     private UserView uv = UserView.getInstance();
     private AdminView av = AdminView.getInstance();
@@ -49,11 +47,11 @@ public class TotalView {
                     System.out.println("┌─────────────────<<🚖MY CALL-TAXI(월구독형 택시플랫폼)🚖>>───────────────┐");
                     System.out.println("      1.회원가입   2.로그인   3.구독신청   4.데모체험   5.지역콜택시조회");
                     System.out.println("└──────────────────────────────────────────────────────────────────────┘");
-                    System.out.print("✔️메뉴선택 > ");
+                    System.out.print("✔️ 메뉴선택 > ");
                     int choose = scan.nextInt();
                     if( choose == 1 ) uv.signUp();
                     else if( choose == 2 ) uv.logIn();
-                    else if( choose == 3 ) uv.subscribeRequest();
+                    else if( choose == 3 ) { uv.subscribeRequest(); }
                     else if( choose == 4 ) uv.siteManasers();
                     else if( choose == 5 ) uv.taxiList();
                     else System.out.println( "\n[경고] 해당하는 메뉴(숫자)를 입력하세요.\n" );
@@ -62,7 +60,7 @@ public class TotalView {
                     System.out.println("      1.구독플랜등록  2.구독플랜조회    3.구독플랜수정     4.구독플랜삭제");
                     System.out.println("      5.회원목록조회  6.구독자목록조회  7.구독신청내역조회  8.로그아웃");
                     System.out.println("└──────────────────────────────────────────────────────────────────────┘");
-                    System.out.print("✔️메뉴선택 > ");
+                    System.out.print("✔️ 메뉴선택 > ");
                     int choose = scan.nextInt();
                     if( choose == 1 ) av.planAdd();
                     else if( choose == 2 ) av.planList();
@@ -100,8 +98,9 @@ public class TotalView {
         System.out.println("      1.정보수정   2.로그아웃   3.구독신청   4.데모체험   5.지역콜택시조회");
         System.out.println("      6.구독현황   7.회원탈퇴"); // | 8.구독취소
         System.out.println("└────────────────────────────────────────────────────────────────────────┘");
-        System.out.print("✔️메뉴선택 > ");
+        System.out.print("✔️ 메뉴선택 > ");
         int choose = scan.nextInt();
+        System.out.print("\n");
         if( choose == 1 ) uv.updateProfile();
         else if( choose == 2 ) uv.signOut();
         else if( choose == 3 ) uv.subscribeRequest();
@@ -119,7 +118,7 @@ public class TotalView {
         System.out.println("      1.정보수정    2.로그아웃   3.구독신청    4.데모체험   5.지역콜택시조회");
         System.out.println("      6.구독현황    7.회원탈퇴   8.구독취소");
         System.out.println("└─────────────────────────────────────────────────────────────────────────┘");
-        System.out.print("✔️메뉴선택 > ");
+        System.out.print("✔️ 메뉴선택 > ");
         int choose = scan.nextInt();
         if( choose == 1 ) uv.updateProfile();
         else if( choose == 2 ) uv.signOut();
