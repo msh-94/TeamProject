@@ -133,6 +133,7 @@ public class UserView { // class start
         }else{ System.out.println("\n[안내] 로그인 이후, 구독신청 가능합니다.\n"); }// if end
     }//func end
 
+
     // 1.4.데모체험
     public void siteManasers(){
         for ( ; ; ){
