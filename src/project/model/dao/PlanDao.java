@@ -32,7 +32,7 @@ public class PlanDao extends Dao {// class start
             return false;
         }//while end
         catch (SQLException e){
-            System.out.println("[경고]동일한 상품명이 있습니다"+e);
+            System.out.println("[경고]이미 존재하는 구독플랜명이 있습니다."+e);
         }return false;
     }//func end
 
