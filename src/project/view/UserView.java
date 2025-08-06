@@ -1,13 +1,17 @@
 package project.view; // 패키지명
 
 import project.controller.*;
+import project.model.dao.LogDao;
 import project.model.dto.CompanyDto;
+import project.model.dto.LogDto;
 import project.model.dto.Member_HeadDto;
 import project.model.dto.PlanDto;
 
 import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.Scanner;
+import java.util.HashMap;
+import java.util.Map;
 
 import static project.controller.CompanyController.currentCno;
 import static project.controller.Member_HeadController.currentMno;
@@ -25,7 +29,6 @@ public class UserView { // class start
     private PlanController pc = PlanController.getInstance();
     private LogController lc = LogController.getInstance();
     private CompanyController cc = CompanyController.getInstance();
-
 
     /* ======================================== ★ 사용자별 화면(view) ★ ============================================== */
 
@@ -77,6 +80,57 @@ public class UserView { // class start
             System.out.printf("%d. %s(%d달/%d원)\t",num++,dto.getpName(),dto.getpDate(),dto.getpMoney());
         }// for end
         System.out.println("\n-----------------------------------------------------------------------------------------------------------");
+        if( currentMno != 0 ) { // 본사 로그인 이후, 구독신청 가능
+            System.out.println("3.구독신청");
+            /* 구독플랜조회 리스트 */ //planList();
+            ArrayList<PlanDto> planDtos = pc.planList();
+            PlanDto selectPlan = null; // 회원이 선택한 구독플랜 정보 1개 가져오기
+
+            System.out.println("-------------------------------");
+            LogDto mLog = lc.subscribeState( currentMno );
+            if( mLog != null  ){
+                for (PlanDto dto : planDtos) {
+                    if (dto.getPno() == 1) continue;
+                    System.out.printf("  %d) %s (%d개월/%d원)\n", dto.getPno(), dto.getpName(), dto.getpDate(), dto.getpMoney());
+                    continue;
+                }//for end
+            }else {
+                for (PlanDto dto : planDtos) {
+                    System.out.printf("  %d) %s (%d개월/%d원)\n", dto.getPno(), dto.getpName(), dto.getpDate(), dto.getpMoney());
+                }//for e
+            }
+            System.out.println("-------------------------------");
+            System.out.print("✔️ 선택 > ");
+            int choose = TotalView.scan.nextInt();
+
+            for (PlanDto dto : planDtos) {
+                if (dto.getPno() == choose) { selectPlan = dto; break; }
+            }
+            if (selectPlan != null) {
+                System.out.printf("구독플랜: (%d) %s (%d개월/%d원)\n", selectPlan.getPno(), selectPlan.getpName(), selectPlan.getpDate(), selectPlan.getpMoney());
+                //System.out.printf("구독종료일(예정):  ");
+            }
+            String cName=""; String area=""; String service = "";
+            if( mLog == null  ) {
+                System.out.print("\n - 사이트명 : ");
+                cName = TotalView.scan.next();
+                System.out.print(" - 서비스지역 : ");
+                area = TotalView.scan.next();
+                TotalView.scan.nextLine();
+                System.out.print(" - 서비스내용 : ");
+                service = TotalView.scan.nextLine();
+            }
+            Map<String, Object> subscribeInfo = new HashMap<>();
+            subscribeInfo.put("mno", currentMno);
+            subscribeInfo.put("pno", selectPlan.getPno());
+            subscribeInfo.put("pDate", selectPlan.getpDate());
+            subscribeInfo.put("cName", cName);
+            subscribeInfo.put("area", area);
+            subscribeInfo.put("service", service);
+            boolean result = lc.subscribeRequest(subscribeInfo);
+            if( result ){ System.out.printf("\n[안내] %s 구독신청되었습니다.\n", selectPlan.getpName() );
+            }else { System.out.println("\n[경고] 올바른 정보를 입력하세요.\n"); }// if end
+        }else{ System.out.println("\n[안내] 로그인 이후, 구독신청 가능합니다.\n"); }// if end
     }//func end
 
     // 1.4.데모체험
@@ -175,7 +229,22 @@ public class UserView { // class start
 
     // 2.6.구독현황
     public void subscribeState(){
-        System.out.println("\n6.구독현황 조회\n");
+        System.out.println("6.구독현황\n");
+        ArrayList<PlanDto> planDtos = pc.planList();
+        LogDto result = lc.subscribeState( currentMno );
+        if( result != null ){
+            PlanDto selectPlan = null; // 회원이 선택한 구독플랜 정보 1개 가져오기
+            for (PlanDto dto : planDtos) {
+                if (dto.getPno() == result.getPno()) { selectPlan = dto; break; }
+            }
+            System.out.printf(" - 구독플랜명: %s\n", selectPlan.getpName());
+            System.out.printf(" - 구독기간: %s개월\n", selectPlan.getpDate());
+            System.out.printf(" - 구독금액: %s원\n", selectPlan.getpMoney());
+            System.out.printf(" - 구독시작일: %s\n", result.getAddDate());
+            System.out.printf(" - 종료예정일: %s\n\n", result.getEndDate());
+        }else{
+            System.out.println(" 구독중인 플랜이 없습니다.");
+        }
     }//func end
 
     // 2.7.회원탈퇴

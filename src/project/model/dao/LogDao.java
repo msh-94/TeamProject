@@ -13,7 +13,11 @@ public class LogDao extends Dao{
     private LogDao(){}
     private static final LogDao instance = new LogDao();
     public static LogDao getInstance(){ return instance; }
-    
+
+    // 날짜 객체
+    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd"); //날짜포맷
+    LocalDate toDay = LocalDate.now(); //오늘날짜 객체
+
     /* ======================================== ★ 단위기능 ★ ============================================== */
     // 1. 구독신청(본사 사용자단)
     public boolean subscribeRequest( Map<String, Object> subscribeInfo ){
@@ -26,85 +30,68 @@ public class LogDao extends Dao{
             String area = (String) subscribeInfo.get("area");
             String service = (String) subscribeInfo.get("service");
 
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd"); //날짜 포맷
-            LocalDate toDay = LocalDate.now(); // 오늘 날짜 객체
-            
-            /* Log 테이블 > mno 최종 구독기록 1건 조회(*endDate 기준_마지막 구독종료일) */
-            String sql_log = "select * from log where mno = ? order by endDate limit 1";
+            /* Log 테이블(DB) > mno(fk) 마지막 구독기록 1건 조회 */
+            String sql_log = "select * from log where mno = ? order by endDate desc limit 1";
             PreparedStatement ps = conn.prepareStatement(sql_log);
             ps.setInt(1, mno);
             ResultSet rs = ps.executeQuery();
 
-            /* 1. Log 테이블 > mno 없음( 구독기록 없음(X) ) */
-            if ( ! rs.next() ) {
-                //(1) 최초 구독신청 : 구독신청을 1번도 안한 경우
-                //① Log 테이블 insert
+            if ( ! rs.next() ){  // Log 테이블 > mno 없음( 구독기록 없음(X) )
+                /* (1) 최초 구독신청 : 구독신청을 1번도 안한 경우 */
+                /* 1_Log 테이블 insert */
                 String sql = "insert into log( pno, mno, endDate ) values( ?,?,? )";
                 PreparedStatement ps2 = conn.prepareStatement(sql);
                 ps2.setInt(1, pno );
                 ps2.setInt(2, mno );
-                // 종료일 날짜계산 : 오늘날짜 + 해당 플랜 구독기간(월)
+                /* 종료일 날짜계산 : 오늘날짜 + 해당 플랜 구독기간(월) */
                 String endDate = toDay.plusMonths( pDate ).toString();
                 ps2.setString(3, endDate );
                 int result_log = ps2.executeUpdate();
-
-                //② Company 테이블 insert
+                /* 2_Company 테이블 insert */
                 String sql_company = "insert into company( mno, cName, area, service ) values( ?,?,?,? )";
                 PreparedStatement ps3 = conn.prepareStatement(sql_company);
-                ps3.setInt(1, mno );
-                ps3.setString(2, cName );
-                ps3.setString(3, area );
-                ps3.setString(4, service );
-                int result_company = ps3.executeUpdate(); // INSERT 실행
-                ps.close(); rs.close(); ps2.close();
-                if(result_log >= 1 && result_company >= 1 ) return true;
-            }else{
-            /* 2. Log 테이블 > mno 있음( 구독기록 있음(O) ) */
-                // mno(구독이력 있는 회원_fk) 최종 로그기록(1건) LogDto 객체 담기
-                LogDto logDto = null;
-                while ( rs.next() ){
-                    int logno = rs.getInt("logno");
-                    pno = rs.getInt("pno");
-                    mno = rs.getInt("mno");
-                    String addDate = rs.getString("addDate");
-                    String endDate = rs.getString("endDate");
-                    logDto = new LogDto( logno, pno, mno, addDate, endDate );
-                    System.out.println( logDto );
-                } //while end
-
-                String endDate = logDto.getEndDate();
-                System.out.println( endDate ); // 구독종료일 확인!
-                
+                ps3.setInt(1, mno);
+                ps3.setString(2, cName);
+                ps3.setString(3, area);
+                ps3.setString(4, service);
+                int result_company = ps3.executeUpdate();
+                if( result_log == 1 && result_company == 1) return true;
+                else return false;
+            }else{ // Log 테이블 > mno 있음( 구독기록 있음(O) )
+                /* Log 테이블(DB) > mno(fk) 마지막 구독기록 1건 Data 변수에 담기! */
+                String endDate = rs.getString("endDate");
+                //System.out.println( "(1.신청이전)구독종료일 확인용(Test):" + endDate ); //(콘솔 테스트 확인용!)
                 if( endDate != null && !endDate.isEmpty() ){
-
-                    // 날짜 문자열 → LocalDate 로 변환
+                    /* 날짜 문자열을 LocalDate 로 타입변환(*오늘날짜 기준, 구독종료일(구독상태)을 확인하기 위함) */
                     LocalDate endDateLog = LocalDate.parse(endDate, formatter);
-                    if( endDateLog.isBefore(toDay) ) { // ①구독종료일 오늘날짜 이전일 경우.
-                    //(1) 구독종료 후, 재구독 신청
+
+                    if( endDateLog.isBefore(toDay) ) { // 1.구독종료일 오늘날짜 이전일 경우
+                    /* (1) 구독종료 후, 재구독 신청 */
                         String sql = "insert into log( pno, mno, endDate ) values( ?,?,? )";
                         PreparedStatement ps2 = conn.prepareStatement(sql);
                         ps2.setInt(1, pno);
                         ps2.setInt(2, mno);
-                        endDate = toDay.plusMonths(pDate).toString();//종료일 날짜계산: 오늘날짜 + 구독기간(월)
+                        endDate = toDay.plusMonths(pDate).toString();// ****구독종료일 계산: 오늘날짜(신청일) + 해당플랜 구독기간(월)
                         ps2.setString(3, endDate);
                         int count = ps2.executeUpdate();
                         if (count == 1) return true;
                         else return false;
-                    } else if( endDateLog.isAfter(toDay) ){ // ② 구독종료일 오늘날짜 이후일 경우.
-                    //(2) 현재 구독중이지만, 구독연장/추가 신청
+                    } else if( endDateLog.isAfter(toDay) ){ // 2.구독종료일 오늘날짜 이후일 경우
+                    /* (2) 현재 구독중이지만, 구독연장/추가 신청 */
                         String sql = "insert into log( pno, mno, endDate ) values( ?,?,? )";
                         PreparedStatement ps2 = conn.prepareStatement(sql);
                         ps2.setInt(1, pno);
                         ps2.setInt(2, mno);
-                        endDate = endDateLog.plusMonths(pDate).toString();//종료일 날짜계산: 현재 구독종료일 + 구독기간(월)
+                        endDate = endDateLog.plusMonths(pDate).toString();// ****구독종료일 계산: 현재 구독중인 종료일 + 해당플랜 구독기간(월)
                         ps2.setString(3, endDate);
+                        //System.out.println( "(2.신청이후)구독종료일 확인용(Test):" + endDate ); //(콘솔 테스트 확인용!)
                         int count = ps2.executeUpdate();
                         if (count == 1) return true;
                         else return false;
                     }// if end
                 } else { return false; }// if end
             }//if end
-        }catch ( Exception e ){ System.out.println( "예외발생" + e ); } // catch end
+        }catch ( Exception e ){ System.out.println( "예외발생" + e );  e.printStackTrace(); } // catch end
         return false;
     }//func end
     
@@ -122,19 +109,24 @@ public class LogDao extends Dao{
                 String addDate = rs.getString("addDate");
                 String endDate = rs.getString("endDate");
                 LogDto logDto = new LogDto( logno, pno, mno, addDate, endDate );
-                System.out.println( logDto );
+                //System.out.println( logDto );
                 return logDto;
             } //while end
         }catch ( Exception e ){System.out.println( "예외발생" + e ); }
         return null;
     }//func end
 
-    // 3. 구독취소(본사 사용자단)
+    // 3. 구독취소(본사 사용자단)_로그를 삭제 하지 않고 종료일을 구독취소일(당일)로 변경
     public boolean subscribeCancle( int mno ){
         try {
-            String sql =  "delete from log where mno = ? order by endDate desc limit 1";
+            //String sql =  "delete from log where mno = ? order by endDate desc limit 1";
+            String sql = "update log set endDate = ? where mno = ? order by endDate desc , logno desc limit 1;";
             PreparedStatement ps = conn.prepareStatement(sql);
-            ps.setInt(1, mno);
+            String endDate = toDay.toString();
+
+            ps.setString(1, endDate);
+            ps.setInt(2, mno);
+            System.out.println( "취소일: " + endDate );
             int count = ps.executeUpdate(); 
             if( count == 1 ) return true;
             else return false;
