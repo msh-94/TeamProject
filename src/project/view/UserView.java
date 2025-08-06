@@ -5,6 +5,8 @@ import project.model.dto.CompanyDto;
 import project.model.dto.Member_HeadDto;
 
 import java.util.ArrayList;
+import java.util.InputMismatchException;
+import java.util.Scanner;
 
 import static project.controller.CompanyController.currentCno;
 import static project.controller.Member_HeadController.currentMno;
@@ -63,18 +65,25 @@ public class UserView { // class start
     // 1.4.데모체험
     public void siteManasers(){
         for ( ; ; ){
-            System.out.println("------------------------------------------------------------------------------------------------------------");
-            System.out.println("< 데모체험 >  1.관리자단(ADMIN)         2. 사용자단(USER)         3. 본사바로가기");
-            System.out.println("------------------------------------------------------------------------------------------------------------");
-            System.out.print("선택 > ");
-            int choose = TotalView.scan.nextInt();
-            if (choose == 1){
-                System.out.println("관리자단");
-            }else if (choose == 2){
-                System.out.println("사용자단");
-            } else if (choose == 3) {
-                break;
-            }// if end
+            try {
+                System.out.println("------------------------------------------------------------------------------------------------------------");
+                System.out.println("< 데모체험 >  1.관리자단(ADMIN)         2. 사용자단(USER)         3. 본사바로가기");
+                System.out.println("------------------------------------------------------------------------------------------------------------");
+                System.out.print("선택 > ");
+                int choose = TotalView.scan.nextInt();
+                if (choose == 1) {
+                    System.out.println("관리자단");
+                } else if (choose == 2) {
+                    System.out.println("사용자단");
+                } else if (choose == 3) {
+                    break;
+                }// if end
+            }catch (InputMismatchException e) {
+                System.out.println("\n[경고] 입력타입 불일치! 숫자를 입력하세요." + e + "\n");
+                TotalView.scan = new Scanner(System.in);//입력객체 초기화
+            } catch (Exception e) {
+                System.out.println( "\n[오류] 개발팀 문의( root.kjs82@gmail.com )" + e + "\n" );
+            }// catch end
         }// for end
     }//func end
 
@@ -120,19 +129,26 @@ public class UserView { // class start
     public void siteManaser(){
         CompanyDto result = cc.siteManaser(currentMno);
         for ( ; ;){
-            System.out.println("------------------------------------------------------------------------------------------------------------");
-            System.out.printf("< %s >    1.관리자단(ADMIN)         2. 사용자단(USER)         3. 본사바로가기\n" ,result.getcName());
-            System.out.println("------------------------------------------------------------------------------------------------------------");
-            System.out.print("선택 > ");
-            int choose = TotalView.scan.nextInt();
-            if (choose == 1){
-                System.out.println("관리자단");
-            }else if (choose == 2){
-                System.out.println("사용자단");
-            } else if (choose == 3) {
-                currentCno = 0;
-                break;
-            }// if end
+            try {
+                System.out.println("------------------------------------------------------------------------------------------------------------");
+                System.out.printf("< %s >    1.관리자단(ADMIN)         2. 사용자단(USER)         3. 본사바로가기\n", result.getcName());
+                System.out.println("------------------------------------------------------------------------------------------------------------");
+                System.out.print("선택 > ");
+                int choose = TotalView.scan.nextInt();
+                if (choose == 1) {
+                    System.out.println("관리자단");
+                } else if (choose == 2) {
+                    System.out.println("사용자단");
+                } else if (choose == 3) {
+                    currentCno = 0;
+                    break;
+                }// if end
+            }catch (InputMismatchException e) {
+                System.out.println("\n[경고] 입력타입 불일치! 숫자를 입력하세요." + e + "\n");
+                TotalView.scan = new Scanner(System.in);//입력객체 초기화
+            } catch (Exception e) {
+                System.out.println( "\n[오류] 개발팀 문의( root.kjs82@gmail.com )" + e + "\n" );
+            }// catch end
         }// for end
     }// func end
 
