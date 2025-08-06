@@ -36,16 +36,17 @@ public class PlanController { // class start
     public boolean planEditLog(int pno){
         boolean result=planDao.planEditLog(pno);
         return result;
-    }
+    }//func end
 
     //구독플랜 수정
     public int planEdit(PlanDto planDto){
         if(planDao.planEditLog(planDto.getPno())){
-            return 4;
-        }
+            return 2;
+        }//if end
         int result = planDao.planEdit(planDto);
         return result;
-    }
+    }// func end
+
 
     //구독플랜삭제
     public boolean planDelete(int pno){

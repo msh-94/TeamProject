@@ -57,8 +57,8 @@ public class PlanDao extends Dao {// class start
         try{
             String sql= "select *from log where pno=?;";
             PreparedStatement ps = conn.prepareStatement(sql);
-            ResultSet rs = ps.executeQuery();
             ps.setInt(1, pno);
+            ResultSet rs = ps.executeQuery();
             while(rs.next()) {
                 return true;
             }//while end
@@ -78,8 +78,7 @@ public class PlanDao extends Dao {// class start
             ps.setInt(4, planDto.getPno());
             int result = ps.executeUpdate();
             if(result==1) return 1;
-            return 2;
-        } catch (Exception e) {System.out.println(e);}
+        } catch (Exception e) {System.out.println("[경고] 이미 존재하는 구독 플랜명 입니다.\n"+e);}//catch end
         return 3;
     }//func end
 
@@ -93,7 +92,7 @@ public class PlanDao extends Dao {// class start
             if(count==1) return true;
             return false;
         } catch (Exception e) {
-            System.out.println("[경고] 구독중인 구독자가 있는 구독플랜은 삭제가 불가합니다.");
+            System.out.println("[경고] 구독중인 구독자가 있는 구독플랜은 삭제가 불가합니다.\n"+e);
         }//catch end
         return false;
     }//func end

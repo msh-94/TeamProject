@@ -131,7 +131,7 @@ public class Member_HeadDao extends Dao { // class start
 
             if (result == 1){return 1;} //반환값
             return 2;
-        }catch (Exception e){System.out.println("[경고] 이미 등록된 아이디입니다. ");}//catch end
+        }catch (Exception e){System.out.println("[경고] 이미 등록된 아이디입니다.\n"+e);}//catch end
         return 0;
     }//func end
 
@@ -150,7 +150,7 @@ public class Member_HeadDao extends Dao { // class start
                 String mPhone = rs.getString("mPhone");
                 String mDate = rs.getString("mDate");
 
-                Member_HeadDto memberHeadDto = new Member_HeadDto(mno,mCategory,mId,mName,mPhone,mDate,mDate);
+                Member_HeadDto memberHeadDto = new Member_HeadDto(mno,mCategory,mId,null,mName,mPhone,mDate);
                 member_headDto.add(memberHeadDto);
 
             }//while end
