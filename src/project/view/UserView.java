@@ -65,21 +65,8 @@ public class UserView { // class start
 
     // 1.3.구독신청
     public void subscribeRequest(){
-        System.out.println("\n3.구독신청\n");
         ArrayList<PlanDto> list = pc.planList();
         boolean bool = !currentPno.isEmpty(); // 중지플랜이 존재하면
-        int num = 1;
-        System.out.println("-----------------------------------------------------------------------------------------------------------");
-        for (int i = 0; i < list.size(); i++){
-            PlanDto dto = list.get(i);
-            if (bool){
-                if( currentPno.contains( dto.getPno() ) ){
-                    continue;
-                }// if end
-            }// if end
-            System.out.printf("%d. %s(%d달/%d원)\t",num++,dto.getpName(),dto.getpDate(),dto.getpMoney());
-        }// for end
-        System.out.println("\n-----------------------------------------------------------------------------------------------------------");
         if( currentMno != 0 ) { // 본사 로그인 이후, 구독신청 가능
             System.out.println("3.구독신청");
             /* 구독플랜조회 리스트 */ //planList();
@@ -91,11 +78,21 @@ public class UserView { // class start
             if( mLog != null  ){
                 for (PlanDto dto : planDtos) {
                     if (dto.getPno() == 1) continue;
+                    if (bool){
+                        if( currentPno.contains( dto.getPno() ) ){
+                            continue;
+                        }// if end
+                    }// if end
                     System.out.printf("  %d) %s (%d개월/%d원)\n", dto.getPno(), dto.getpName(), dto.getpDate(), dto.getpMoney());
                     continue;
                 }//for end
             }else {
                 for (PlanDto dto : planDtos) {
+                    if (bool){
+                        if( currentPno.contains( dto.getPno() ) ){
+                            continue;
+                        }// if end
+                    }// if end
                     System.out.printf("  %d) %s (%d개월/%d원)\n", dto.getPno(), dto.getpName(), dto.getpDate(), dto.getpMoney());
                 }//for e
             }
