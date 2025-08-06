@@ -150,7 +150,7 @@ public class Member_HeadDao extends Dao { // class start
                 String mPhone = rs.getString("mPhone");
                 String mDate = rs.getString("mDate");
 
-                Member_HeadDto memberHeadDto = new Member_HeadDto(mno,mCategory,mId,mName,mPhone,mDate,mDate);
+                Member_HeadDto memberHeadDto = new Member_HeadDto(mno,mCategory,mId,null,mName,mPhone,mDate);
                 member_headDto.add(memberHeadDto);
 
             }//while end

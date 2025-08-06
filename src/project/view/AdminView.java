@@ -82,10 +82,10 @@ public class AdminView {// class start
     public void userList(){
             ArrayList<Member_HeadDto> result = mhc.userList();
             String memberType;
-            System.out.println("-------------- 회원 목록 조회 -------------");
-            System.out.println("-----------------------------------------");
-            System.out.println("No 회원유형 아이디   이름  휴대폰번호  가입일");
-            System.out.println("-----------------------------------------");
+            System.out.println("---------------------------- 회원 목록 조회 ---------------------------");
+            System.out.println("----------------------------------------------------------------------------------");
+            System.out.println("No         회원유형         아이디         이름      휴대폰번호       가입일");
+            System.out.println("----------------------------------------------------------------------------------");
             for(Member_HeadDto dto : result) {
                 int Category = dto.getmCategory();
                 if (Category == 1) {
@@ -97,9 +97,9 @@ public class AdminView {// class start
                 } else {
                     memberType = "없는유형";
                 }
-                System.out.printf("%d\t%s\t%s\t%s\t%s\t%s \n",
+                System.out.printf("%d\t%10s\t%10s\t%10s\t%10s\t%10s \n",
                         dto.getMno(), memberType, dto.getmId(),
-                        dto.getmName(), dto.getmPhone(), dto.getmDate());
+                        dto.getmPhone(), dto.getmName(), dto.getmDate());
             }//for end
     }//func end
 
