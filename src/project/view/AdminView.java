@@ -42,6 +42,20 @@ public class AdminView {// class start
         for(PlanDto dto : result){
         System.out.printf("%d\t   %s\t    %d개월\t    %d\t \n", dto.getPno(), dto.getpName(), dto.getpDate(), dto.getpMoney());
         }//for e
+        System.out.print("상품을 중단 하시겠습니까? 1.예 2.아니오 : ");  int choose = TotalView.scan.nextInt();
+        if (choose == 1){
+            System.out.print("중단하실 플랜번호 : ");     int pno = TotalView.scan.nextInt();
+            boolean check = pc.planStop(pno);
+            if (check){
+                System.out.println("[안내] 입력하신 플랜상품이 중단 되었습니다.");
+            }else {
+                System.out.println("[경고] 존재하지 않는 플랜번호 입니다. ");
+            }// if end
+        }else if (choose == 2){
+            return;
+        }else {
+            System.out.println("존재하지 않는 플랜번호 입니다.");
+        }// if end
     }//func end
 
     // 3.3.구독플랜 수정

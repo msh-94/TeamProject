@@ -3,6 +3,7 @@ package project.view; // 패키지명
 import project.controller.*;
 import project.model.dto.CompanyDto;
 import project.model.dto.Member_HeadDto;
+import project.model.dto.PlanDto;
 
 import java.util.ArrayList;
 import java.util.InputMismatchException;
@@ -10,6 +11,7 @@ import java.util.Scanner;
 
 import static project.controller.CompanyController.currentCno;
 import static project.controller.Member_HeadController.currentMno;
+import static project.controller.PlanController.currentPno;
 
 public class UserView { // class start
     // 싱글톤
@@ -23,6 +25,7 @@ public class UserView { // class start
     private PlanController pc = PlanController.getInstance();
     private LogController lc = LogController.getInstance();
     private CompanyController cc = CompanyController.getInstance();
+
 
     /* ======================================== ★ 사용자별 화면(view) ★ ============================================== */
 
@@ -60,6 +63,20 @@ public class UserView { // class start
     // 1.3.구독신청
     public void subscribeRequest(){
         System.out.println("\n3.구독신청\n");
+        ArrayList<PlanDto> list = pc.planList();
+        boolean bool = pc.planStop(currentPno);
+        int num = 1;
+        System.out.println("-----------------------------------------------------------------------------------------------------------");
+        if (bool){
+            for (int i = 0; i < list.size(); i++){
+                PlanDto dto = list.get(i);
+                if (dto.getPno() == currentPno){
+                    continue;
+                }// if end
+                System.out.printf("%d. %s(%d달/%d원)\t",num++,dto.getpName(),dto.getpDate(),dto.getpMoney());
+            }// for end
+        }// if end
+        System.out.println("\n-----------------------------------------------------------------------------------------------------------");
     }//func end
 
     // 1.4.데모체험
