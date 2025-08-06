@@ -128,7 +128,6 @@ public class Member_HeadDao extends Dao { // class start
             ps.setString(4,mName);
             ps.setString(5,mPhone);
             int result=ps.executeUpdate();
-
             if (result == 1){return 1;} //반환값
             return 2;
         }catch (Exception e){System.out.println("[경고] 이미 등록된 아이디입니다.\n"+e);}//catch end

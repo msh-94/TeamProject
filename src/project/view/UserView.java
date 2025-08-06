@@ -72,7 +72,6 @@ public class UserView { // class start
             /* 구독플랜조회 리스트 */ //planList();
             ArrayList<PlanDto> planDtos = pc.planList();
             PlanDto selectPlan = null; // 회원이 선택한 구독플랜 정보 1개 가져오기
-
             System.out.println("-------------------------------");
             LogDto mLog = lc.subscribeState( currentMno );
             if( mLog != null  ){
