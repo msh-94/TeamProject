@@ -53,7 +53,7 @@ public class PlanController { // class start
         return result;
     }//func end
 
-    // 플랜중지할 플랜번호 존재하는지 검사기능
+    // 유효성검사 후 중지할 플랜번호 리스트에 추가
     public boolean planStop(int pno){
         ArrayList<PlanDto> list = planDao.planList();
         for (int i = 0; i < list.size(); i++){
@@ -66,6 +66,15 @@ public class PlanController { // class start
                 return true;
             }// if end
         }// for end
+        return false;
+    }// func end
+
+    // 플랜 중지 해제 기능
+    public boolean planRestart(int pno){
+        if (currentPno.contains(pno)){
+            currentPno.remove(pno);
+            return true;
+        }// if end
         return false;
     }// func end
 

@@ -67,15 +67,15 @@ public class UserView { // class start
         boolean bool = !currentPno.isEmpty(); // 중지플랜이 존재하면
         int num = 1;
         System.out.println("-----------------------------------------------------------------------------------------------------------");
-        if (bool){
-            for (int i = 0; i < list.size(); i++){
-                PlanDto dto = list.get(i);
+        for (int i = 0; i < list.size(); i++){
+            PlanDto dto = list.get(i);
+            if (bool){
                 if( currentPno.contains( dto.getPno() ) ){
                     continue;
                 }// if end
-                System.out.printf("%d. %s(%d달/%d원)\t",num++,dto.getpName(),dto.getpDate(),dto.getpMoney());
-            }// for end
-        }// if end
+            }// if end
+            System.out.printf("%d. %s(%d달/%d원)\t",num++,dto.getpName(),dto.getpDate(),dto.getpMoney());
+        }// for end
         System.out.println("\n-----------------------------------------------------------------------------------------------------------");
     }//func end
 

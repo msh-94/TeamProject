@@ -54,7 +54,7 @@ public class AdminView {// class start
         }else if (choose == 2){
             return;
         }else {
-            System.out.println("존재하지 않는 플랜번호 입니다.");
+            System.out.println("존재하지 않는 번호 입니다. ");
         }// if end
     }//func end
 
