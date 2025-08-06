@@ -3,6 +3,7 @@ package project.view; // 패키지명
 import project.controller.*;
 import project.model.dto.PlanDto;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Map;
 
@@ -22,25 +23,25 @@ public class AdminView {// class start
     // 3.1.구독플랜 등록
     public void planAdd(){
         System.out.println("1.구독플랜 등록");
-        System.out.println("- 구독플랜명:");      String pName = TotalView.scan.next();
-        System.out.println("- 구독기간(월단위)");  int pDate = TotalView.scan.nextInt();
-        System.out.println("- 금액(VAT포함가)");  int pMoney = TotalView.scan.nextInt();
+        System.out.print("- 구독플랜명:");      String pName = TotalView.scan.next();
+        System.out.print("- 구독기간(월단위):");  int pDate = TotalView.scan.nextInt();
+        System.out.print("- 금액(VAT포함가):");  int pMoney = TotalView.scan.nextInt();
         boolean result = pc.planAdd(pName,pDate,pMoney);
         if(result){
             System.out.println("[안내] 구독플랜이 등록되었습니다.");
-        }else {
-            System.out.println("[경고] 이미 존재하는 구독플랜명이 있습니다. ");
         }//if end
     }//func end
 
     // 3.2.구독플랜 조회
     public void planList(){
         ArrayList<PlanDto> result = pc.planList();
+        DecimalFormat formatter = new DecimalFormat("#,###");
         System.out.println("--------------------------------------------------------------------------------------------- ");
         System.out.println("No     구독플랜명     구독기간     금액(원)");
         System.out.println("--------------------------------------------------------------------------------------------- ");
         for(PlanDto dto : result){
-        System.out.printf("%d\t   %s\t    %d개월\t    %d\t \n", dto.getPno(), dto.getpName(), dto.getpDate(), dto.getpMoney());
+            String moneyFormatted = formatter.format(dto.getpMoney());
+        System.out.printf("%d\t   %s\t    %d개월\t    %s\t \n", dto.getPno(), dto.getpName(), dto.getpDate(), moneyFormatted);
         }//for e
     }//func end
 
