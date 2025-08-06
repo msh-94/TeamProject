@@ -84,7 +84,14 @@ public class Member_HeadDao extends Dao { // class start
                 map.put("핸드폰번호", rs.getObject("mPhone"));
                 map.put("시작일" , rs.getObject("firstDate"));
                 map.put("종료일",rs.getObject("lastDate"));
-                maps.add(map);
+
+                boolean check = false;
+                for( Map<String,Object> objectMap : maps ){
+                    if( objectMap.get("아이디").equals( rs.getObject("mId"))){
+                        check = true;
+                    }
+                }
+                if( check == false ) maps.add(map);
             }// while end
         } catch (Exception e) { System.out.println(e); }
         return maps;
