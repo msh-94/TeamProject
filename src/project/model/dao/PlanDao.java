@@ -78,8 +78,7 @@ public class PlanDao extends Dao {// class start
             ps.setInt(4, planDto.getPno());
             int result = ps.executeUpdate();
             if(result==1) return 1;
-            return 2;
-        } catch (Exception e) {System.out.println(e);}
+        } catch (Exception e) {System.out.println("[경고] 이미 존재하는 구독 플랜명 입니다.");}//catch end
         return 3;
     }//func end
 

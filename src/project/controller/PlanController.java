@@ -44,24 +44,6 @@ public class PlanController { // class start
         return result;
     }// func end
 
-    // 전역변수 플랜번호
-    public static int currentPno;
-
-    // 구독플랜 등록 기능
-    public boolean planAdd(String pName, int pDate, int pMoney) {
-        PlanDto result = planDao.planAdd(pName, pDate, pMoney);
-        if (result != null) {
-            currentPno = result.getPno();
-            return true;
-        }else {
-            return false;
-        }
-    }
-
-    // 구독플랜 조회 기능
-    public ArrayList<PlanDto> planList(){
-        ArrayList<PlanDto> result = planDao.planList();
-    }
 
     //구독플랜삭제
     public boolean planDelete(int pno){

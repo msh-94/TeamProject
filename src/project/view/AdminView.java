@@ -1,6 +1,7 @@
 package project.view; // 패키지명
 
 import project.controller.*;
+import project.model.dto.Member_HeadDto;
 import project.model.dto.PlanDto;
 
 import java.util.ArrayList;
@@ -22,9 +23,9 @@ public class AdminView {// class start
     // 3.1.구독플랜 등록
     public void planAdd(){
         System.out.println("1.구독플랜 등록");
-        System.out.println("- 구독플랜명:");      String pName = TotalView.scan.next();
-        System.out.println("- 구독기간(월단위)");  int pDate = TotalView.scan.nextInt();
-        System.out.println("- 금액(VAT포함가)");  int pMoney = TotalView.scan.nextInt();
+        System.out.print("- 구독플랜명: ");      String pName = TotalView.scan.next();
+        System.out.print("- 구독기간(월단위): ");  int pDate = TotalView.scan.nextInt();
+        System.out.print("- 금액(VAT포함가): ");  int pMoney = TotalView.scan.nextInt();
         boolean result = pc.planAdd(pName,pDate,pMoney);
         if(result){
             System.out.println("[안내] 구독플랜이 등록되었습니다.");
@@ -51,19 +52,55 @@ public class AdminView {// class start
         System.out.print("- 구독기간(월단위) : "); int pDate = TotalView.scan.nextInt();
         System.out.print("- 금액(VAT포함가) : "); int pMoney = TotalView.scan.nextInt();
         int result = pc.planEdit(new PlanDto(pno,pName,pDate,pMoney));  //플랜수정 호출
-        if(result==1){//확인
-
-        }
+        if(result==1){
+            System.out.println("[안내] 구독플랜이 수정되었습니다");
+        }else if(result==2){
+            System.out.println("[경고] 구독중인 구독자가 있는 구독플랜은 수정이 불가합니다.");
+        }//if end
     }//func end
 
     // 3.4.구독플랜 삭제
     public void planDelete(){
-        System.out.println("\n4.구독플랜 삭제\n");
+        ArrayList<PlanDto> result = pc.planList();
+        System.out.println("--------------------------------------------------------------------------------------------- ");
+        System.out.println("No     구독플랜명     구독기간     금액(원)");
+        System.out.println("--------------------------------------------------------------------------------------------- ");
+        for(PlanDto dto : result) {
+            System.out.printf("%d\t   %s\t    %d개월\t    %d\t \n",
+                    dto.getPno(), dto.getpName(), dto.getpDate(), dto.getpMoney());
+        }// for end
+        System.out.print("삭제할 플랜번호: "); int pno = TotalView.scan.nextInt();
+        boolean resultDelete = pc.planDelete(pno);
+        if(resultDelete){
+            System.out.println("[안내] 구독플랜이 삭제되었습니다.");
+        }else{
+            System.out.println("[오류] 개발팀 문의(111-1111");
+        }
     }//func end
 
     // 3.5.회원목록 조회
     public void userList(){
-        System.out.println("\n5.회원목록 조회\n");
+            ArrayList<Member_HeadDto> result = mhc.userList();
+            String memberType;
+            System.out.println("-------------- 회원 목록 조회 -------------");
+            System.out.println("-----------------------------------------");
+            System.out.println("No 회원유형 아이디   이름  휴대폰번호  가입일");
+            System.out.println("-----------------------------------------");
+            for(Member_HeadDto dto : result) {
+                int Category = dto.getmCategory();
+                if (Category == 1) {
+                    memberType = "일반회원";
+                } else if (Category == 2) {
+                    memberType = "택시기사";
+                } else if (Category == 3) {
+                    memberType = "사업자";
+                } else {
+                    memberType = "없는유형";
+                }
+                System.out.printf("%d\t%s\t%s\t%s\t%s\t%s \n",
+                        dto.getMno(), memberType, dto.getmId(),
+                        dto.getmName(), dto.getmPhone(), dto.getmDate());
+            }//for end
     }//func end
 
     // 3.6.현재구독중인 회원목록 조회
