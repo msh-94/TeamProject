@@ -120,7 +120,7 @@ public class Member_HeadDao extends Dao { // class start
     //[본사] 회원가입
     public int signUp(int mno,int mCategory,String mId, String mPwd, String mName, String mPhone,String mDate){
         try {
-            String sql = "INSERT INTO Member_head(mCategory , mId , mPwd , mPhone , mName) VALUES(?,?,?,?,?)";
+            String sql = "INSERT INTO Member_head(mCategory , mId , mPwd , mName , mPhone) VALUES(?,?,?,?,?)";
             PreparedStatement ps = conn.prepareStatement(sql);
             ps.setInt(1,mCategory);
             ps.setString(2,mId);
