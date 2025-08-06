@@ -4,6 +4,7 @@ import project.controller.*;
 import project.model.dto.Member_HeadDto;
 import project.model.dto.PlanDto;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Map;
 
@@ -37,11 +38,13 @@ public class AdminView {// class start
     // 3.2.구독플랜 조회
     public void planList(){
         ArrayList<PlanDto> result = pc.planList();
+        DecimalFormat formatter = new DecimalFormat("#,###");
         System.out.println("--------------------------------------------------------------------------------------------- ");
         System.out.println("No     구독플랜명     구독기간     금액(원)");
         System.out.println("--------------------------------------------------------------------------------------------- ");
         for(PlanDto dto : result){
-        System.out.printf("%d\t   %s\t    %d개월\t    %d\t \n", dto.getPno(), dto.getpName(), dto.getpDate(), dto.getpMoney());
+            String moneyFormatted = formatter.format(dto.getpMoney());
+        System.out.printf("%d\t   %s\t    %d개월\t    %s\t \n", dto.getPno(), dto.getpName(), dto.getpDate(), moneyFormatted);
         }//for e
         System.out.print("상품을 중단 하시겠습니까? 1.예 2.아니오 : ");  int choose = TotalView.scan.nextInt();
         if (choose == 1){
