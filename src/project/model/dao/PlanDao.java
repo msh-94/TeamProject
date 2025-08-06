@@ -16,6 +16,11 @@ public class PlanDao extends Dao {// class start
 
     // 플랜 등록 - 플랜 번호, 구독플랜명, 구독기간, 금액 반환 기능
     public boolean planAdd(PlanDto planDto){
+        //음수 값 검사 -> 여기서 멈춤(막음)
+        if(planDto.getpMoney() <0 || planDto.getpDate() <0  ){
+            System.out.println("[경고]올바른 숫자를 입력해주세요");
+            return false; //insert 시도하지 않음
+        }
         try{
             String sql = "INSERT INTO plan (pName, pDate,pMoney) VALUES(?,?,?) ";
             PreparedStatement ps = conn.prepareStatement(sql);
@@ -27,7 +32,7 @@ public class PlanDao extends Dao {// class start
             return false;
         }//while end
         catch (SQLException e){
-            System.out.println(e);
+            System.out.println("[경고]이미 존재하는 구독플랜명이 있습니다."+e);
         }return false;
     }//func end
 
