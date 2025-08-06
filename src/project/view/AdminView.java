@@ -30,8 +30,6 @@ public class AdminView {// class start
         boolean result = pc.planAdd(pName,pDate,pMoney);
         if(result){
             System.out.println("[안내] 구독플랜이 등록되었습니다.");
-        }else {
-            System.out.println("[경고] 이미 존재하는 구독플랜명이 있습니다. ");
         }//if end
     }//func end
 
