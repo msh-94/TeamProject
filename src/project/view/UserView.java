@@ -95,7 +95,7 @@ public class UserView { // class start
             currentMno = 0;
             System.out.println("로그아웃 되었습니다.");
         }else {
-            System.out.println("[오류] 관리자 문의(000-0000)");
+            System.out.println("[오류] 관리자 문의! (000-0000)");
         }
     }//func end
 
