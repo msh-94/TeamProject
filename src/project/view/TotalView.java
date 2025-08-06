@@ -115,7 +115,7 @@ public class TotalView {
     //  ★☆★☆ [본사]사용자단: 회원(구독 O / 사이트 O) 로그인 화면
     public void existSite(){
         System.out.println("┌──────────────────────<< MY CALL-TAXI(회원 전용) >>───────────────────────┐");
-        System.out.println("      1.정보수정    2.로그아웃   3.구독신청    4.데모체험   5.지역콜택시조회");
+        System.out.println("      1.정보수정    2.로그아웃   3.구독신청    4.내사이트가기   5.지역콜택시조회");
         System.out.println("      6.구독현황    7.회원탈퇴   8.구독취소");
         System.out.println("└─────────────────────────────────────────────────────────────────────────┘");
         System.out.print("✔️ 메뉴선택 > ");
