@@ -70,9 +70,9 @@ public class AdminView {// class start
         System.out.print("- 금액(VAT포함가) : "); int pMoney = TotalView.scan.nextInt();
         int result = pc.planEdit(new PlanDto(pno,pName,pDate,pMoney));  //플랜수정 호출
         if(result==1){
-            System.out.println("[안내] 구독플랜이 수정되었습니다");
-        }else if(result==2){
-            System.out.println("[경고] 구독중인 구독자가 있는 구독플랜은 수정이 불가합니다.");
+            System.out.println("[안내] 구독플랜이 수정되었습니다.");
+        }else if( result==2){
+            System.out.println("[경고] 구독중인 구독자가 있는 구독플랜은 수정이 불가 합니다.");
         }//if end
     }//func end
 
