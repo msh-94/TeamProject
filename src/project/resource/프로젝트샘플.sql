@@ -6,13 +6,13 @@ set sql_safe_updates = 0;
 create table plan( -- 구독플랜
 	pno int auto_increment primary key , 	-- 플랜번호
     pName varchar(10) not null unique ,		-- 플랜명
-    pDate int default 1 , 					-- 기간
-    pMoney int default 0 					-- 금액
+    pDate int unsigned default 1  , 		-- 기간
+    pMoney int unsigned default 0 			-- 금액
 );
 
 create table Member_head( -- 회원
 	mno int auto_increment primary key, 	-- 회원번호
-    mCategory int not null ,				-- 회원유형
+    mCategory int unsigned not null ,		-- 회원유형
     mId varchar(30) not null unique , 		-- 아이디
     mPwd varchar(15) not null , 			-- 비밀번호
     mPhone varchar(13) not null , 			-- 전화번호
@@ -42,7 +42,7 @@ create table company( -- 회사
 create table Member_sub(
 	mno int auto_increment primary key,		-- 하위사이트 회원번호
     cno int ,								-- 회사번호
-    mCategory int not null ,				-- 회원유형
+    mCategory int unsigned not null ,		-- 회원유형
     mId varchar(30) not null unique , 		-- 아이디
     mPwd varchar(15) not null , 			-- 비밀번호
     mPhone varchar(13) not null , 			-- 전화번호
@@ -120,4 +120,4 @@ select * from log;
 select * from Member_head;
 select * from Member_sub;
 
-select s.mno , s.mName from Member_head m join company c on m.mno = c.mno join Member_sub s on c.cno = s.cno where m.mId = s.mId;  -- c.cno 자리에 현재 들어가있는 사이트 회사번호 넣으면 관리자 정보
+-- select s.mno , s.mName from Member_head m join company c on m.mno = c.mno join Member_sub s on c.cno = s.cno where m.mId = s.mId;  -- c.cno 자리에 현재 들어가있는 사이트 회사번호 넣으면 관리자 정보

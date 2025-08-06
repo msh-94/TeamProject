@@ -5,9 +5,6 @@ import project.model.dao.PlanDao;
 import project.model.dto.PlanDto;
 import java.util.ArrayList;
 
-import project.model.dao.PlanDao;
-import project.model.dto.PlanDto;
-
 public class PlanController { // class start
     // 싱글톤
     private PlanController(){}
@@ -17,8 +14,9 @@ public class PlanController { // class start
     // dao 가져오기
     private PlanDao planDao = PlanDao.getInstance();
 
-    // 플랜번호 전역변수
-    public static int currentPno;
+    // 플랜번호리스트 전역변수
+    public static ArrayList<Integer> currentPno = new ArrayList<>();
+
 
 
     // 구독플랜 등록 기능
@@ -60,8 +58,11 @@ public class PlanController { // class start
         ArrayList<PlanDto> list = planDao.planList();
         for (int i = 0; i < list.size(); i++){
             PlanDto dto = list.get(i);
-            if (dto.getPno() == pno){
-                currentPno = dto.getPno();
+            if (dto.getPno() == pno){ // view로 부터 들어오는 pno 와 같으면.
+                if( !currentPno.contains( pno ) ){
+                    // 구독플랜 중지가 아니면
+                    currentPno.add( pno );
+                }// func end
                 return true;
             }// if end
         }// for end
