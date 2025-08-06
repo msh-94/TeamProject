@@ -77,6 +77,8 @@ public class UserView { // class start
                     System.out.println("사용자단");
                 } else if (choose == 3) {
                     break;
+                }else {
+                    System.out.println("[경고] 존재하지 않는 번호입니다.");
                 }// if end
             }catch (InputMismatchException e) {
                 System.out.println("\n[경고] 입력타입 불일치! 숫자를 입력하세요." + e + "\n");
@@ -142,6 +144,8 @@ public class UserView { // class start
                 } else if (choose == 3) {
                     currentCno = 0;
                     break;
+                }else {
+                    System.out.println("[경고] 존재하지 않는 번호입니다.");
                 }// if end
             }catch (InputMismatchException e) {
                 System.out.println("\n[경고] 입력타입 불일치! 숫자를 입력하세요." + e + "\n");
