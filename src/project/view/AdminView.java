@@ -130,7 +130,7 @@ public class AdminView {// class start
         System.out.println("---------------------------------------------------------------------------------------------------------- ");
         for (int i = 0; i < result.size(); i++){
             Map<String,Object> map = result.get(i);
-            Object a = (Integer)map.get("유형");
+            Object a = map.get("유형");
             if (a.equals(1)){ a = "일반회원"; }
             if (a.equals(2)){ a = "택시기사"; }
             if (a.equals(3)){ a = "사업자"; }
@@ -149,7 +149,7 @@ public class AdminView {// class start
         System.out.println("---------------------------------------------------------------------------------------------------------- ");
         for (int i = 0; i < result.size(); i++){
             Map<String,Object> map = result.get(i);
-            Object a = (Integer)map.get("유형");
+            Object a = map.get("유형");
             if (a.equals(1)){ a = "일반회원"; }
             if (a.equals(2)){ a = "택시기사"; }
             if (a.equals(3)){ a = "사업자"; }
