@@ -131,7 +131,7 @@ public class Member_HeadDao extends Dao { // class start
 
             if (result == 1){return 1;} //반환값
             return 2;
-        }catch (Exception e){System.out.println("[경고] 이미 등록된 아이디입니다. ");}//catch end
+        }catch (Exception e){System.out.println("[경고] 이미 등록된 아이디입니다.\n"+e);}//catch end
         return 0;
     }//func end
 
