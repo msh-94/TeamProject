@@ -43,13 +43,13 @@ public class AdminView {// class start
         String 노출여부 = "활성화";
         DecimalFormat formatter = new DecimalFormat("#,###");
         System.out.println("--------------------------------------------------------------------------------------------- ");
-        System.out.println("No     구독플랜명     구독기간     금액(원)     노출여부");
+        System.out.printf("%-8s %-11s %-9s %s\n","No","구독플랜명","구독기간","금액(원)");
         System.out.println("--------------------------------------------------------------------------------------------- ");
         for(PlanDto dto : result){
             if (currentPno.contains(dto.getPno()))노출여부 = "비활성화";
             if (!currentPno.contains(dto.getPno())) 노출여부 = "활성화";
             String moneyFormatted = formatter.format(dto.getpMoney());
-        System.out.printf("%d\t   %s\t    %d개월\t    %s\t    %s\n", dto.getPno(), dto.getpName(), dto.getpDate(), moneyFormatted,노출여부);
+        System.out.printf("%d\t   %6s\t    %6d개월\t    %6s\t \n", dto.getPno(), dto.getpName(), dto.getpDate(), moneyFormatted,노출여부);
         }//for e
         System.out.print("플랜 활성화/비활성화(1/2) : ");  int choose = TotalView.scan.nextInt();
         if (choose == 1){
@@ -81,9 +81,9 @@ public class AdminView {// class start
         System.out.print("- 금액(VAT포함가) : "); int pMoney = TotalView.scan.nextInt();
         int result = pc.planEdit(new PlanDto(pno,pName,pDate,pMoney));  //플랜수정 호출
         if(result==1){
-            System.out.println("[안내] 구독플랜이 수정되었습니다");
-        }else if(result==2){
-            System.out.println("[경고] 구독중인 구독자가 있는 구독플랜은 수정이 불가합니다.");
+            System.out.println("[안내] 구독플랜이 수정되었습니다.");
+        }else if( result==2){
+            System.out.println("[경고] 구독중인 구독자가 있는 구독플랜은 수정이 불가 합니다.");
         }//if end
     }//func end
 
@@ -91,10 +91,10 @@ public class AdminView {// class start
     public void planDelete(){
         ArrayList<PlanDto> result = pc.planList();
         System.out.println("--------------------------------------------------------------------------------------------- ");
-        System.out.println("No     구독플랜명     구독기간     금액(원)");
+        System.out.printf("%-8s %-11s %-9s %s\n","No","구독플랜명","구독기간","금액(원)");
         System.out.println("--------------------------------------------------------------------------------------------- ");
         for(PlanDto dto : result) {
-            System.out.printf("%d\t   %s\t    %d개월\t    %d\t \n",
+            System.out.printf("%d\t   %6s\t    %6d개월\t    %6s\t \n",
                     dto.getPno(), dto.getpName(), dto.getpDate(), dto.getpMoney());
         }// for end
         System.out.print("삭제할 플랜번호: "); int pno = TotalView.scan.nextInt();
@@ -112,7 +112,7 @@ public class AdminView {// class start
             String memberType;
             System.out.println("---------------------------- 회원 목록 조회 ---------------------------");
             System.out.println("----------------------------------------------------------------------------------");
-            System.out.println("No         회원유형         아이디         이름      휴대폰번호       가입일");
+            System.out.printf("%s\t%10s\t%7s\t%9s\t%11s\t%9s \n","No","회원유형","아이디","이름","휴대폰번호","가입일");
             System.out.println("----------------------------------------------------------------------------------");
             for(Member_HeadDto dto : result) {
                 int Category = dto.getmCategory();
@@ -137,7 +137,8 @@ public class AdminView {// class start
         int no = 1;
         System.out.println("------------------------------------------- 현재 구독중인 회원  ------------------------------------------- ");
         System.out.println("---------------------------------------------------------------------------------------------------------- ");
-        System.out.println("No 지역 구독플랜명   아이디  구독자명  회원유형       휴대폰번호       최초구독일       종료일");
+        System.out.printf("%-3s %-6s %-12s %-10s %-8s %-12s %-13s %-11s %-13s\n",
+                "No","지역","구독플랜명","아이디","구독자명","회원유형","휴대폰번호","최초구독일","종료일");
         System.out.println("---------------------------------------------------------------------------------------------------------- ");
         for (int i = 0; i < result.size(); i++){
             Map<String,Object> map = result.get(i);
@@ -145,7 +146,7 @@ public class AdminView {// class start
             if (a.equals(1)){ a = "일반회원"; }
             if (a.equals(2)){ a = "택시기사"; }
             if (a.equals(3)){ a = "사업자"; }
-            System.out.printf("%d\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\n",no++,map.get("지역"),map.get("플랜이름"),
+            System.out.printf("%-3d %-6s %-12s %-14s %-8s %-10s %-17s %-13s %-13s\n",no++,map.get("지역"),map.get("플랜이름"),
                     map.get("아이디"),map.get("이름"),a,map.get("핸드폰번호"),map.get("시작일"),map.get("종료일"));
         }// for end
     }//func end
@@ -156,7 +157,8 @@ public class AdminView {// class start
         int no = 1;
         System.out.println("\n\n------------------------------------------- 구독 만료된 회원  ------------------------------------------- ");
         System.out.println("---------------------------------------------------------------------------------------------------------- ");
-        System.out.println("No 지역 구독플랜명   아이디  구독자명  회원유형       휴대폰번호       최초구독일       종료일");
+        System.out.printf("%-3s %-6s %-12s %-11s %-8s %-12s %-13s %-11s %-11s\n",
+                "No","지역","구독플랜명","아이디","구독자명","회원유형","휴대폰번호","최초구독일","종료일");
         System.out.println("---------------------------------------------------------------------------------------------------------- ");
         for (int i = 0; i < result.size(); i++){
             Map<String,Object> map = result.get(i);
@@ -164,7 +166,7 @@ public class AdminView {// class start
             if (a.equals(1)){ a = "일반회원"; }
             if (a.equals(2)){ a = "택시기사"; }
             if (a.equals(3)){ a = "사업자"; }
-            System.out.printf("%d\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\n",no++,map.get("지역"),map.get("플랜이름"),
+            System.out.printf("%-3d %-6s %-12s %-14s %-8s %-10s %-17s %-13s %-13s\n",no++,map.get("지역"),map.get("플랜이름"),
                     map.get("아이디"),map.get("이름"),a,map.get("핸드폰번호"),map.get("시작일"),map.get("종료일"));
         }// for end
     }// func end
