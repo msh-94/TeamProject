@@ -195,7 +195,7 @@ public class AdminView {// class start
             }// if end
             System.out.printf("%d\t%10s\t%10s\t%10s\t%10s\t%10s \n",
                     dto.getMno(), memberType, dto.getmId(),
-                    dto.getmPhone(), dto.getmName(), dto.getmDate());
+                    dto.getmName(), dto.getmPhone(), dto.getmDate());
         }// for end
     }// func end
 
