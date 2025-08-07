@@ -77,11 +77,12 @@ public class UserView { // class start
             System.out.println("3.구독신청");
             /* 구독플랜조회 리스트 */ //planList();
             ArrayList<PlanDto> planDtos = pc.planList();
-            PlanDto selectPlan = null; // 회원이 선택한 구독플랜 정보 1개 가져오기
 
             System.out.println("-------------------------------");
-            LogDto mLog = lc.subscribeState( currentMno );
-            if( mLog != null  ){
+            LogDto mLog = new LogDto();
+            mLog = lc.subscribeState( currentMno ); // 구독로그가 있는 회원
+            //System.out.println( mLog );
+            if( mLog.getEndDate() != null  ){
                 for (PlanDto dto : planDtos) {
                     if (dto.getPno() == 1) continue;
                     if (bool){
@@ -106,15 +107,18 @@ public class UserView { // class start
             System.out.print("✔️ 선택 > ");
             int choose = scan.nextInt();
 
-            for (PlanDto dto : planDtos) {
+            PlanDto selectPlan = null; // 회원이 선택한 구독플랜 정보 1개 가져오기
+            for (PlanDto dto : planDtos) { // 사용자가 선택한 플랜번호 찾기
                 if (dto.getPno() == choose) { selectPlan = dto; break; }
             }
             if (selectPlan != null) {
                 System.out.printf("구독플랜: (%d) %s (%d개월/%d원)\n", selectPlan.getPno(), selectPlan.getpName(), selectPlan.getpDate(), selectPlan.getpMoney());
                 //System.out.printf("구독종료일(예정):  ");
+            }else{
+                System.out.println("올바른 구독플랜 숫자를 선택하세요!");
             }
             String cName=""; String area=""; String service = "";
-            if( mLog == null  ) {
+            if( mLog.getEndDate() == null  ) { // 구독로그가 없는 회원
                 System.out.print("\n - 사이트명 : ");
                 cName = scan.next();
                 System.out.print(" - 서비스지역 : ");
@@ -130,10 +134,15 @@ public class UserView { // class start
             subscribeInfo.put("cName", cName);
             subscribeInfo.put("area", area);
             subscribeInfo.put("service", service);
+
             boolean result = lc.subscribeRequest(subscribeInfo);
+
             if( result ){ System.out.printf("\n[안내] %s 구독신청되었습니다.\n", selectPlan.getpName() );
             }else { System.out.println("\n[경고] 올바른 정보를 입력하세요.\n"); }// if end
-        }else{ System.out.println("\n[안내] 로그인 이후, 구독신청 가능합니다.\n"); }// if end
+
+        }else{
+            System.out.println("\n[안내] 로그인 이후, 구독신청 가능합니다.\n");
+        }// if end
     }//func end
 
     // 1.4.데모체험
@@ -233,20 +242,27 @@ public class UserView { // class start
     // 2.6.구독현황
     public void subscribeState(){
         System.out.println("\n6.구독현황\n");
-        ArrayList<PlanDto> planDtos = pc.planList();
+
         LogDto result = lc.subscribeState( currentMno );
-        PlanDto selectPlan = null; // 회원이 선택한 구독플랜 정보 1개 가져오기
-        if( result != null  ){ // && result.getEndDate() == toDay
+
+        if( result.getEndDate() != null  ){ // && result.getEndDate() == toDay
+            ArrayList<PlanDto> planDtos = pc.planList();
+            PlanDto selectPlan = null;
             for (PlanDto dto : planDtos) {
-                if (dto.getPno() == result.getPno()) { selectPlan = dto; break; }
+                if (dto.getPno() == result.getPno()) {
+                    selectPlan = dto;
+                    break;
+                }
             }
-            System.out.printf(" - 구독플랜명: %s\n", selectPlan.getpName());
-            System.out.printf(" - 구독기간: %s개월\n", selectPlan.getpDate());
-            System.out.printf(" - 구독금액: %s원\n", selectPlan.getpMoney());
-            System.out.printf(" - 구독시작일: %s\n", result.getAddDate());
-            System.out.printf(" - 종료예정일: %s\n\n", result.getEndDate());
+            if( selectPlan != null ){
+                System.out.printf(" - 구독플랜명: %s\n", selectPlan.getpName());
+                System.out.printf(" - 구독기간: %s개월\n", selectPlan.getpDate());
+                System.out.printf(" - 구독금액: %s원\n", selectPlan.getpMoney());
+                System.out.printf(" - 구독시작일: %s\n", result.getAddDate());
+                System.out.printf(" - 종료예정일: %s\n\n", result.getEndDate());
+            }else { System.out.println(" 구독중인 플랜이 없습니다.\n"); }
         }else{
-            System.out.println(" 구독중인 플랜이 없습니다.");
+            System.out.println(" 구독중인 플랜이 없습니다.\n");
         }
     }//func end
 
@@ -282,15 +298,16 @@ public class UserView { // class start
             } else {
                 return "8.구독취소";  // 구독중이면 메뉴 표시
             }
-        } else {//구독로그 없거나 회원정보 없음
-            return "8.구독취소";
+        } else {//구독로그 없거나 비회원
+            return "";
         }
     }// func end
 
     // 2.10.사용자 메뉴 변경(구독취소 메뉴)
 
     public String cancelMenu2(){
-        LogDto mLog = lc.subscribeState(currentMno);
+        LogDto mLog  = lc.subscribeState(currentMno);
+        // System.out.println( ": 구독취소 메뉴:" + mLog );
         if (mLog != null && mLog.getEndDate() != null) {
             LocalDate endDate = LocalDate.parse(mLog.getEndDate(), formatter);
             if (toDay.isAfter(endDate)) {
@@ -298,7 +315,7 @@ public class UserView { // class start
             } else {
                 return "4.내사이트가기";  // 구독중이면 메뉴 표시
             }
-        } else {//구독로그 없거나 회원정보 없음
+        } else {//구독로그 없거나 비회원
             return "4.데모체험";
         }
     }// func end
