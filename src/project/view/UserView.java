@@ -235,8 +235,8 @@ public class UserView { // class start
         System.out.println("\n6.구독현황\n");
         ArrayList<PlanDto> planDtos = pc.planList();
         LogDto result = lc.subscribeState( currentMno );
+        PlanDto selectPlan = null; // 회원이 선택한 구독플랜 정보 1개 가져오기
         if( result != null  ){ // && result.getEndDate() == toDay
-            PlanDto selectPlan = null; // 회원이 선택한 구독플랜 정보 1개 가져오기
             for (PlanDto dto : planDtos) {
                 if (dto.getPno() == result.getPno()) { selectPlan = dto; break; }
             }
@@ -259,8 +259,8 @@ public class UserView { // class start
             System.out.println("[오류] 관리자 문의! (000-0000)");
         }// if end
     }//func end
-    
-    
+
+
     // 2.8. 구독취소
     public void subscribeCancle(){
         System.out.println("\n8.구독취소\n");
@@ -283,7 +283,7 @@ public class UserView { // class start
                 return "8.구독취소";  // 구독중이면 메뉴 표시
             }
         } else {//구독로그 없거나 회원정보 없음
-            return "";
+            return "8.구독취소";
         }
     }// func end
 

@@ -91,7 +91,7 @@ public class AdminView {// class start
         if(resultDelete){
             System.out.println("[안내] 구독플랜이 삭제되었습니다.");
         }else{
-            System.out.println("[오류] 개발팀 문의(111-1111");
+            System.out.println("[오류] 개발팀 문의");
         }
     }//func end
 
