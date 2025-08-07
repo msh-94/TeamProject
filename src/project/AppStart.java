@@ -20,5 +20,7 @@ public class AppStart {
 
         TotalView.getInstance().index(); // 본사 사용자단 메인공통화면(view)
 
+
+
     }//main end
 }//class end
