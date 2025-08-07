@@ -1,4 +1,4 @@
-package project.view; // 패키지명
+package project.view;
 
 import project.controller.*;
 import project.model.dto.Member_HeadDto;
@@ -6,9 +6,10 @@ import project.model.dto.PlanDto;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
-public class AdminView {// class start
+public class AdminView {
     // 싱글톤
     private AdminView(){}
     private static final AdminView instance = new AdminView();
@@ -23,7 +24,7 @@ public class AdminView {// class start
     /* (3) [본사]관리자단: admin(시스템관리자) 로그인 화면 -----------------------------------------------------------------*/
     // 3.1.구독플랜 등록
     public void planAdd(){
-        System.out.println("1.구독플랜 등록");
+        System.out.println("\n1.구독플랜 등록");
         System.out.print("- 구독플랜명: ");      String pName = TotalView.scan.next();
         System.out.print("- 구독기간(월단위): ");  int pDate = TotalView.scan.nextInt();
         System.out.print("- 금액(VAT포함가): ");  int pMoney = TotalView.scan.nextInt();
@@ -37,16 +38,17 @@ public class AdminView {// class start
 
     // 3.2.구독플랜 조회
     public void planList(){
+        System.out.println("\n2.구독플랜 조회");
+        System.out.println("------------------------------------------------------- ");
+        System.out.println("No     구독플랜명     구독기간     금액(원)");
+        System.out.println("------------------------------------------------------- ");
         ArrayList<PlanDto> result = pc.planList();
         DecimalFormat formatter = new DecimalFormat("#,###");
-        System.out.println("--------------------------------------------------------------------------------------------- ");
-        System.out.println("No     구독플랜명     구독기간     금액(원)");
-        System.out.println("--------------------------------------------------------------------------------------------- ");
         for(PlanDto dto : result){
             String moneyFormatted = formatter.format(dto.getpMoney());
         System.out.printf("%d\t   %s\t    %d개월\t    %s\t \n", dto.getPno(), dto.getpName(), dto.getpDate(), moneyFormatted);
         }//for e
-        System.out.print("상품을 중단 하시겠습니까? 1.예 2.아니오 : ");  int choose = TotalView.scan.nextInt();
+        System.out.print("\n상품을 중단 하시겠습니까? 1.예 2.아니오 : \n");  int choose = TotalView.scan.nextInt();
         if (choose == 1){
             System.out.print("중단하실 플랜번호 : ");     int pno = TotalView.scan.nextInt();
             boolean check = pc.planStop(pno);
@@ -64,6 +66,7 @@ public class AdminView {// class start
 
     // 3.3.구독플랜 수정
     public void planEdit(){
+        System.out.println("\n3.구독플랜 수정");
         System.out.print("- 수정할구독플랜 번호 : "); int pno = TotalView.scan.nextInt();
         System.out.print("- 구독플랜명 : "); String pName = TotalView.scan.next();
         System.out.print("- 구독기간(월단위) : "); int pDate = TotalView.scan.nextInt();
@@ -79,14 +82,14 @@ public class AdminView {// class start
     // 3.4.구독플랜 삭제
     public void planDelete(){
         ArrayList<PlanDto> result = pc.planList();
-        System.out.println("--------------------------------------------------------------------------------------------- ");
+        System.out.println("------------------------------------------------------ ");
         System.out.println("No     구독플랜명     구독기간     금액(원)");
-        System.out.println("--------------------------------------------------------------------------------------------- ");
+        System.out.println("------------------------------------------------------ ");
         for(PlanDto dto : result) {
             System.out.printf("%d\t   %s\t    %d개월\t    %d\t \n",
                     dto.getPno(), dto.getpName(), dto.getpDate(), dto.getpMoney());
         }// for end
-        System.out.print("삭제할 플랜번호: "); int pno = TotalView.scan.nextInt();
+        System.out.print(" - 삭제할 플랜번호: "); int pno = TotalView.scan.nextInt();
         boolean resultDelete = pc.planDelete(pno);
         if(resultDelete){
             System.out.println("[안내] 구독플랜이 삭제되었습니다.\n");
@@ -97,12 +100,12 @@ public class AdminView {// class start
 
     // 3.5.회원목록 조회
     public void userList(){
-            ArrayList<Member_HeadDto> result = mhc.userList();
-            String memberType;
-            System.out.println("---------------------------- 회원 목록 조회 ---------------------------");
+            System.out.println("\n7.구독신청 내역조회");
             System.out.println("----------------------------------------------------------------------------------");
             System.out.println("No         회원유형         아이디         이름      휴대폰번호       가입일");
             System.out.println("----------------------------------------------------------------------------------");
+            ArrayList<Member_HeadDto> result = mhc.userList();
+            String memberType;
             for(Member_HeadDto dto : result) {
                 int Category = dto.getmCategory();
                 if (Category == 1) {
@@ -124,10 +127,10 @@ public class AdminView {// class start
     public void planUserList(){
         ArrayList<Map<String,Object>> result = mhc.planUserList();
         int no = 1;
-        System.out.println("------------------------------------------- 현재 구독중인 회원  ------------------------------------------- ");
-        System.out.println("---------------------------------------------------------------------------------------------------------- ");
+        System.out.println("---------------------------------- 현재 구독중인 회원  ---------------------------------------- ");
+        System.out.println("-------------------------------------------------------------------------------------------- ");
         System.out.println("No 지역 구독플랜명   아이디  구독자명  회원유형       휴대폰번호       최초구독일       종료일");
-        System.out.println("---------------------------------------------------------------------------------------------------------- ");
+        System.out.println("-------------------------------------------------------------------------------------------- ");
         for (int i = 0; i < result.size(); i++){
             Map<String,Object> map = result.get(i);
             Object a = map.get("유형");
@@ -143,10 +146,10 @@ public class AdminView {// class start
     public void planEndUserList(){
         ArrayList<Map<String,Object>> result = mhc.planEndUserList();
         int no = 1;
-        System.out.println("\n\n------------------------------------------- 구독 만료된 회원  ------------------------------------------- ");
-        System.out.println("---------------------------------------------------------------------------------------------------------- ");
+        System.out.println("\n\n------------------------------- 구독 만료된 회원  ----------------------------------------- ");
+        System.out.println("-------------------------------------------------------------------------------------------- ");
         System.out.println("No 지역 구독플랜명   아이디  구독자명  회원유형       휴대폰번호       최초구독일       종료일");
-        System.out.println("---------------------------------------------------------------------------------------------------------- ");
+        System.out.println("-------------------------------------------------------------------------------------------- ");
         for (int i = 0; i < result.size(); i++){
             Map<String,Object> map = result.get(i);
             Object a = map.get("유형");
@@ -160,7 +163,27 @@ public class AdminView {// class start
 
 
     // 3.7.구독신청 내역조회
-    public void subscribePrint(){
-        System.out.println("\n7.구독신청 내역조회\n");
-    }//func end
+    public void subscribeList() {
+        System.out.println("\n7.구독신청 내역조회");
+        ArrayList<LinkedHashMap<String, Object>> result = lc.subscribeList();
+
+        System.out.println("----------------------------------------------------------------------------");
+        if (!result.isEmpty()) { // 헤더(key) 출력
+            LinkedHashMap<String, Object> firstRow = result.get(0);
+            for (String key : firstRow.keySet()) {
+                System.out.printf("%-9s", key);
+            }// for end
+            System.out.println();
+        }// if end
+        System.out.println("----------------------------------------------------------------------------");
+        for (LinkedHashMap<String, Object> logUser : result) { // 데이터(value) 출력
+            for (Object value : logUser.values()) {
+                String str = (value == null) ? "" : value.toString();
+                System.out.printf("%-11s", str);
+            }// for end
+            System.out.println();
+        }// for end
+        System.out.println("----------------------------------------------------------------------------\n");
+    }// func end
+
 }// class end

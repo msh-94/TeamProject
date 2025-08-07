@@ -1,19 +1,15 @@
 package project.model.dao; // 패키지명
 
 import project.model.dto.CompanyDto;
-
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
-
-
 
 public class CompanyDao extends Dao {// class start
     // 싱글톤
     private CompanyDao(){  }
     private static final CompanyDao instance = new CompanyDao();
     public static CompanyDao getInstance(){return instance; }
-
 
     // 로그인한 회원번호 일치하는 회사정보 반환 기능
     public CompanyDto siteManaser(int mno){

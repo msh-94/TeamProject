@@ -6,9 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class LogDao extends Dao{
     // 싱글톤
@@ -66,7 +64,6 @@ public class LogDao extends Dao{
                 if( endDate != null && !endDate.isEmpty() ){
                     /* 날짜 문자열을 LocalDate 로 타입변환(*오늘날짜 기준, 구독종료일(구독상태)을 확인하기 위함) */
                     LocalDate endDateLog = LocalDate.parse(endDate, formatter);
-
                     if( endDateLog.isBefore(toDay) ) { // 1.구독종료일 오늘날짜 이전일 경우
                     /* (1) 구독종료 후, 재구독 신청 */
                         String sql = "insert into log( pno, mno, endDate ) values( ?,?,? )";
@@ -118,7 +115,7 @@ public class LogDao extends Dao{
     }// func end
 
     // 3. 구독취소(본사 사용자단)_로그를 삭제 하지 않고 종료일을 구독취소일(당일)로 변경
-    public boolean subscribeCancle( int mno ){
+    public boolean subscribeCancel( int mno ){
         try {
             //String sql =  "delete from log where mno = ? order by endDate desc limit 1";
             String sql = "update log set endDate = ? where mno = ? order by endDate desc , logno desc limit 1;";
@@ -136,23 +133,25 @@ public class LogDao extends Dao{
     }//func end
 
     // 4. 구독신청 내역조회(본사 관리자)
-    public List<LogDto> subscribelList(){
-        List<LogDto> logList = new ArrayList<>();
+    public ArrayList<LinkedHashMap<String,Object>> subscribeList(){
+        ArrayList<LinkedHashMap<String,Object>> logUserList = new ArrayList<>();
         try {
-            String sql =  "select * from log";
+            String sql = "select logno, pName, pMoney, mName, mId, addDate, endDate from plan left outer join log on plan.pno = log.pno left outer join Member_head on log.mno = Member_head.mno order by logno desc";
             PreparedStatement ps = conn.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
             while ( rs.next() ){
-                int logno = rs.getInt("logno");
-                int pno = rs.getInt("pno");
-                int mno = rs.getInt("mno");
-                String addDate = rs.getString("addDate");
-                String endDate = rs.getString("endDate");
-                LogDto logDto = new LogDto( logno, pno, mno, addDate, endDate ); // LogDto 객체에 SQL 속성값 대입
-                logList.add( logDto );
+                LinkedHashMap<String,Object> logUser = new LinkedHashMap<>();
+                logUser.put("No" , rs.getObject("logno"));
+                logUser.put("구독플랜명",rs.getObject("pName"));
+                logUser.put("구독가격(원)" , rs.getObject("pMoney"));
+                logUser.put("이름" , rs.getObject("mName"));
+                logUser.put("아이디",rs.getObject("mId"));
+                logUser.put("구독시작일" , rs.getObject("addDate"));
+                logUser.put("구독종료일", rs.getObject("endDate"));
+                logUserList.add(logUser);
             } //while end
         }catch ( Exception e ){ System.out.println( "예외발생" + e ); }
-        //System.out.println( logList );
-        return logList;
+        //System.out.println( logUserList );
+        return logUserList;
     }//func end
 }//class end
