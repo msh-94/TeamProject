@@ -24,6 +24,7 @@ public class TotalView {
     // 전역변수
     public static Scanner scan = new Scanner(System.in);
 
+
     /* ============================================ ★ Method(공통) ★ ================================================ */
     // 본사 사용자별 View( 0.비회원/ 1.본사관리자/ 2.본사회원(구독X_구독O) / 그외_회원정보 찾을 수 없음 )
     public void index(){
