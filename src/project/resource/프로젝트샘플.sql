@@ -121,6 +121,6 @@ select * from Member_head;
 select * from Member_sub;
 
 -- select s.mno , s.mName from Member_head m join company c on m.mno = c.mno join Member_sub s on c.cno = s.cno where m.mId = s.mId;  -- c.cno 자리에 현재 들어가있는 사이트 회사번호 넣으면 관리자 정보
-select m.mno , c.area , p.pName , m.mId , m.mName , m.mCategory , m.mPhone , MIN(l.addDate) as firstDate , MAX(l.endDate) as lastDate from plan p join Log l on p.pno  = l.pno
+ select m.mno , c.area , p.pName , m.mId , m.mName , m.mCategory , m.mPhone , MIN(l.addDate) as firstDate , MAX(l.endDate) as lastDate from plan p join Log l on p.pno  = l.pno
                     join Member_head m on m.mno = l.mno
                     join company c on m.mno = c.mno group by m.mno, c.area, p.pName, m.mId, m.mName, m.mCategory, m.mPhone having lastDate >= current_date() order by mno asc;

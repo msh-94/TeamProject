@@ -84,13 +84,22 @@ public class Member_HeadDao extends Dao { // class start
                 map.put("핸드폰번호", rs.getObject("mPhone"));
                 map.put("시작일" , rs.getObject("firstDate"));
                 map.put("종료일",rs.getObject("lastDate"));
-
                 boolean check = false;
                 for( Map<String,Object> objectMap : maps ){
+                    Date 종료일 = (Date) objectMap.get("종료일");
+                    Date lastDate = (Date) rs.getObject("lastDate");
+                    Date 시작일 = (Date) objectMap.get("시작일");
+                    Date firstDate = (Date) rs.getObject("firstDate");
                     if( objectMap.get("아이디").equals( rs.getObject("mId"))){
+                        if (!종료일.after(lastDate)){
+                            objectMap.put("종료일", lastDate);
+                            if (시작일.after(firstDate)){
+                                objectMap.put("시작일",firstDate);
+                            }// if end
+                        }// if end
                         check = true;
-                    }
-                }
+                    }// if end
+                }// for end
                 if( check == false ) maps.add(map);
             }// while end
         } catch (Exception e) { System.out.println(e); }
@@ -118,7 +127,23 @@ public class Member_HeadDao extends Dao { // class start
                 map.put("핸드폰번호", rs.getObject("mPhone"));
                 map.put("시작일" , rs.getObject("firstDate"));
                 map.put("종료일",rs.getObject("lastDate"));
-                maps.add(map);
+                boolean check = false;
+                for( Map<String,Object> objectMap : maps ){
+                    Date 종료일 = (Date) objectMap.get("종료일");
+                    Date lastDate = (Date) rs.getObject("lastDate");
+                    Date 시작일 = (Date) objectMap.get("시작일");
+                    Date firstDate = (Date) rs.getObject("firstDate");
+                    if( objectMap.get("아이디").equals( rs.getObject("mId"))){
+                        if (!종료일.after(lastDate)){
+                            objectMap.put("종료일", lastDate);
+                            if (시작일.after(firstDate)){
+                                objectMap.put("시작일",firstDate);
+                            }// if end
+                        }// if end
+                        check = true;
+                    }// if end
+                }// for end
+                if( check == false ) maps.add(map);
             }// while end
         } catch (Exception e) { System.out.println(e); }
         return maps;
