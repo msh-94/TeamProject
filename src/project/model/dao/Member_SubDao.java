@@ -1,7 +1,12 @@
 package project.model.dao;// 패키지명
 
+import project.model.dto.Member_SubDto;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 import java.sql.PreparedStatement;
 import static project.controller.CompanyController.currentCno;
@@ -12,8 +17,6 @@ public class Member_SubDao extends Dao { // class start
     private static final Member_SubDao instance = new Member_SubDao();
     public static Member_SubDao getInstance(){ return instance; }
 
-    // 서브사이트 회원번호 전역변수
-    public static int currentSubMno;
 
     // [구독회사] 회원가입 (구독회사 테이블 만들어지고 구현)
     public int signUp(int mno,int mCategory,String mId, String mPwd, String mName, String mPhone,String mDate){
@@ -37,4 +40,28 @@ public class Member_SubDao extends Dao { // class start
         }catch (Exception e){System.out.println(e);}//catch end
         return 3;
     }//signUp end
+
+    // 현재회사의 회원목록
+    public List<Member_SubDto> subUserList(){
+        List<Member_SubDto> list = new ArrayList<>();
+        try{
+            String sql = "select * from Member_sub where cno = ?";
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setInt(1,currentCno);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()){
+                Member_SubDto dto = new Member_SubDto();
+                dto.setMno(rs.getInt("mno"));
+                dto.setCno(rs.getInt("cno"));
+                dto.setmCategory(rs.getInt("mCategory"));
+                dto.setmId(rs.getString("mId"));
+                dto.setmPwd(rs.getString("mPwd"));
+                dto.setmPhone(rs.getString("mPhone"));
+                dto.setmName(rs.getString("mName"));
+                dto.setmDate(rs.getString("mDate"));
+                list.add(dto);
+            }
+        } catch (Exception e) { System.out.println(e); }
+        return list;
+    }// func end
 }// class end

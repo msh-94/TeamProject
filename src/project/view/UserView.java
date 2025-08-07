@@ -56,6 +56,8 @@ public class UserView { // class start
         System.out.print("아이디 : ");     String mId = TotalView.scan.next();
         System.out.print("비밀번호 : ");    String mPwd = TotalView.scan.next();
         Member_HeadDto result = mhc.logIn(mId,mPwd);
+        CompanyDto dto = cc.siteManaser(result.getMno());
+        currentCno = dto.getCno();
         if (result.getmId() == null){
             System.out.println("[경고] 존재하지 않는 계정입니다.");
         }else {
@@ -189,6 +191,7 @@ public class UserView { // class start
     public void signOut(){
         if(currentMno > 0){
             currentMno = 0;
+            currentCno = 0;
             System.out.println("로그아웃 되었습니다.");
         }else {
             System.out.println("[오류] 관리자 문의! (000-0000)");
@@ -206,7 +209,7 @@ public class UserView { // class start
                 System.out.print("선택 > ");
                 int choose = TotalView.scan.nextInt();
                 if (choose == 1) {
-                    System.out.println("관리자단");
+                    TotalView.getInstance().subAdmin();
                 } else if (choose == 2) {
                     System.out.println("사용자단");
                 } else if (choose == 3) {

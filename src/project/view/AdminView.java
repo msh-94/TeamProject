@@ -2,10 +2,12 @@ package project.view; // 패키지명
 
 import project.controller.*;
 import project.model.dto.Member_HeadDto;
+import project.model.dto.Member_SubDto;
 import project.model.dto.PlanDto;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 import static project.controller.PlanController.currentPno;
@@ -167,9 +169,34 @@ public class AdminView {// class start
         }// for end
     }// func end
 
-
     // 3.7.구독신청 내역조회
     public void subscribePrint(){
         System.out.println("\n7.구독신청 내역조회\n");
     }//func end
+
+    // 하위사이트 회원목록조회
+    public void subUserList(){
+        List<Member_SubDto> result = msc.subUserList();
+        String memberType;
+        System.out.println("---------------------------- 회원 목록 조회 ---------------------------");
+        System.out.println("----------------------------------------------------------------------------------");
+        System.out.println("No         회원유형         아이디         이름      휴대폰번호       가입일");
+        System.out.println("----------------------------------------------------------------------------------");
+        for(Member_SubDto dto : result) {
+            int Category = dto.getmCategory();
+            if (Category == 1) {
+                memberType = "일반회원";
+            } else if (Category == 2) {
+                memberType = "택시기사";
+            } else if (Category == 3) {
+                memberType = "사업자";
+            } else {
+                memberType = "없는유형";
+            }// if end
+            System.out.printf("%d\t%10s\t%10s\t%10s\t%10s\t%10s \n",
+                    dto.getMno(), memberType, dto.getmId(),
+                    dto.getmPhone(), dto.getmName(), dto.getmDate());
+        }// for end
+    }// func end
+
 }// class end
