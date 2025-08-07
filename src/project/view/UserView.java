@@ -274,23 +274,32 @@ public class UserView { // class start
 
     // 2.9.사용자 메뉴 변경(구독취소 메뉴)
     public String cancelMenu(){
-        LogDto mLog = lc.subscribeState( currentMno );
-        LocalDate endDate = LocalDate.parse( mLog.getEndDate(), formatter);
-        if( toDay.isAfter( endDate ) ) {
-            String cancelMenu = ""; return cancelMenu;
-        } else {
-            String cancelMenu = "8.구독취소"; return cancelMenu;
+        LogDto mLog = lc.subscribeState(currentMno);
+        if (mLog != null && mLog.getEndDate() != null) {
+            LocalDate endDate = LocalDate.parse(mLog.getEndDate(), formatter);
+            if (toDay.isAfter(endDate)) {
+                return "";  // 구독이 끝났다면 구독취소 메뉴 없음
+            } else {
+                return "8.구독취소";  // 구독중이면 메뉴 표시
+            }
+        } else {//구독로그 없거나 회원정보 없음
+            return "8.구독취소";
         }
     }// func end
 
     // 2.10.사용자 메뉴 변경(구독취소 메뉴)
+
     public String cancelMenu2(){
-        LogDto mLog = lc.subscribeState( currentMno );
-        LocalDate endDate = LocalDate.parse( mLog.getEndDate(), formatter);
-        if( toDay.isAfter( endDate ) ) {
-            String cancelMenu = "4.데모체험"; return cancelMenu;
-        } else {
-            String cancelMenu = "4.내사이트가기"; return cancelMenu;
+        LogDto mLog = lc.subscribeState(currentMno);
+        if (mLog != null && mLog.getEndDate() != null) {
+            LocalDate endDate = LocalDate.parse(mLog.getEndDate(), formatter);
+            if (toDay.isAfter(endDate)) {
+                return "4.데모체험";  // 구독이 끝났다면, 구독취소 메뉴 없음
+            } else {
+                return "4.내사이트가기";  // 구독중이면 메뉴 표시
+            }
+        } else {//구독로그 없거나 회원정보 없음
+            return "4.데모체험";
         }
     }// func end
 

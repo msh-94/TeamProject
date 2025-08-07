@@ -129,3 +129,8 @@ select m.mno , c.area , p.pName , m.mId , m.mName , m.mCategory , m.mPhone , MIN
                     join company c on m.mno = c.mno group by m.mno, c.area, p.pName, m.mId, m.mName, m.mCategory, m.mPhone having lastDate >= current_date() order by mno asc;
                     
  -- update log set endDate = "2025-01-01" where mno = 11 order by endDate desc , logno desc limit 1;-- 
+ 
+--  select * from plan 
+-- 	left outer join log on plan.pno = log.pno
+--     left outer join Member_head on log.mno = Member_head.mno;
+    

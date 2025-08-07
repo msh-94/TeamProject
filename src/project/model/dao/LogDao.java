@@ -3,6 +3,7 @@ package project.model.dao;
 import project.model.dto.LogDto;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -98,24 +99,24 @@ public class LogDao extends Dao{
     
     // 2. 구독현황(본사 사용자단)
     public LogDto subscribeState( int mno ){
+        LogDto logDto = null;
         try {/* 로그 테이블 > mno 존재여부 순회 */
             String sql =  "select * from log where mno = ? order by endDate desc limit 1";
             PreparedStatement ps = conn.prepareStatement(sql);
             ps.setInt(1, mno);
             ResultSet rs = ps.executeQuery();
             while ( rs.next() ){
-                int logno = rs.getInt("logno");
-                int pno = rs.getInt("pno");
-                mno = rs.getInt("mno");
-                String addDate = rs.getString("addDate");
-                String endDate = rs.getString("endDate");
-                LogDto logDto = new LogDto( logno, pno, mno, addDate, endDate );
+               logDto = new LogDto();
+                logDto.setLogno(rs.getInt("logno"));
+                logDto.setPno(rs.getInt("pno"));
+                logDto.setMno(rs.getInt("mno"));
+                logDto.setAddDate(rs.getString("addDate"));
+                logDto.setEndDate(rs.getString("endDate"));
                 //System.out.println( logDto );
-                return logDto;
             } //while end
-        }catch ( Exception e ){System.out.println( "예외발생" + e ); }
-        return null;
-    }//func end
+        } catch ( Exception e) { System.out.println(e); }
+        return logDto;
+    }// func end
 
     // 3. 구독취소(본사 사용자단)_로그를 삭제 하지 않고 종료일을 구독취소일(당일)로 변경
     public boolean subscribeCancle( int mno ){
