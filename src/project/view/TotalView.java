@@ -110,17 +110,18 @@ public class TotalView {
 
 
     /* ======================================== ★ 하위사이트 화면(view) ★ =========================================== */
+    // 하위사이트 관리자 화면
     public void subAdmin(){
         CompanyDto dto = cc.siteManaser(currentMno);
         for ( ; ;){
             try{
-                System.out.printf("┌───────────────────<<🛡️ %s(본사관리자)🛡️>>───────────────────────┐\n",dto.getcName());
+                System.out.printf("┌───────────────────<<🛡️ %s(관리자)🛡️>>──────────────────────────┐\n",dto.getcName());
                 System.out.println("      1.회원목록   2.로그아웃 ");
                 System.out.println("└──────────────────────────────────────────────────────────────────────┘");
                 System.out.print("✔️ 메뉴선택 > ");
                 int choose = scan.nextInt();
                 if (choose == 1) av.subUserList();
-                else if (choose == 2) {uv.signOut(); break;}
+                else if (choose == 2) {msc.subSignOut(); break;}
                 else System.out.println("\n[경고] 해당하는 메뉴(숫자)를 입력하세요.\n");
             }catch (InputMismatchException e){
                 System.out.println( "\n[경고] 입력타입 불일치! 숫자를 입력하세요." + e + "\n" );
@@ -130,5 +131,27 @@ public class TotalView {
             }// catch end
         }// for end
     }// func end
+
+    // 하위사이트 유저 화면
+    public void subUser(){
+        for ( ; ;){
+            CompanyDto dto = cc.siteManaser(currentMno);
+            try{
+                System.out.printf("┌───────────────────<<🛡️ %s(관리자)🛡️>>──────────────────────────┐\n",dto.getcName());
+                System.out.println("      1.회원가입   2.로그인 ");
+                System.out.println("└──────────────────────────────────────────────────────────────────────┘");
+                System.out.print("✔️ 메뉴선택 > ");
+                int choose = scan.nextInt();
+                if (choose == 1) msc.subSignIn();
+                else if (choose == 2) {msc.subSignIn();}
+                else System.out.println("\n[경고] 해당하는 메뉴(숫자)를 입력하세요.\n");
+            }catch (InputMismatchException e){
+                System.out.println( "\n[경고] 입력타입 불일치! 숫자를 입력하세요." + e + "\n" );
+                scan = new Scanner(System.in);
+            } catch (Exception e) {
+                System.out.println("\n[오류] 개발팀 문의( root.kjs82@gmail.com )" + e + "\n");
+            }// catch end
+        }// for end
+    }
 
 }//class end

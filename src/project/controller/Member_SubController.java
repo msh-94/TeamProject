@@ -22,4 +22,20 @@ public class Member_SubController { // class start
         List<Member_SubDto> result = memberSubDao.subUserList();
         return result;
     }// func end
+
+    // 하위사이트 로그아웃
+    public void subSignOut(){
+        if (currentSubMno > 0){
+            currentSubMno = 0;
+        }// if end
+    }// func end
+
+
+
+    // 로그인 회원 정보 반환
+    public Member_SubDto subSignIn(){
+        Member_SubDto dto = memberSubDao.subSignIn();
+        return dto;
+    }// func end
+
 }// class end
