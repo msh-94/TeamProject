@@ -1,61 +1,64 @@
 drop database if exists 본사;
 create database 본사;
 use 본사;
-set sql_safe_updates = 0;
+set sql_safe_updates = 0; -- mysql workbench : safeMode 해제(끄기 0 / 켜기 1)
 
-create table plan( -- 구독플랜
-	pno int auto_increment primary key , 	-- 플랜번호
-    pName varchar(10) not null unique ,		-- 플랜명
-    pDate int unsigned default 1  , 		-- 기간
-    pMoney int unsigned default 0 			-- 금액
+create table plan(                          # 1.구독플랜(본사전용)Table
+    pno int unsigned auto_increment primary key , -- 구독플랜번호(pk)
+    pName varchar(10) not null unique ,           -- 구독플랜명
+    pDate int unsigned default 1 ,                -- 구독기간(월)
+    pMoney int unsigned default 0                 -- 금액(원)
 );
 
-create table Member_head( -- 회원
-	mno int auto_increment primary key, 	-- 회원번호
-    mCategory int unsigned not null ,		-- 회원유형
-    mId varchar(30) not null unique , 		-- 아이디
-    mPwd varchar(15) not null , 			-- 비밀번호
-    mPhone varchar(13) not null , 			-- 전화번호
-    mName varchar(10) not null ,  			-- 이름
-    mDate date default(current_date())  	-- 가입날짜
+create table Member_head(         			 # 2.본사회원Table
+    mno int unsigned auto_increment primary key,  -- 본사회원번호(pk)
+    mCategory tinyint unsigned not null ,         -- 회원유형(1.일반회원/2.택시기사/3.사업자)
+    mId varchar(30) not null unique ,             -- 로그인아이디
+    mPwd varchar(15) not null ,                   -- 로그인 비밀번호
+    mPhone varchar(13) not null ,                  -- 휴대폰번호
+    mName varchar(10) not null ,                  -- 이름
+    mDate date default(current_date)              -- 가입날짜
 );
 
-create table log( -- 구독로그
-	logno int auto_increment primary key, 		-- 로그번호
-    pno int,									-- 플랜번호
-    mno int ,									-- 회원번호
-    addDate date default (current_date()), 		-- 신청날짜
-    endDate date not null , 					-- 만료날짜
+create table log(                             # 3.구독로그(구독신청내역)Table
+    logno int unsigned auto_increment primary key, -- 로그번호(pk)
+    pno int unsigned ,                             -- 구독플랜번호(fk)
+    mno int unsigned ,                             -- 본사회원번호(fk)
+    addDate date default (current_date),           -- 신청날짜
+    endDate date not null ,                        -- 종료날짜
     constraint foreign key(pno) references plan(pno),
     constraint foreign key(mno) references Member_head(mno)
 );
 
-create table company( -- 회사
-	cno int auto_increment primary key,			-- 회사번호
-    mno int unique, 							-- 회원번호
-    cName varchar(30) not null unique , 		-- 회사명
-    area varchar(10) not null, 					-- 지역
-    service varchar(50),  						-- 서비스
+create table company(                 		  # 4.회사부가정보(구독자사이트 = 본사 하위사이트)Table
+    cno int unsigned auto_increment primary key,  -- 회사번호(pk)
+    mno int unsigned unique,                      -- 본사회원번호(fk)
+    cName varchar(30) not null unique ,           -- 사이트명
+    area varchar(10) not null,                    -- 서비스지역
+    service varchar(50),                          -- 서비스내용
     constraint foreign key(mno) references Member_head(mno)
 );
 
-create table Member_sub(
-	mno int auto_increment primary key,		-- 하위사이트 회원번호
-    cno int ,								-- 회사번호
-    mCategory int unsigned not null ,		-- 회원유형
-    mId varchar(30) not null unique , 		-- 아이디
-    mPwd varchar(15) not null , 			-- 비밀번호
-    mPhone varchar(13) not null , 			-- 전화번호
-    mName varchar(10) not null ,  			-- 이름
-    mDate date default(current_date()),  	-- 가입날짜
+create table Member_sub(            		 # 5.구독자사이트(=본사 하위사이트) 가입회원Table
+    mno int unsigned auto_increment primary key, -- 구독자사이트(=본사 하위사이트) 회원번호(pk)
+    cno int unsigned ,                           -- 회사번호_(fk)
+    mCategory tinyint unsigned not null ,        -- 구독자사이트 회원유형
+    mId varchar(30) not null unique ,            -- 구독자사이트 회원아이디
+    mPwd varchar(15) not null ,                  -- 구독자사이트 회원비밀번호
+    mPhone varchar(13) not null ,                -- 휴대폰번호
+    mName varchar(10) not null ,                 -- 이름
+    mDate date default(current_date),            -- 가입날짜
     constraint foreign key(cno) references company(cno)
 );
 
+# 1. Member_head Table 샘플데이터: 구독플랜(본사 전용메뉴)
 INSERT INTO plan (pName) VALUES('무료체험');
 INSERT INTO plan (pName,pDate,pMoney) VALUES('베이직',6,490000);
 INSERT INTO plan (pName,pDate,pMoney) VALUES('프리미엄',12,950000);
 
-insert into Member_head( mCategory , mId , mPwd , mPhone , mName , mDate) values( 3, 'admin', '1111', '010-0000-1111', '관리자', '2024-01-01'),
+# 2. Member_head Table 샘플데이터: 본사 회원
+insert into Member_head( mCategory , mId , mPwd , mPhone , mName , mDate) values
+( 3, 'admin', '1111', '010-0000-1111', '관리자', '2024-01-01'),
 ( 3, 'Adni', 'sdf2342', '010-0000-2222', '강호동', '2024-06-12'),
 ( 1, 'fff_dd', '234sdfa', '010-0000-3333', '조나단', '2024-05-15'),
 ( 2, 'a678ff', '123asdfd', '010-0000-4444', '탁재훈', '2024-05-03'),
@@ -65,10 +68,12 @@ insert into Member_head( mCategory , mId , mPwd , mPhone , mName , mDate) values
 ( 1, 'starfish', 'ef789012', '010-3333-3333', '김용만', '2024-03-20'),
 ( 1, 'blackdog', 'gh012345', '010-4444-4444', '서경석', '2024-03-28'),
 ( 3, 'markhani', 'qwe123', '010-4444-4444', '이수근', '2024-03-28'),
-( 2, 'orange88', 'ij345678', '010-5555-5555', '이경규', '2024-03-29');
+( 2, '111', '111', '010-5555-5555', '테스터1', '2024-03-29'),
+( 2, '222', '222', '010-5555-5555', '테스터2', '2024-03-30');
 
-
-insert into company (mno,cName,area,service) values( 11, '바로 택시온', '서울', '신규회원 5000point  + 택시요금 3% 적립'),
+# 3. company Table 샘플데이터: 본사 구독자사이트(=본사 하위사이트) 부가정보
+insert into company (mno,cName,area,service) values
+( 1, '바로 택시온', '서울', '신규회원 5000point  + 택시요금 3% 적립'),
 ( 3 , '콜마이택시', '부산', '신규회원 5000point  + 택시요금 3% 적립'),
 ( 2 , '스마트카택시', '대구', '신규회원 4000point + 택시요금 4% 적립'),
 ( 4 , '이지고택시', '인천', '신규회원 3000point + 택시요금 5% 적립'),
@@ -79,7 +84,9 @@ insert into company (mno,cName,area,service) values( 11, '바로 택시온', '�
 ( 9 , '택시드림', '제주', '신규회원 4000point + 택시요금 4% 적립'),
 ( 10 , '더굿택시', '창원', '신규회원 3000point + 택시요금 5% 적립');
 
-insert into log (pno , mno , addDate , endDate ) values( 1 , 1 , '2024-06-01' , '2024-07-01'),
+# 4. log Table 샘플데이터: 구독로그(구독신청내역)
+insert into log (pno , mno , addDate , endDate ) values
+( 1 , 1 , '2024-06-01' , '2024-07-01'),
 ( 3 , 3 , '2024-06-10' , '2025-06-10'),
 ( 2 , 2 , '2024-12-01' , '2025-06-01'),
 ( 3 , 4 , '2025-06-01' , '2025-07-01'),
@@ -90,37 +97,35 @@ insert into log (pno , mno , addDate , endDate ) values( 1 , 1 , '2024-06-01' , 
 ( 3 , 9 , '2025-07-24' , '2026-07-24'),
 ( 3 , 10 , '2025-06-01' , '2025-07-01');
 
+# 5. Member_sub 샘플데이터 : 구독자사이트(=본사 하위사이트) 가입회원
 INSERT INTO Member_sub (cno,mCategory,mId,mPwd,mPhone,mName,mDate) VALUES
-( 3 , 3 , 'Adni', 'sdf2342', '010-0000-2222', '강호동', '2024-06-12'),
-( 2 , 1 , 'fff_dd', '234sdfa', '010-0000-3333', '조나단', '2024-05-15'),
-( 4 , 2 , 'a678ff', '123asdfd', '010-0000-4444', '탁재훈', '2024-05-03'),
-( 5 , 3 ,'vbbvv', '5342aaa', '010-0000-5555', '신동엽', '2024-05-12'),
-( 6 , 3 , 'lemonboy', 'ab123456', '010-1111-1111', '유희열', '2024-04-25'),
-( 7 , 2 , 'greenfox', 'cd456789', '010-2222-2222', '정준하', '2024-05-26'),
-( 8 , 1 , 'starfish', 'ef789012', '010-3333-3333', '김용만', '2024-03-20'),
-( 9 , 1 , 'blackdog', 'gh012345', '010-4444-4444', '서경석', '2024-03-28'),
-( 10 , 3 , 'markhani', 'qwe123', '010-4444-4444', '이수근', '2024-03-28'),
-( 1 , 2 , 'orange88', 'ij345678', '010-5555-5555', '이경규', '2024-03-29'),
+( 3 , 3 , 'admin2', 'sdf2342', '010-0000-2222', '강호동', '2024-06-12'),
+( 2 , 1 , 'admin3', '234sdfa', '010-0000-3333', '조나단', '2024-05-15'),
+( 4 , 2 , 'admin4', '123asdfd', '010-0000-4444', '탁재훈', '2024-05-03'),
+( 5 , 3 ,'admin5', '5342aaa', '010-0000-5555', '신동엽', '2024-05-12'),
+( 6 , 3 , 'admin6', 'ab123456', '010-1111-1111', '유희열', '2024-04-25'),
+( 7 , 2 , 'admin7', 'cd456789', '010-2222-2222', '정준하', '2024-05-26'),
+( 8 , 1 , 'admin8', 'ef789012', '010-3333-3333', '김용만', '2024-03-20'),
+( 9 , 1 , 'admin9', 'gh012345', '010-4444-4444', '서경석', '2024-03-28'),
+( 10 , 3 , 'admin10', 'qwe123', '010-4444-4444', '이수근', '2024-03-28'),
+( 1 , 2 , 'admin11', 'ij345678', '010-5555-5555', '이경규', '2024-03-29'),
 ( 1 , 1, 'qwerty',  '234234', '010-1111-2222', '김철수', '2025-08-02'),
 ( 2 , 2 , 'asdfgh', '345345', '010-2222-3333', '이영희', '2025-08-03'),
 ( 3 , 2 , 'zxcvbn', '456456', '010-3333-4444', '박민수', '2025-08-04'),
 ( 4 , 1 , 'poiuyt', '567567', '010-4444-5555', '최지우', '2025-08-05'),
 ( 5 , 1 , 'lkjhgf', '678678', '010-5555-6666', '장동건', '2025-08-06'),
-( 6 , 1 , 'mnbvcx', '789789', '010-6666-7777', '한가인', '2025-08-07'),
-( 7 , 1 , 'qazwsx', '890890', '010-7777-8888', '송혜교', '2025-08-08'),
-( 8 , 2 , 'edcrfv', '901901', '010-8888-9999', '전지현', '2025-08-09'),
-( 9 , 2 , 'tgbnhy', '012012', '010-9999-0000', '김수현', '2025-08-10'),
-( 10 , 2 , 'plmokn', '345678', '010-1234-5678', '김하늘', '2025-08-11');
+( 6 , 1 , 'mnbvcx', '789789', '010-6666-7777', '한가인', '2025-08-07');
 
+select * from plan;        -- 구독플랜
+select * from company;     -- 구독회사 부가정보(=본사 하위사이트 부가정보)
+select * from log;         -- 구독로그(구독신청내역)
+select * from Member_head; -- 본사 가입회원
+select * from Member_sub;  -- 구독회사(=본사 하위사이트) 가입회원
 
-
-select * from plan;
-select * from company;
-select * from log;
-select * from Member_head;
-select * from Member_sub;
 
 -- select s.mno , s.mName from Member_head m join company c on m.mno = c.mno join Member_sub s on c.cno = s.cno where m.mId = s.mId;  -- c.cno 자리에 현재 들어가있는 사이트 회사번호 넣으면 관리자 정보
- select m.mno , c.area , p.pName , m.mId , m.mName , m.mCategory , m.mPhone , MIN(l.addDate) as firstDate , MAX(l.endDate) as lastDate from plan p join Log l on p.pno  = l.pno
+select m.mno , c.area , p.pName , m.mId , m.mName , m.mCategory , m.mPhone , MIN(l.addDate) as firstDate , MAX(l.endDate) as lastDate from plan p join Log l on p.pno  = l.pno
                     join Member_head m on m.mno = l.mno
                     join company c on m.mno = c.mno group by m.mno, c.area, p.pName, m.mId, m.mName, m.mCategory, m.mPhone having lastDate >= current_date() order by mno asc;
+
+ -- update log set endDate = "2025-01-01" where mno = 11 order by endDate desc , logno desc limit 1;--
