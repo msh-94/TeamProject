@@ -72,10 +72,17 @@ public class PlanController { // class start
 
     // 플랜 중지 해제 기능
     public boolean planRestart(int pno){
-        if (currentPno.contains(pno)){
-            currentPno.remove(pno);
-            return true;
-        }// if end
+        ArrayList<PlanDto> list = planDao.planList();
+        for (int i = 0; i < list.size(); i++){
+            PlanDto dto = list.get(i);
+            if (dto.getPno() == pno){ // view로 부터 들어오는 pno 와 같으면.
+                if( currentPno.contains( pno ) ){
+                    // 구독플랜 중지면
+                    currentPno.remove( Integer.valueOf(pno) );
+                }// func end
+                return true;
+            }// if end
+        }// for end
         return false;
     }// func end
 

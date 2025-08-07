@@ -2,11 +2,15 @@ package project.view; // 패키지명
 
 import project.controller.*;
 import project.model.dto.Member_HeadDto;
+import project.model.dto.Member_SubDto;
 import project.model.dto.PlanDto;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
+
+import static project.controller.PlanController.currentPno;
 
 public class AdminView {// class start
     // 싱글톤
@@ -36,25 +40,34 @@ public class AdminView {// class start
     // 3.2.구독플랜 조회
     public void planList(){
         ArrayList<PlanDto> result = pc.planList();
+        String 노출여부 = "활성화";
         DecimalFormat formatter = new DecimalFormat("#,###");
         System.out.println("--------------------------------------------------------------------------------------------- ");
-        System.out.println("No     구독플랜명     구독기간     금액(원)");
+        System.out.println("No     구독플랜명     구독기간     금액(원)     노출여부");
         System.out.println("--------------------------------------------------------------------------------------------- ");
         for(PlanDto dto : result){
+            if (currentPno.contains(dto.getPno()))노출여부 = "비활성화";
+            if (!currentPno.contains(dto.getPno())) 노출여부 = "활성화";
             String moneyFormatted = formatter.format(dto.getpMoney());
-        System.out.printf("%d\t   %s\t    %d개월\t    %s\t \n", dto.getPno(), dto.getpName(), dto.getpDate(), moneyFormatted);
+        System.out.printf("%d\t   %s\t    %d개월\t    %s\t    %s\n", dto.getPno(), dto.getpName(), dto.getpDate(), moneyFormatted,노출여부);
         }//for e
-        System.out.print("상품을 중단 하시겠습니까? 1.예 2.아니오 : ");  int choose = TotalView.scan.nextInt();
+        System.out.print("플랜 활성화/비활성화(1/2) : ");  int choose = TotalView.scan.nextInt();
         if (choose == 1){
-            System.out.print("중단하실 플랜번호 : ");     int pno = TotalView.scan.nextInt();
-            boolean check = pc.planStop(pno);
+            System.out.print("활성화 하실 플랜번호 : ");     int pno = TotalView.scan.nextInt();
+            boolean check = pc.planRestart(pno);
             if (check){
-                System.out.println("[안내] 입력하신 플랜상품이 중단 되었습니다.");
+                System.out.println("[안내] 입력하신 플랜상품이 활성화 되었습니다.");
             }else {
                 System.out.println("[경고] 존재하지 않는 플랜번호 입니다. ");
             }// if end
         }else if (choose == 2){
-            return;
+            System.out.print("비활성화 하실 플랜번호 : ");     int pno = TotalView.scan.nextInt();
+            boolean check = pc.planStop(pno);
+            if (check){
+                System.out.println("[안내] 입력하신 플랜상품이 비활성화 되었습니다.");
+            }else {
+                System.out.println("[경고] 존재하지 않는 플랜번호 입니다. ");
+            }// if end
         }else {
             System.out.println("존재하지 않는 번호 입니다. ");
         }// if end
@@ -156,9 +169,34 @@ public class AdminView {// class start
         }// for end
     }// func end
 
-
     // 3.7.구독신청 내역조회
     public void subscribePrint(){
         System.out.println("\n7.구독신청 내역조회\n");
     }//func end
+
+    // 하위사이트 회원목록조회
+    public void subUserList(){
+        List<Member_SubDto> result = msc.subUserList();
+        String memberType;
+        System.out.println("---------------------------- 회원 목록 조회 ---------------------------");
+        System.out.println("----------------------------------------------------------------------------------");
+        System.out.println("No         회원유형         아이디         이름      휴대폰번호       가입일");
+        System.out.println("----------------------------------------------------------------------------------");
+        for(Member_SubDto dto : result) {
+            int Category = dto.getmCategory();
+            if (Category == 1) {
+                memberType = "일반회원";
+            } else if (Category == 2) {
+                memberType = "택시기사";
+            } else if (Category == 3) {
+                memberType = "사업자";
+            } else {
+                memberType = "없는유형";
+            }// if end
+            System.out.printf("%d\t%10s\t%10s\t%10s\t%10s\t%10s \n",
+                    dto.getMno(), memberType, dto.getmId(),
+                    dto.getmPhone(), dto.getmName(), dto.getmDate());
+        }// for end
+    }// func end
+
 }// class end

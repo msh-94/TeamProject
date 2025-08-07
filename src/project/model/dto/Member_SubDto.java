@@ -87,6 +87,15 @@ public class Member_SubDto {
     public void setmDate(String mDate) {
         this.mDate = mDate;
     }
+
+    public String getmPhone() {
+        return mPhone;
+    }
+
+    public void setmPhone(String mPhone) {
+        this.mPhone = mPhone;
+    }
+
     @Override
     public String toString() {
         return "Member_SubDto{" +

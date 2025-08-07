@@ -108,4 +108,27 @@ public class TotalView {
         else System.out.println("\n[경고] 올바른 메뉴(숫자)를 입력하세요.\n");
     }// func end
 
+
+    /* ======================================== ★ 하위사이트 화면(view) ★ =========================================== */
+    public void subAdmin(){
+        CompanyDto dto = cc.siteManaser(currentMno);
+        for ( ; ;){
+            try{
+                System.out.printf("┌───────────────────<<🛡️ %s(본사관리자)🛡️>>───────────────────────┐\n",dto.getcName());
+                System.out.println("      1.회원목록   2.로그아웃 ");
+                System.out.println("└──────────────────────────────────────────────────────────────────────┘");
+                System.out.print("✔️ 메뉴선택 > ");
+                int choose = scan.nextInt();
+                if (choose == 1) av.subUserList();
+                else if (choose == 2) {uv.signOut(); break;}
+                else System.out.println("\n[경고] 해당하는 메뉴(숫자)를 입력하세요.\n");
+            }catch (InputMismatchException e){
+                System.out.println( "\n[경고] 입력타입 불일치! 숫자를 입력하세요." + e + "\n" );
+                scan = new Scanner(System.in);
+            } catch (Exception e) {
+                System.out.println("\n[오류] 개발팀 문의( root.kjs82@gmail.com )" + e + "\n");
+            }// catch end
+        }// for end
+    }// func end
+
 }//class end
