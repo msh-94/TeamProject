@@ -9,5 +9,5 @@ public class AppStart {
         TotalView.getInstance().index(); // 본사 > 사용자단 > 메인공통화면(view)
 
 
-    } // 푸시용12345
+    } // 푸시용1
 }//class end
