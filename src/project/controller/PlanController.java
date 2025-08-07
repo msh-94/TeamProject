@@ -54,7 +54,7 @@ public class PlanController { // class start
         return result;
     }//func end
 
-    // 유효성검사 후 중지할 플랜번호 리스트에 추가
+    // 플랜 비활성화
     public boolean planStop(int pno){
         ArrayList<PlanDto> list = planDao.planList();
         for (int i = 0; i < list.size(); i++){
@@ -70,7 +70,7 @@ public class PlanController { // class start
         return false;
     }// func end
 
-    // 플랜 중지 해제 기능
+    // 플랜 활성화
     public boolean planRestart(int pno){
         ArrayList<PlanDto> list = planDao.planList();
         for (int i = 0; i < list.size(); i++){
