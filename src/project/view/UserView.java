@@ -167,7 +167,7 @@ public class UserView { // class start
                 System.out.println("\n[경고] 입력타입 불일치! 숫자를 입력하세요." + e + "\n");
                 scan = new Scanner(System.in);//입력객체 초기화
             } catch (Exception e) {
-                System.out.println( "\n[오류] 개발팀 문의( root.kjs82@gmail.com )" + e + "\n" );
+                System.out.println( "\n[오류] 개발팀 문의 " + e + "\n" );
             }// catch end
         }// for end
     }//func end
@@ -192,11 +192,11 @@ public class UserView { // class start
         System.out.print("수정할 전화번호 : ");    String mPhone = scan.next();
         int result = mhc.updateProfile(mPwd,mPhone,mPwd1);
         if (result == 1){
-            System.out.println("[안내] 정보수정이 완료되었습니다.");
+            System.out.println("[안내] 정보수정이 완료되었습니다.\n");
         }else if (result == 2){
-            System.out.println("[경고] 비밀번호가 불일치합니다. ");
+            System.out.println("[경고] 비밀번호가 불일치합니다.\n");
         }else {
-            System.out.println("[오류] 관리자 문의! (000-0000)");
+            System.out.println("[오류] 개발팀 문의");
         }// if end
     }//func end
 
@@ -206,7 +206,7 @@ public class UserView { // class start
             currentMno = 0;
             System.out.println("로그아웃 되었습니다.");
         }else {
-            System.out.println("[오류] 관리자 문의! (000-0000)");
+            System.out.println("[오류] 개발팀 문의 ");
         }
     }//func end
 
@@ -234,7 +234,7 @@ public class UserView { // class start
                 System.out.println("\n[경고] 입력타입 불일치! 숫자를 입력하세요." + e + "\n");
                 scan = new Scanner(System.in);//입력객체 초기화
             } catch (Exception e) {
-                System.out.println( "\n[오류] 개발팀 문의( root.kjs82@gmail.com )" + e + "\n" );
+                System.out.println( "\n[오류] 개발팀 문의 " + e + "\n" );
             }// catch end
         }// for end
     }// func end
@@ -270,9 +270,9 @@ public class UserView { // class start
     public void withdrawUser(){
         boolean result = mhc.withdrawUser();
         if (result){
-            System.out.println("[안내] 회원탈퇴 되었습니다.");
+            System.out.println("[안내] 회원탈퇴 되었습니다.\n");
         }else {
-            System.out.println("[오류] 관리자 문의! (000-0000)");
+            System.out.println("[오류] 개발팀 문의\n");
         }// if end
     }//func end
 
@@ -282,9 +282,9 @@ public class UserView { // class start
         System.out.println("\n8.구독취소\n");
         boolean result = lc.subscribeCancle( currentMno );
         if( result  ) {
-            System.out.println("구독 취소되었습니다. ");
+            System.out.println("구독 취소되었습니다.\n");
         } else {
-            System.out.println("[오류] 관리자 문의(000-0000)");
+            System.out.println("[오류] 관리자 문의\n");
         }
     }//func end
 

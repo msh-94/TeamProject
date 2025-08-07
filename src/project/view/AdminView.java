@@ -29,9 +29,9 @@ public class AdminView {// class start
         System.out.print("- 금액(VAT포함가): ");  int pMoney = TotalView.scan.nextInt();
         boolean result = pc.planAdd(pName,pDate,pMoney);
         if(result){
-            System.out.println("[안내] 구독플랜이 등록되었습니다.");
+            System.out.println("[안내] 구독플랜이 등록되었습니다.\n");
         }else {
-            System.out.println("[경고] 이미 존재하는 구독플랜명이 있습니다. ");
+            System.out.println("[경고] 이미 존재하는 구독플랜명이 있습니다.\n");
         }//if end
     }//func end
 
@@ -51,14 +51,14 @@ public class AdminView {// class start
             System.out.print("중단하실 플랜번호 : ");     int pno = TotalView.scan.nextInt();
             boolean check = pc.planStop(pno);
             if (check){
-                System.out.println("[안내] 입력하신 플랜상품이 중단 되었습니다.");
+                System.out.println("[안내] 입력하신 플랜상품이 중단 되었습니다.\n");
             }else {
-                System.out.println("[경고] 존재하지 않는 플랜번호 입니다. ");
+                System.out.println("[경고] 존재하지 않는 플랜번호 입니다.\n");
             }// if end
         }else if (choose == 2){
             return;
         }else {
-            System.out.println("존재하지 않는 번호 입니다. ");
+            System.out.println("존재하지 않는 번호 입니다.\n");
         }// if end
     }//func end
 
@@ -70,9 +70,9 @@ public class AdminView {// class start
         System.out.print("- 금액(VAT포함가) : "); int pMoney = TotalView.scan.nextInt();
         int result = pc.planEdit(new PlanDto(pno,pName,pDate,pMoney));  //플랜수정 호출
         if(result==1){
-            System.out.println("[안내] 구독플랜이 수정되었습니다");
+            System.out.println("[안내] 구독플랜이 수정되었습니다.\n");
         }else if(result==2){
-            System.out.println("[경고] 구독중인 구독자가 있는 구독플랜은 수정이 불가합니다.");
+            System.out.println("[경고] 구독중인 구독자가 있는 구독플랜은 수정이 불가합니다.\n");
         }//if end
     }//func end
 
@@ -89,9 +89,9 @@ public class AdminView {// class start
         System.out.print("삭제할 플랜번호: "); int pno = TotalView.scan.nextInt();
         boolean resultDelete = pc.planDelete(pno);
         if(resultDelete){
-            System.out.println("[안내] 구독플랜이 삭제되었습니다.");
+            System.out.println("[안내] 구독플랜이 삭제되었습니다.\n");
         }else{
-            System.out.println("[오류] 개발팀 문의");
+            System.out.println("[오류] 개발팀 문의\n");
         }
     }//func end
 
