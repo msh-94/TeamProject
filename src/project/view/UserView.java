@@ -283,7 +283,7 @@ public class UserView { // class start
                 return "8.구독취소";  // 구독중이면 메뉴 표시
             }
         } else {//구독로그 없거나 회원정보 없음
-            return "8.구독취소";
+            return "";
         }
     }// func end
 
