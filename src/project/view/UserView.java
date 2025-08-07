@@ -258,21 +258,9 @@ public class UserView { // class start
             System.out.println("[오류] 관리자 문의! (000-0000)");
         }// if end
     }//func end
-
-    // 2.8.구독취소
-   // public static String cancelMenu ="";
-    public String cancelMenu(){
-        LogDto mLog = lc.subscribeState( currentMno );
-        LocalDate endDate = LocalDate.parse( mLog.getEndDate(), formatter);
-        if( toDay.isAfter( endDate ) ) {
-            String cancelMenu = "";
-            return cancelMenu;
-        } else {
-            String cancelMenu = "8.구독취소";
-            return cancelMenu;
-        }
-    }// func end
-
+    
+    
+    // 2.8. 구독취소
     public void subscribeCancle(){
         System.out.println("\n8.구독취소\n");
         boolean result = lc.subscribeCancle( currentMno );
@@ -282,5 +270,27 @@ public class UserView { // class start
             System.out.println("[오류] 관리자 문의(000-0000)");
         }
     }//func end
+
+    // 2.9.사용자 메뉴 변경(구독취소 메뉴)
+    public String cancelMenu(){
+        LogDto mLog = lc.subscribeState( currentMno );
+        LocalDate endDate = LocalDate.parse( mLog.getEndDate(), formatter);
+        if( toDay.isAfter( endDate ) ) {
+            String cancelMenu = ""; return cancelMenu;
+        } else {
+            String cancelMenu = "8.구독취소"; return cancelMenu;
+        }
+    }// func end
+
+    // 2.10.사용자 메뉴 변경(구독취소 메뉴)
+    public String cancelMenu2(){
+        LogDto mLog = lc.subscribeState( currentMno );
+        LocalDate endDate = LocalDate.parse( mLog.getEndDate(), formatter);
+        if( toDay.isAfter( endDate ) ) {
+            String cancelMenu = "4.데모체험"; return cancelMenu;
+        } else {
+            String cancelMenu = "4.내사이트가기"; return cancelMenu;
+        }
+    }// func end
 
 }// class end
