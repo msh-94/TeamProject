@@ -1,12 +1,13 @@
 package project.view; // 패키지명
 
 import project.controller.*;
-import project.model.dao.LogDao;
 import project.model.dto.CompanyDto;
 import project.model.dto.LogDto;
 import project.model.dto.Member_HeadDto;
 import project.model.dto.PlanDto;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.Scanner;
@@ -16,6 +17,7 @@ import java.util.Map;
 import static project.controller.CompanyController.currentCno;
 import static project.controller.Member_HeadController.currentMno;
 import static project.controller.PlanController.currentPno;
+import static project.model.dao.LogDao.formatter;
 import static project.model.dao.LogDao.toDay;
 import static project.view.TotalView.scan;
 
@@ -230,7 +232,7 @@ public class UserView { // class start
 
     // 2.6.구독현황
     public void subscribeState(){
-        System.out.println("6.구독현황\n");
+        System.out.println("\n6.구독현황\n");
         ArrayList<PlanDto> planDtos = pc.planList();
         LogDto result = lc.subscribeState( currentMno );
         if( result != null  ){ // && result.getEndDate() == toDay
@@ -259,16 +261,27 @@ public class UserView { // class start
     }//func end
 
     // 2.8.구독취소
+   // public static String cancelMenu ="";
+    public String cancelMenu(){
+        LogDto mLog = lc.subscribeState( currentMno );
+        LocalDate endDate = LocalDate.parse( mLog.getEndDate(), formatter);
+        if( toDay.isAfter( endDate ) ) {
+            String cancelMenu = "";
+            return cancelMenu;
+        } else {
+            String cancelMenu = "8.구독취소";
+            return cancelMenu;
+        }
+    }// func end
+
     public void subscribeCancle(){
         System.out.println("\n8.구독취소\n");
-
         boolean result = lc.subscribeCancle( currentMno );
-        if( result ){
+        if( result  ) {
             System.out.println("구독 취소되었습니다. ");
-        }else {
+        } else {
             System.out.println("[오류] 관리자 문의(000-0000)");
         }
-
     }//func end
 
 }// class end

@@ -161,8 +161,6 @@ public class AdminView {// class start
 
     // 3.7.구독신청 내역조회
     public void subscribePrint(){
-        System.out.println(
-                "\n7.구독신청 내역조회\n"
-        );
+        System.out.println("\n7.구독신청 내역조회\n");
     }//func end
 }// class end

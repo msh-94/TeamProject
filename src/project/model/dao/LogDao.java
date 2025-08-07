@@ -15,8 +15,8 @@ public class LogDao extends Dao{
     public static LogDao getInstance(){ return instance; }
 
     // 날짜 객체
-    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd"); //날짜포맷
-    LocalDate toDay = LocalDate.now(); //오늘날짜 객체
+    public static DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd"); //날짜포맷
+    public static  LocalDate toDay = LocalDate.now(); //오늘날짜 객체
 
     /* ======================================== ★ 단위기능 ★ ============================================== */
     // 1. 구독신청(본사 사용자단)
@@ -122,11 +122,11 @@ public class LogDao extends Dao{
             //String sql =  "delete from log where mno = ? order by endDate desc limit 1";
             String sql = "update log set endDate = ? where mno = ? order by endDate desc , logno desc limit 1;";
             PreparedStatement ps = conn.prepareStatement(sql);
-            String endDate = toDay.toString();
+            String cancelDate = toDay.minusDays(1).toString(); // 구독취소일 - 1일로 수정
 
-            ps.setString(1, endDate);
+            ps.setString(1, cancelDate);
             ps.setInt(2, mno);
-            System.out.println( "취소일: " + endDate );
+            //System.out.println("endDate = " + cancelDate);
             int count = ps.executeUpdate(); 
             if( count == 1 ) return true;
             else return false;
