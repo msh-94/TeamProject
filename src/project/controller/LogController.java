@@ -3,6 +3,7 @@ package project.controller; // 패키지명
 import project.model.dao.LogDao;
 import project.model.dto.LogDto;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 /* 구독신청(Log table) 관련 */
@@ -36,8 +37,8 @@ public class LogController {
     }//func end
 
     // 4. 구독신청 내역조회(본사 관리자)
-    public ArrayList<LogDto> subscribelList(){
-        ArrayList<LogDto> result = logDao.subscribelList( );
+    public List<LogDto> subscribelList(){
+        List<LogDto> result = logDao.subscribelList( );
         return result;
     }//func end
 

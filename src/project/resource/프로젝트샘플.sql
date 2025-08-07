@@ -15,7 +15,7 @@ create table Member_head(         			 # 2.본사회원Table
     mCategory tinyint unsigned not null ,         -- 회원유형(1.일반회원/2.택시기사/3.사업자)
     mId varchar(30) not null unique ,             -- 로그인아이디
     mPwd varchar(15) not null ,                   -- 로그인 비밀번호
-    mPhone varchar(13) not null ,                 -- 휴대폰번호
+    mPhone varchar(13) not null ,                  -- 휴대폰번호
     mName varchar(10) not null ,                  -- 이름
     mDate date default(current_date)              -- 가입날짜
 );

@@ -6,6 +6,7 @@ import java.sql.ResultSet;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 public class LogDao extends Dao{
@@ -135,8 +136,8 @@ public class LogDao extends Dao{
     }//func end
 
     // 4. 구독신청 내역조회(본사 관리자)
-    public ArrayList<LogDto> subscribelList(){
-        ArrayList<LogDto> logList = new ArrayList<>();
+    public List<LogDto> subscribelList(){
+        List<LogDto> logList = new ArrayList<>();
         try {
             String sql =  "select * from log";
             PreparedStatement ps = conn.prepareStatement(sql);
