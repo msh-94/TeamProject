@@ -19,10 +19,10 @@ public class Member_SubDao extends Dao { // class start
 
 
     // [구독회사] 회원가입 (구독회사 테이블 만들어지고 구현)
-    public int signUp(int mCategory,String mId, String mPwd, String mName, String mPhone,String mDate){
+    public int subSignUp(int mCategory,String mId, String mPwd, String mName, String mPhone){
         try {
             // 1. SQL 작성한다.
-            String sql = "INSERT INTO Member_sub (cno,mCategory,mId,mPwd,mPhone,mName,mDate) VALUES(?,?,?,?,?,?,?)";
+            String sql = "INSERT INTO Member_sub (cno,mCategory,mId,mPwd,mPhone,mName) VALUES(?,?,?,?,?,?)";
             // 2. SQL 기재한다..
             PreparedStatement ps = conn.prepareStatement(sql);
             // 3. SQL 매개변수 대입
@@ -66,11 +66,13 @@ public class Member_SubDao extends Dao { // class start
     }// func end
 
     // 로그인한 회원 정보반환
-    public Member_SubDto subSignIn(){
+    public Member_SubDto subSignIn(String mId , String mPwd){
         Member_SubDto dto = new Member_SubDto();
         try{
             String sql = "select * from Member_sub where mId = ? and mPwd = ?";
             PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setString(1,mId);
+            ps.setString(2,mPwd);
             ResultSet rs = ps.executeQuery();
             if (rs.next()){
                 dto.setMno(rs.getInt("mno"));

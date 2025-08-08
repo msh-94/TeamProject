@@ -1,10 +1,7 @@
 package project.view; // 패키지명
 
 import project.controller.*;
-import project.model.dto.CompanyDto;
-import project.model.dto.LogDto;
-import project.model.dto.Member_HeadDto;
-import project.model.dto.PlanDto;
+import project.model.dto.*;
 
 import java.text.DecimalFormat;
 import java.time.LocalDate;
@@ -218,10 +215,9 @@ public class UserView { // class start
                 int choose = scan.nextInt();
                 if (choose == 1) {
                     TotalView.getInstance().subAdmin();
-
                     currentSubMno = 0;
                 } else if (choose == 2) {
-                    System.out.println("사용자단");
+                    TotalView.getInstance().subUser();
                 } else if (choose == 3) {
                     currentCno = 0;
                     break;
@@ -317,5 +313,47 @@ public class UserView { // class start
             return "4.데모체험";
         }
     }// func end
+
+    // 하위사이트 회원가입
+    public void subSignUp(){
+        System.out.println("\n1.회원가입");
+        System.out.print(" - 회원유형(1.일반회원 2.택시기사 3.사업자) :  "); int mCategory = scan.nextInt();
+        System.out.print(" - 아이디: "); String mId = scan.next();
+        System.out.print(" - 비밀번호: "); String mPwd = scan.next();
+        System.out.print(" - 이름: "); String mName = scan.next();
+        System.out.print(" - 전화번호: "); String mPhone = scan.next();
+        int result = msc.subSignUp(mCategory,mId,mPwd,mName,mPhone);
+        if(result==1){
+            System.out.println("[안내] 회원가입이 완료되었습니다.\n");
+        }else if(result==2){
+            System.out.println("[경고] 이미 존재하는 아이디 입니다.");
+        }else {
+            System.out.println("[경고] 회원가입 실패. 다시 시도 해주세요.\n");
+        } //if end
+    }//func end
+
+    // 하위사이트 로그인 기능
+    public void subLogIn(){
+        System.out.println("\n2.로그인");
+        System.out.print(" - 아이디 : ");     String mId = scan.next();
+        System.out.print(" - 비밀번호 : ");    String mPwd = scan.next();
+        Member_SubDto result = msc.subSignIn(mId,mPwd);
+        if (result.getmId() == null){
+            System.out.println("\n[경고] 존재하지 않는 계정입니다.\n");
+        }else {
+            System.out.printf("\n[안내] 반갑습니다 %s님\n",result.getmName());
+        }// if end
+    }//func end
+
+    // 하위사이트 로그아웃 기능
+    // 2.2.로그아웃
+    public void subSignOut(){
+        if(currentSubMno > 0){
+            currentSubMno = 0;
+            System.out.println("\n로그아웃 되었습니다.\n");
+        }else {
+            System.out.println("[오류] 개발팀 문의 ");
+        }// if end
+    }//func end
 
 }// class end
