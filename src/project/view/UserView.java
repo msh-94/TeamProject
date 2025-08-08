@@ -266,6 +266,7 @@ public class UserView { // class start
         boolean result = mhc.withdrawUser();
         if (result){
             System.out.println("[안내] 회원탈퇴 되었습니다.\n");
+            currentMno = 0;
         }else {
             System.out.println("[오류] 개발팀 문의\n");
         }// if end

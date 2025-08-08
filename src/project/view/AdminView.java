@@ -55,7 +55,7 @@ public class AdminView {// class start
             String moneyFormatted = formatter.format(dto.getpMoney());
         System.out.printf("%d\t   %6s\t    %6d개월\t    %6s\t \n", dto.getPno(), dto.getpName(), dto.getpDate(), moneyFormatted,노출여부);
         }//for e
-        System.out.print("플랜 활성화/비활성화(1/2) : ");  int choose = TotalView.scan.nextInt();
+        System.out.print("플랜 활성화/비활성화/뒤로가기(1/2/3) : ");  int choose = TotalView.scan.nextInt();
         if (choose == 1){
             System.out.print("활성화 하실 플랜번호 : ");     int pno = TotalView.scan.nextInt();
             boolean check = pc.planRestart(pno);
@@ -73,8 +73,11 @@ public class AdminView {// class start
             }else {
                 System.out.println("[경고] 존재하지 않는 플랜번호 입니다.\n");
             }// if end
-        }else {
-            System.out.println("존재하지 않는 번호 입니다.\n");
+        }else if (choose == 3){
+            return;
+        }
+        else {
+            System.out.println("[경고] 존재하지 않는 번호 입니다.\n");
         }// if end
     }//func end
 
