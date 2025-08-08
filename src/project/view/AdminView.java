@@ -207,7 +207,7 @@ public class AdminView {// class start
         String memberType;
         System.out.println("\n1.회원목록");
         System.out.println("----------------------------------------------------------------------------");
-        System.out.println("No        회원유형       아이디       이름       휴대폰번호       가입일");
+        System.out.println("No        회원유형       아이디       이름       휴대폰번호         가입일");
         System.out.println("----------------------------------------------------------------------------");
         for(Member_SubDto dto : result) {
             int Category = dto.getmCategory();
@@ -220,7 +220,7 @@ public class AdminView {// class start
             } else {
                 memberType = "없는유형";
             }// if end
-            System.out.printf("%d\t%7s\t%7s\t%7s\t%10s\t%10s \n",
+            System.out.printf("%d\t%10s\t%10s\t%5s\t%16s\t%s \n",
                     dto.getMno(), memberType, dto.getmId(),
                     dto.getmName(), dto.getmPhone(), dto.getmDate());
         }// for end
