@@ -139,9 +139,9 @@ public class UserView { // class start
     public void siteManasers(){
         for ( ; ; ){
             try {
-                System.out.println("---------------------------------------------------------------------------");
+                System.out.println("--------------------------------------------------------------------------");
                 System.out.println("< 데모체험 >  1.관리자단(ADMIN)     2. 사용자단(USER)     3. 본사바로가기");
-                System.out.println("---------------------------------------------------------------------------");
+                System.out.println("--------------------------------------------------------------------------");
                 System.out.print("✔️ 선택 > ");
                 int choose = scan.nextInt();
                 if (choose == 1) {
@@ -208,9 +208,9 @@ public class UserView { // class start
         CompanyDto result = cc.siteManaser(currentMno);
         for ( ; ;){
             try {
-                System.out.println("------------------------------------------------------------------------");
+                System.out.println("--------------------------------------------------------------------------");
                 System.out.printf("< %s >    1.관리자단(ADMIN)      2. 사용자단(USER)      3. 본사바로가기\n", result.getcName());
-                System.out.println("------------------------------------------------------------------------");
+                System.out.println("--------------------------------------------------------------------------");
                 System.out.print("선택 > ");
                 int choose = scan.nextInt();
                 if (choose == 1) {
@@ -242,12 +242,13 @@ public class UserView { // class start
             ArrayList<PlanDto> planDtos = pc.planList();
             PlanDto selectPlan = null;
             for (PlanDto dto : planDtos) {
-                if (dto.getPno() == result.getPno()) {
+                if (result.getPno()== dto.getPno() ) {
                     selectPlan = dto;
                     break;
                 }
             }
             if( selectPlan != null ){
+                System.out.printf(" - 구독번호: %s\n", result.getLogno());
                 System.out.printf(" - 구독플랜명: %s\n", selectPlan.getpName());
                 System.out.printf(" - 구독기간: %s개월\n", selectPlan.getpDate());
                 System.out.printf(" - 구독금액: %s원\n", selectPlan.getpMoney());

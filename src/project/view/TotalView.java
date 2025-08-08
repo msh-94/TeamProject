@@ -119,9 +119,9 @@ public class TotalView {
         CompanyDto dto = cc.siteManaser(currentMno);
         for ( ; ;){
             try{
-                System.out.printf("┌───────────────────<<🛡️ %s(%s_관리자)🛡️>>──────────────────────────┐\n",dto.getcName(),dto.getArea());
+                System.out.printf("┌───────<<👑 %s(%s_사이트관리자) 👑>>─────┐\n",dto.getcName(),dto.getArea());
                 System.out.println("      1.회원목록   2.로그아웃 ");
-                System.out.println("└──────────────────────────────────────────────────────────────────────┘");
+                System.out.println("└──────────────────────────────────────┘");
                 System.out.print("✔️ 메뉴선택 > ");
                 int choose = scan.nextInt();
                 if (choose == 1) av.subUserList();
@@ -131,7 +131,7 @@ public class TotalView {
                 System.out.println( "\n[경고] 입력타입 불일치! 숫자를 입력하세요." + e + "\n" );
                 scan = new Scanner(System.in);
             } catch (Exception e) {
-                System.out.println("\n[오류] 개발팀 문의( root.kjs82@gmail.com )" + e + "\n");
+                System.out.println("\n[오류] 개발팀 문의" + e + "\n");
             }// catch end
         }// for end
     }// func end
@@ -141,9 +141,9 @@ public class TotalView {
         for ( ; ;){
             CompanyDto dto = cc.siteManaser(currentMno);
             try{
-                System.out.printf("┌───────────────────<<🛡️ %s(%s_유저)🛡️>>──────────────────────────┐\n",dto.getcName(),dto.getArea());
+                System.out.printf("=============<<🙂 %s(%s_택시사이트) 🙂>>=============\n",dto.getcName(),dto.getArea());
                 System.out.println("      1.회원가입   2.로그인   3.로그아웃");
-                System.out.println("└──────────────────────────────────────────────────────────────────────┘");
+                System.out.println("===================================================");
                 System.out.print("✔️ 메뉴선택 > ");
                 int choose = scan.nextInt();
                 if (choose == 1) uv.subSignUp();
@@ -154,9 +154,9 @@ public class TotalView {
                 System.out.println( "\n[경고] 입력타입 불일치! 숫자를 입력하세요." + e + "\n" );
                 scan = new Scanner(System.in);
             } catch (Exception e) {
-                System.out.println("\n[오류] 개발팀 문의( root.kjs82@gmail.com )" + e + "\n");
+                System.out.println("\n[오류] 개발팀 문의" + e + "\n");
             }// catch end
         }// for end
-    }
+    }// func end
 
 }//class end

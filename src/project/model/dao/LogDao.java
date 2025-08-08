@@ -98,12 +98,12 @@ public class LogDao extends Dao{
     public LogDto subscribeState( int mno ){
         LogDto logDto = new LogDto();
         try {/* 로그 테이블 > mno 존재여부 순회 */
-            String sql =  "select * from log where mno = ? order by endDate desc limit 1";
+            String sql =  "select * from log where mno = ? order by endDate desc, logno desc limit 1";
             PreparedStatement ps = conn.prepareStatement(sql);
             ps.setInt(1, mno);
             ResultSet rs = ps.executeQuery();
             while ( rs.next() ){
-                logDto.setLogno(rs.getInt("logno"));
+                //logDto.setLogno(rs.getInt("logno"));
                 logDto.setPno(rs.getInt("pno"));
                 logDto.setMno(rs.getInt("mno"));
                 logDto.setAddDate(rs.getString("addDate"));
