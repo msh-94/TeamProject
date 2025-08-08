@@ -139,9 +139,9 @@ public class UserView { // class start
     public void siteManasers(){
         for ( ; ; ){
             try {
-                System.out.println("---------------------------------------------------------------------------");
+                System.out.println("--------------------------------------------------------------------------");
                 System.out.println("< 데모체험 >  1.관리자단(ADMIN)     2. 사용자단(USER)     3. 본사바로가기");
-                System.out.println("---------------------------------------------------------------------------");
+                System.out.println("--------------------------------------------------------------------------");
                 System.out.print("✔️ 선택 > ");
                 int choose = scan.nextInt();
                 if (choose == 1) {
@@ -208,9 +208,9 @@ public class UserView { // class start
         CompanyDto result = cc.siteManaser(currentMno);
         for ( ; ;){
             try {
-                System.out.println("------------------------------------------------------------------------");
+                System.out.println("--------------------------------------------------------------------------");
                 System.out.printf("< %s >    1.관리자단(ADMIN)      2. 사용자단(USER)      3. 본사바로가기\n", result.getcName());
-                System.out.println("------------------------------------------------------------------------");
+                System.out.println("--------------------------------------------------------------------------");
                 System.out.print("선택 > ");
                 int choose = scan.nextInt();
                 if (choose == 1) {
