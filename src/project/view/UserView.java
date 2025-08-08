@@ -110,29 +110,29 @@ public class UserView { // class start
             if (selectPlan != null) {
                 System.out.printf(" - 신청하신 구독: %d)%s(%d개월/%d원)\n", selectPlan.getPno(), selectPlan.getpName(), selectPlan.getpDate(), selectPlan.getpMoney());
                 //System.out.printf("구독종료일(예정):  ");
+                String cName=""; String area=""; String service = "";
+                if( mLog.getEndDate() == null  ) { // 구독로그가 없는 회원
+                    System.out.print("\n - 콜택시사이트명 : ");
+                    cName = scan.next();
+                    System.out.print(" - 서비스 지역 : ");
+                    area = scan.next();
+                    scan.nextLine();
+                    System.out.print(" - 서비스 내용 : ");
+                    service = scan.nextLine();
+                }// if end
+                Map<String, Object> subscribeInfo = new HashMap<>();
+                subscribeInfo.put("mno", currentMno);
+                subscribeInfo.put("pno", selectPlan.getPno());
+                subscribeInfo.put("pDate", selectPlan.getpDate());
+                subscribeInfo.put("cName", cName);
+                subscribeInfo.put("area", area);
+                subscribeInfo.put("service", service);
+                boolean result = lc.subscribeRequest(subscribeInfo);
+                if( result ){ System.out.printf("\n[안내] %s 구독신청되었습니다.\n\n", selectPlan.getpName() );
+                }else { System.out.println("\n[경고] 올바른 정보를 입력하세요.\n"); }// if end
             }else{
                 System.out.println("올바른 구독플랜 숫자를 선택하세요!");
-            }
-            String cName=""; String area=""; String service = "";
-            if( mLog.getEndDate() == null  ) { // 구독로그가 없는 회원
-                System.out.print("\n - 콜택시사이트명 : ");
-                cName = scan.next();
-                System.out.print(" - 서비스 지역 : ");
-                area = scan.next();
-                scan.nextLine();
-                System.out.print(" - 서비스 내용 : ");
-                service = scan.nextLine();
-            }
-            Map<String, Object> subscribeInfo = new HashMap<>();
-            subscribeInfo.put("mno", currentMno);
-            subscribeInfo.put("pno", selectPlan.getPno());
-            subscribeInfo.put("pDate", selectPlan.getpDate());
-            subscribeInfo.put("cName", cName);
-            subscribeInfo.put("area", area);
-            subscribeInfo.put("service", service);
-            boolean result = lc.subscribeRequest(subscribeInfo);
-            if( result ){ System.out.printf("\n[안내] %s 구독신청되었습니다.\n\n", selectPlan.getpName() );
-            }else { System.out.println("\n[경고] 올바른 정보를 입력하세요.\n"); }// if end
+            }// if endd
         }else{ System.out.println("\n[안내] 로그인 이후, 구독신청 가능합니다.\n"); }// if end
     }//func end
 
