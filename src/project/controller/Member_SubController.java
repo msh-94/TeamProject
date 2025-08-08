@@ -30,11 +30,21 @@ public class Member_SubController { // class start
         }// if end
     }// func end
 
-
+    // 하위사이트 회원가입
+    public int subSignUp(int mCategory,String mId, String mPwd, String mName, String mPhone){
+        int result = memberSubDao.subSignUp(mCategory,mId,mPwd,mName,mPhone);
+        if(mCategory < 1 || 3 < mCategory){ // 회원유형 1~3 이외 회원가입 불가
+            System.out.println("[경고] 올바르지 않은 유형입니다.");
+            return 0;
+        }else{
+            return result;
+        }// if end
+    }// func end
 
     // 로그인 회원 정보 반환
-    public Member_SubDto subSignIn(){
-        Member_SubDto dto = memberSubDao.subSignIn();
+    public Member_SubDto subSignIn(String mId , String mPwd){
+        Member_SubDto dto = memberSubDao.subSignIn(mId, mPwd);
+        currentSubMno = dto.getMno();
         return dto;
     }// func end
 

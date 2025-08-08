@@ -7,6 +7,7 @@ import java.util.InputMismatchException;
 import java.util.Scanner;
 import static project.controller.Member_HeadController.currentMno;
 import static project.controller.CompanyController.currentCno;
+import static project.controller.Member_SubController.currentSubMno;
 
 public class TotalView {
     // 싱글톤 생성
@@ -141,12 +142,13 @@ public class TotalView {
             CompanyDto dto = cc.siteManaser(currentMno);
             try{
                 System.out.printf("┌───────────────────<<🛡️ %s(유저)🛡️>>──────────────────────────┐\n",dto.getcName());
-                System.out.println("      1.회원가입   2.로그인 ");
+                System.out.println("      1.회원가입   2.로그인   3.로그아웃");
                 System.out.println("└──────────────────────────────────────────────────────────────────────┘");
                 System.out.print("✔️ 메뉴선택 > ");
                 int choose = scan.nextInt();
-                if (choose == 1) msc.subSignIn();
-                else if (choose == 2) {msc.subSignIn();}
+                if (choose == 1) uv.subSignUp();
+                else if (choose == 2) {uv.subLogIn();}
+                else if (choose == 3 ) {uv.subSignOut(); break; }
                 else System.out.println("\n[경고] 해당하는 메뉴(숫자)를 입력하세요.\n");
             }catch (InputMismatchException e){
                 System.out.println( "\n[경고] 입력타입 불일치! 숫자를 입력하세요." + e + "\n" );
