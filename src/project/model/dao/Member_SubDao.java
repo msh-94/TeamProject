@@ -22,7 +22,7 @@ public class Member_SubDao extends Dao { // class start
     public int subSignUp(int mCategory,String mId, String mPwd, String mName, String mPhone){
         try {
             // 1. SQL 작성한다.
-            String sql = "INSERT INTO Member_sub (cno,mCategory,mId,mPwd,mPhone,mName) VALUES(?,?,?,?,?,?)";
+            String sql = "INSERT INTO Member_sub (cno,mCategory,mId,mPwd,mName,mPhone) VALUES(?,?,?,?,?,?)";
             // 2. SQL 기재한다..
             PreparedStatement ps = conn.prepareStatement(sql);
             // 3. SQL 매개변수 대입

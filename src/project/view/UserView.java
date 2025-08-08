@@ -215,7 +215,6 @@ public class UserView { // class start
                 int choose = scan.nextInt();
                 if (choose == 1) {
                     TotalView.getInstance().subAdmin();
-                    currentSubMno = 0;
                 } else if (choose == 2) {
                     TotalView.getInstance().subUser();
                 } else if (choose == 3) {
