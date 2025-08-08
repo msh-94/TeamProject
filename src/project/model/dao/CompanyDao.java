@@ -2,17 +2,19 @@ package project.model.dao; // 패키지명
 
 import project.model.dto.CompanyDto;
 
-import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Date;
+
 
 public class CompanyDao extends Dao {// class start
     // 싱글톤
     private CompanyDao(){  }
     private static final CompanyDao instance = new CompanyDao();
     public static CompanyDao getInstance(){return instance; }
+
 
     // 로그인한 회원번호 일치하는 회사정보 반환 기능
     public CompanyDto siteManaser(int mno){
@@ -46,18 +48,21 @@ public class CompanyDao extends Dao {// class start
             while (rs.next()){
             int mno = rs.getInt("mno");
             //종료일이 현재일보다 작으면 출력x
-            String sql1 = "select * from log where mno = ? And endDate < ?";
+            String sql1 = "select * from log where mno = ? order by endDate desc limit 1";
             PreparedStatement logPs = conn.prepareStatement(sql1);
             logPs.setInt(1,mno);
-            logPs.setDate(2,java.sql.Date.valueOf(today));
             ResultSet logRs = logPs.executeQuery();
 
-            boolean result = logRs.next();// 구독중이면
+            boolean result = false;
 
-            logRs.close();
-            logPs.close();
+            if(logRs.next()){
+                Date endDate = logRs.getDate("endDate");
+                if(endDate != null && ! endDate.before(java.sql.Date.valueOf(today))){
+                    result = true;
+                }
+            }
 
-            if(result) continue;
+            if(!result) continue;// 구독중이면 계속
 
             CompanyDto dto = new CompanyDto(
                     rs.getInt("cno"),
@@ -67,9 +72,6 @@ public class CompanyDao extends Dao {// class start
                     rs.getString("service")
                 );list.add(dto);
             }
-
-            rs.close();
-            cs.close();
         } catch (Exception e) {
             System.out.println(e);
         }return list;
