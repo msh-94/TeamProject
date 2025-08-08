@@ -248,7 +248,7 @@ public class UserView { // class start
                 }
             }
             if( selectPlan != null ){
-                System.out.printf(" - 구독번호: %s\n", result.getLogno());
+                //System.out.printf(" - 구독번호: %s\n", result.getLogno());
                 System.out.printf(" - 구독플랜명: %s\n", selectPlan.getpName());
                 System.out.printf(" - 구독기간: %s개월\n", selectPlan.getpDate());
                 System.out.printf(" - 구독금액: %s원\n", selectPlan.getpMoney());
