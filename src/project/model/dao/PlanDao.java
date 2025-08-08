@@ -6,6 +6,7 @@ import project.model.dto.PlanDto;
 import java.sql.*;
 
 import java.sql.*;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 public class PlanDao extends Dao {// class start
@@ -13,6 +14,7 @@ public class PlanDao extends Dao {// class start
     private PlanDao(){}
     private static final PlanDao instance = new PlanDao();
     public static PlanDao getInstance(){ return instance; }
+
 
     // 플랜 등록 - 플랜 번호, 구독플랜명, 구독기간, 금액 반환 기능
     public boolean planAdd(PlanDto planDto){
