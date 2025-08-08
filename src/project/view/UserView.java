@@ -248,7 +248,7 @@ public class UserView { // class start
                 }
             }
             if( selectPlan != null ){
-                System.out.printf(" - 구독번호: %s\n", result.getLogno());
+                //System.out.printf(" - 구독번호: %s\n", result.getLogno());
                 System.out.printf(" - 구독플랜명: %s\n", selectPlan.getpName());
                 System.out.printf(" - 구독기간: %s개월\n", selectPlan.getpDate());
                 System.out.printf(" - 구독금액: %s원\n", selectPlan.getpMoney());
@@ -266,6 +266,7 @@ public class UserView { // class start
         boolean result = mhc.withdrawUser();
         if (result){
             System.out.println("[안내] 회원탈퇴 되었습니다.\n");
+            currentMno = 0;
         }else {
             System.out.println("[오류] 개발팀 문의\n");
         }// if end
