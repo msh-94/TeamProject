@@ -100,7 +100,10 @@ public class TotalView {
         if( choose == 1 ) uv.updateProfile();
         else if( choose == 2 ) uv.signOut();
         else if( choose == 3 ) uv.subscribeRequest();
-        else if( choose == 4 ) {uv.siteManaser(); currentCno = cc.siteManaser(currentMno).getCno();}
+        else if( choose == 4 ) {
+            if (uv.cancelMenu2().equals("4.데모체험")){
+                uv.siteManasers();
+            }else{ uv.siteManaser(); currentCno = cc.siteManaser(currentMno).getCno();}}
         else if( choose == 5 ) uv.taxiList();
         else if( choose == 6 ) uv.subscribeState();
         else if( choose == 7 ) { uv.withdrawUser(); currentMno = 0; }
@@ -137,7 +140,7 @@ public class TotalView {
         for ( ; ;){
             CompanyDto dto = cc.siteManaser(currentMno);
             try{
-                System.out.printf("┌───────────────────<<🛡️ %s(관리자)🛡️>>──────────────────────────┐\n",dto.getcName());
+                System.out.printf("┌───────────────────<<🛡️ %s(유저)🛡️>>──────────────────────────┐\n",dto.getcName());
                 System.out.println("      1.회원가입   2.로그인 ");
                 System.out.println("└──────────────────────────────────────────────────────────────────────┘");
                 System.out.print("✔️ 메뉴선택 > ");
