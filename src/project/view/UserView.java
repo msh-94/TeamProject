@@ -92,6 +92,7 @@ public class UserView { // class start
                     System.out.printf("  %d) %-6s (%d개월/%s원)\n", dto.getPno(), dto.getpName(), dto.getpDate(), moneyFormatted);
                 }//for end
             }else{
+                currentPno.remove(Integer.valueOf(1));
                 for (PlanDto dto : planDtos) {
                     String moneyFormatted = formatter.format(dto.getpMoney());
                     if (bool){ if( currentPno.contains( dto.getPno() ) ){ continue;  } }// if end
