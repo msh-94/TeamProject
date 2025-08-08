@@ -136,7 +136,7 @@ public class LogDao extends Dao{
     public ArrayList<LinkedHashMap<String,Object>> subscribeList(){
         ArrayList<LinkedHashMap<String,Object>> logUserList = new ArrayList<>();
         try {
-            String sql = "select logno, pName, pMoney, mName, mId, addDate, endDate from plan left outer join log on plan.pno = log.pno left outer join Member_head on log.mno = Member_head.mno order by logno desc";
+            String sql = "select logno, pName, pMoney, mName, mId, addDate, endDate from plan left outer join log on plan.pno = log.pno left outer join Member_head on log.mno = Member_head.mno  WHERE logno IS NOT NULL order by logno desc";
             PreparedStatement ps = conn.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
             while ( rs.next() ){
