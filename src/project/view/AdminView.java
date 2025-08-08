@@ -68,8 +68,7 @@ public class AdminView {// class start
             System.out.print("비활성화 하실 플랜번호 : ");     int pno = TotalView.scan.nextInt();
             boolean check = pc.planStop(pno);
             if (check){
-                System.out.println("[안내] 입력하신 플랜상품이 비활성화 되었습니다.");
-                System.out.println("[안내] 입력하신 플랜상품이 중단 되었습니다.\n");
+                System.out.println("[안내] 입력하신 플랜상품이 비활성화 되었습니다.\n");
             }else {
                 System.out.println("[경고] 존재하지 않는 플랜번호 입니다.\n");
             }// if end
