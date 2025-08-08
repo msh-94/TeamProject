@@ -104,8 +104,12 @@ public class TotalView {
         else if( choose == 4 ) {
             if (uv.cancelMenu2().equals("4.데모체험")){
                 uv.siteManasers();
-            }else{ uv.siteManaser(); currentCno = cc.siteManaser(currentMno).getCno();}}
-        else if( choose == 5 ) uv.taxiList();
+            }else{
+                currentCno = cc.siteManaser(currentMno).getCno();
+                uv.siteManaser();
+            }// if end
+
+        } else if( choose == 5 ) uv.taxiList();
         else if( choose == 6 ) uv.subscribeState();
         else if( choose == 7 ) { uv.withdrawUser(); currentMno = 0; }
         else if( choose == 8 ) uv.subscribeCancel();
