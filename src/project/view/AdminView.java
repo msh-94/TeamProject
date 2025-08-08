@@ -152,8 +152,8 @@ public class AdminView {// class start
             Map<String,Object> map = result.get(i);
             Object a = map.get("유형");
             if (a.equals(1)){ a = "일반회원"; }
-            if (a.equals(2)){ a = "택시기사"; }
-            if (a.equals(3)){ a = "사업자"; }
+            else if (a.equals(2)){ a = "택시기사"; }
+            else if (a.equals(3)){ a = "사업자"; }
             System.out.printf("%-3d %-6s %-12s %-14s %-8s %-10s %-17s %-13s %-13s\n",no++,map.get("지역"),map.get("플랜이름"),
                     map.get("아이디"),map.get("이름"),a,map.get("핸드폰번호"),map.get("시작일"),map.get("종료일"));
         }// for end
@@ -172,8 +172,8 @@ public class AdminView {// class start
             Map<String,Object> map = result.get(i);
             Object a = map.get("유형");
             if (a.equals(1)){ a = "일반회원"; }
-            if (a.equals(2)){ a = "택시기사"; }
-            if (a.equals(3)){ a = "사업자"; }
+            else if (a.equals(2)){ a = "택시기사"; }
+            else if (a.equals(3)){ a = "사업자"; }
             System.out.printf("%-3d %-6s %-12s %-14s %-8s %-10s %-17s %-13s %-13s\n",no++,map.get("지역"),map.get("플랜이름"),
                     map.get("아이디"),map.get("이름"),a,map.get("핸드폰번호"),map.get("시작일"),map.get("종료일"));
         }// for end

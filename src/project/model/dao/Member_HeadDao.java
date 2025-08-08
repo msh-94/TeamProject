@@ -70,7 +70,8 @@ public class Member_HeadDao extends Dao { // class start
             String sql = "select m.mno , c.area , p.pName , m.mId , m.mName , m.mCategory , m.mPhone , MIN(l.addDate) as firstDate " +
                     ", MAX(l.endDate) as lastDate from plan p join Log l on p.pno  = l.pno\n" +
                     "join Member_head m on m.mno = l.mno\n" +
-                    "join company c on m.mno = c.mno group by m.mno, c.area, p.pName, m.mId, m.mName, m.mCategory, m.mPhone having lastDate >= current_date() order by mno asc";
+                    "join company c on m.mno = c.mno group by m.mno, c.area, p.pName, m.mId, m.mName, m.mCategory, m.mPhone having " +
+                    "lastDate >= current_date() order by mno asc";
             PreparedStatement ps = conn.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
             while (rs.next()){
