@@ -87,7 +87,7 @@ public class UserView { // class start
             if( mLog.getEndDate() != null  ){
                 for (PlanDto dto : planDtos) {
                     String moneyFormatted = formatter.format(dto.getpMoney());
-                    if (dto.getPno() == 1) continue;
+                    if (dto.getPno() == 1){currentPno.add(dto.getPno()); continue;}
                     if (bool){ if( currentPno.contains( dto.getPno() ) ){ continue; }  }// if end
                     System.out.printf("  %d) %-6s (%d개월/%s원)\n", dto.getPno(), dto.getpName(), dto.getpDate(), moneyFormatted);
                 }//for end
@@ -104,7 +104,7 @@ public class UserView { // class start
 
             PlanDto selectPlan = null; // 회원이 선택한 구독플랜 정보 1개 가져오기
             for (PlanDto dto : planDtos) { // 사용자가 선택한 플랜번호 찾기
-                if (dto.getPno() == choose) { selectPlan = dto; break; }
+                if (dto.getPno() == choose && !currentPno.contains(choose)) { selectPlan = dto; break; }
             }
             if (selectPlan != null) {
                 System.out.printf(" - 신청하신 구독: %d)%s(%d개월/%d원)\n", selectPlan.getPno(), selectPlan.getpName(), selectPlan.getpDate(), selectPlan.getpMoney());
