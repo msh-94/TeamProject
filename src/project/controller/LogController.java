@@ -3,6 +3,7 @@ package project.controller; // 패키지명
 import project.model.dao.LogDao;
 import project.model.dto.LogDto;
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -31,14 +32,14 @@ public class LogController {
     }//func end
 
     // 3. 구독취소(본사 사용자단)_로그를 삭제 하지 않고 종료일을 구독취소일(당일)로 변경
-    public boolean subscribeCancle( int mno ){
-        boolean result = logDao.subscribeCancle( mno );
+    public boolean subscribeCancel( int mno ){
+        boolean result = logDao.subscribeCancel( mno );
         return result;
     }//func end
 
     // 4. 구독신청 내역조회(본사 관리자)
-    public List<LogDto> subscribelList(){
-        List<LogDto> result = logDao.subscribelList( );
+    public ArrayList<LinkedHashMap<String,Object>> subscribeList(){
+        ArrayList<LinkedHashMap<String,Object>> result = logDao.subscribeList( );
         return result;
     }//func end
 
