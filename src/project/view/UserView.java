@@ -243,12 +243,13 @@ public class UserView { // class start
             ArrayList<PlanDto> planDtos = pc.planList();
             PlanDto selectPlan = null;
             for (PlanDto dto : planDtos) {
-                if (dto.getPno() == result.getPno()) {
+                if (result.getPno()== dto.getPno() ) {
                     selectPlan = dto;
                     break;
                 }
             }
             if( selectPlan != null ){
+                System.out.printf(" - 구독번호: %s\n", result.getLogno());
                 System.out.printf(" - 구독플랜명: %s\n", selectPlan.getpName());
                 System.out.printf(" - 구독기간: %s개월\n", selectPlan.getpDate());
                 System.out.printf(" - 구독금액: %s원\n", selectPlan.getpMoney());
