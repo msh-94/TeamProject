@@ -72,7 +72,6 @@ public class CompanyDao extends Dao {// class start
                     rs.getString("service")
                 );list.add(dto);
             }
-
         } catch (Exception e) {
             System.out.println(e);
         }return list;
