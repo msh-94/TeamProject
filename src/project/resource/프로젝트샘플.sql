@@ -128,4 +128,9 @@ select m.mno , c.area , p.pName , m.mId , m.mName , m.mCategory , m.mPhone , MIN
                     join Member_head m on m.mno = l.mno
                     join company c on m.mno = c.mno group by m.mno, c.area, p.pName, m.mId, m.mName, m.mCategory, m.mPhone having lastDate >= current_date() order by mno asc;
                     
- -- update log set endDate = "2025-01-01" where mno = 11 order by endDate desc , logno desc limit 1;-- 
+ -- update log set endDate = "2025-01-01" where mno = 11 order by endDate desc , logno desc limit 1;--
+
+ -- 구독신청내역(전체)
+ select logno, pName, pMoney, mName, mId, addDate, endDate from plan
+	left outer join log on plan.pno = log.pno
+    left outer join Member_head on log.mno = Member_head.mno order by logno desc;
