@@ -9,10 +9,10 @@ import java.time.format.DateTimeFormatter;
 import java.util.*;
 
 public class LogDao extends Dao{
-    // 싱글톤
-    private LogDao(){}
-    private static final LogDao instance = new LogDao();
-    public static LogDao getInstance(){ return instance; }
+    //// 싱글톤
+    //private LogDao(){}
+    //private static final LogDao instance = new LogDao();
+    //public static LogDao getInstance(){ return instance; }
 
     // 날짜 객체
     public static DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd"); //날짜포맷

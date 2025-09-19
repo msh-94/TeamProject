@@ -10,10 +10,10 @@ import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 public class PlanDao extends Dao {// class start
-    // 싱글톤
-    private PlanDao(){}
-    private static final PlanDao instance = new PlanDao();
-    public static PlanDao getInstance(){ return instance; }
+    //// 싱글톤
+    //private PlanDao(){}
+    //private static final PlanDao instance = new PlanDao();
+    //public static PlanDao getInstance(){ return instance; }
 
 
     // 플랜 등록 - 플랜 번호, 구독플랜명, 구독기간, 금액 반환 기능

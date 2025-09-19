@@ -1,6 +1,7 @@
 package project.controller; // 패키지명
 
 
+import project.Container;
 import project.model.dao.CompanyDao;
 import project.model.dto.CompanyDto;
 
@@ -8,13 +9,13 @@ import project.model.dto.CompanyDto;
 import java.util.ArrayList;
 
 public class CompanyController {// class start
-    // 싱글톤
-    private CompanyController(){}
-    private static final CompanyController instance = new CompanyController();
-    public static CompanyController getInstance(){ return instance; }
+    //// 싱글톤
+    //private CompanyController(){}
+    //private static final CompanyController instance = new CompanyController();
+    //public static CompanyController getInstance(){ return instance; }
 
     // dao가져오기
-    private CompanyDao companyDao = CompanyDao.getInstance();
+    private final CompanyDao companyDao = Container.getBean(CompanyDao.class);
 
     // 전역변수 회사번호
     public static int currentCno;

@@ -1,5 +1,6 @@
 package project.controller; // 패키지명
 
+import project.Container;
 import project.model.dao.LogDao;
 import project.model.dto.LogDto;
 import java.util.ArrayList;
@@ -10,12 +11,12 @@ import java.util.Map;
 /* 구독신청(Log table) 관련 */
 public class LogController {
     // 싱글톤
-    private LogController(){}
-    private static final LogController instance = new LogController();
-    public static LogController getInstance(){ return instance; }
+    //private LogController(){}
+    //private static final LogController instance = new LogController();
+    //public static LogController getInstance(){ return instance; }
 
     // 싱글톤 호출
-    private LogDao logDao = LogDao.getInstance();
+    private final LogDao logDao = Container.getBean(LogDao.class);
 
     /* ======================================== ★ 단위기능 ★ ============================================== */
     // 1. 구독신청(본사 사용자단)

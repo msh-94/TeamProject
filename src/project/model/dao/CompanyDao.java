@@ -10,10 +10,10 @@ import java.util.Date;
 
 
 public class CompanyDao extends Dao {// class start
-    // 싱글톤
-    private CompanyDao(){  }
-    private static final CompanyDao instance = new CompanyDao();
-    public static CompanyDao getInstance(){return instance; }
+    //// 싱글톤
+    //private CompanyDao(){  }
+    //private static final CompanyDao instance = new CompanyDao();
+    //public static CompanyDao getInstance(){return instance; }
 
 
     // 로그인한 회원번호 일치하는 회사정보 반환 기능

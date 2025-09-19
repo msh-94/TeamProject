@@ -11,10 +11,10 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class Member_HeadDao extends Dao { // class start
-    // 싱글톤
-    private Member_HeadDao(){}
-    private static final Member_HeadDao instance = new Member_HeadDao();
-    public static Member_HeadDao getInstance(){ return instance; }
+    //// 싱글톤
+    //private Member_HeadDao(){}
+    //private static final Member_HeadDao instance = new Member_HeadDao();
+    //public static Member_HeadDao getInstance(){ return instance; }
 
     // 로그인 회원 번호,아이디,비밀번호 반환 기능
     public Member_HeadDto logIn(String mId , String mPwd){

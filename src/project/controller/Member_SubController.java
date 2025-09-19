@@ -1,5 +1,6 @@
 package project.controller; // 패키지명
 
+import project.Container;
 import project.model.dao.Member_SubDao;
 import project.model.dto.Member_SubDto;
 
@@ -7,15 +8,15 @@ import java.util.List;
 
 public class Member_SubController { // class start
     // 싱글톤
-    private Member_SubController(){}
-    private static final Member_SubController instance = new Member_SubController();
-    public static Member_SubController getInstance(){ return instance; }
+    //private Member_SubController(){}
+    //private static final Member_SubController instance = new Member_SubController();
+    //public static Member_SubController getInstance(){ return instance; }
 
     // 서브사이트 회원번호 전역변수
     public static int currentSubMno;
 
     // Member_SubDao 싱글톤 가져오기
-    private Member_SubDao memberSubDao = Member_SubDao.getInstance();
+    private final Member_SubDao memberSubDao = Container.getBean(Member_SubDao.class);
 
     //  현재회사의 회원목록
     public List<Member_SubDto> subUserList(){

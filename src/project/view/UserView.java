@@ -6,7 +6,6 @@ import project.model.dto.*;
 
 import java.text.DecimalFormat;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.Scanner;
@@ -26,14 +25,14 @@ public class UserView { // class start
     //private UserView(){}
     //private static final UserView instance = new UserView();
     //public static UserView getInstance(){return instance;}
-    //
-    //// controller 불러오기
-    //private Member_HeadController mhc = Member_HeadController.getInstance();
-    //private Member_SubController msc = Member_SubController.getInstance();
-    //private PlanController pc = PlanController.getInstance();
-    //private LogController lc = LogController.getInstance();
-    //private CompanyController cc = CompanyController.getInstance();
-    private final Container container = Container.getInstance();
+
+    // controller 불러오기
+    private final Member_HeadController mhc = Container.getBean(Member_HeadController.class);
+    private final Member_SubController msc = Container.getBean(Member_SubController.class);
+    private final PlanController pc = Container.getBean(PlanController.class);
+    private final LogController lc = Container.getBean(LogController.class);
+    private final CompanyController cc = Container.getBean(CompanyController.class);
+    private final TotalView totalView = Container.getBean(TotalView.class);
 
     /* ======================================== ★ 사용자별 화면(view) ★ ============================================== */
 
@@ -47,7 +46,7 @@ public class UserView { // class start
         System.out.print(" - 이름: "); String mName = scan.next();
         System.out.print(" - 전화번호: "); String mPhone = scan.next();
 
-        int result = container.getMhc().signUp(mCategory,mId,mPwd,mName,mPhone);
+        int result = mhc.signUp(mCategory,mId,mPwd,mName,mPhone);
         if(result==1){
             System.out.println("[안내] 회원가입이 완료되었습니다.\n");
         }else if(result==2){
@@ -62,8 +61,8 @@ public class UserView { // class start
         System.out.println("\n2.로그인");
         System.out.print(" - 아이디 : ");     String mId = scan.next();
         System.out.print(" - 비밀번호 : ");    String mPwd = scan.next();
-        Member_HeadDto result = container.getMhc().logIn(mId,mPwd);
-        CompanyDto dto = container.getCc().siteManaser(result.getMno());
+        Member_HeadDto result = mhc.logIn(mId,mPwd);
+        CompanyDto dto = cc.siteManaser(result.getMno());
         currentCno = dto.getCno();
         if (result.getmId() == null){
             System.out.println("\n[경고] 존재하지 않는 계정입니다.\n");
@@ -75,16 +74,16 @@ public class UserView { // class start
     // 1.3.구독신청
     public void subscribeRequest(){
 
-        ArrayList<PlanDto> list = container.getPc().planList();
+        ArrayList<PlanDto> list = pc.planList();
         boolean bool = !currentPno.isEmpty(); // 중지플랜이 존재하면
 
         if( currentMno != 0 ) { // 본사 로그인 이후, 구독신청 가능
             System.out.println("\n3.구독신청");
             /* 구독플랜조회 리스트 */ //planList();
-            ArrayList<PlanDto> planDtos = container.getPc().planList();
+            ArrayList<PlanDto> planDtos = pc.planList();
             System.out.println("----------------------------------");
             LogDto mLog = new LogDto();
-            mLog = container.getLc().subscribeState( currentMno ); // 구독로그가 있는 회원
+            mLog = lc.subscribeState( currentMno ); // 구독로그가 있는 회원
             DecimalFormat formatter = new DecimalFormat("#,###");
             if( mLog.getEndDate() != null  ){
                 for (PlanDto dto : planDtos) {
@@ -129,7 +128,7 @@ public class UserView { // class start
                 subscribeInfo.put("cName", cName);
                 subscribeInfo.put("area", area);
                 subscribeInfo.put("service", service);
-                boolean result = container.getLc().subscribeRequest(subscribeInfo);
+                boolean result = lc.subscribeRequest(subscribeInfo);
                 if( result ){ System.out.printf("\n[안내] %s 구독신청되었습니다.\n\n", selectPlan.getpName() );
                 }else { System.out.println("\n[경고] 올바른 정보를 입력하세요.\n"); }// if end
             }else{
@@ -168,7 +167,7 @@ public class UserView { // class start
     // 1.5.지역콜택시조회
     public void taxiList(){
         System.out.println("\n5.지역콜택시조회");
-        ArrayList<CompanyDto> result = container.getCc().taxiList();
+        ArrayList<CompanyDto> result = cc.taxiList();
         System.out.println("---------------------------------------------------------------------------");
         System.out.println("No     지역    콜택시사이트명          서비스내용");
         System.out.println("---------------------------------------------------------------------------");
@@ -185,7 +184,7 @@ public class UserView { // class start
         System.out.print(" - 비밀번호 : ");    String mPwd = scan.next();
         System.out.print(" - 수정할 비밀번호 : ");    String mPwd1 = scan.next();
         System.out.print(" - 수정할 전화번호 : ");    String mPhone = scan.next();
-        int result = container.getMhc().updateProfile(mPwd,mPhone,mPwd1);
+        int result = mhc.updateProfile(mPwd,mPhone,mPwd1);
         if (result == 1){
             System.out.println("[안내] 정보수정이 완료되었습니다.\n");
         }else if (result == 2){
@@ -208,7 +207,7 @@ public class UserView { // class start
 
     // 2.4 내사이트가기
     public void siteManaser(){
-        CompanyDto result = container.getCc().siteManaser(currentMno);
+        CompanyDto result = cc.siteManaser(currentMno);
         for ( ; ;){
             try {
                 System.out.println("--------------------------------------------------------------------------");
@@ -217,9 +216,9 @@ public class UserView { // class start
                 System.out.print("선택 > ");
                 int choose = scan.nextInt();
                 if (choose == 1) {
-                    container.getTotalView().subAdmin();
+                    totalView.subAdmin();
                 } else if (choose == 2) {
-                    container.getTotalView().subUser();
+                    totalView.subUser();
                 } else if (choose == 3) {
                     currentCno = 0;
                     break;
@@ -239,10 +238,10 @@ public class UserView { // class start
     public void subscribeState(){
         System.out.println("\n6.구독현황");
 
-        LogDto result = container.getLc().subscribeState( currentMno );
+        LogDto result = lc.subscribeState( currentMno );
 
         if( result.getEndDate() != null  ){ // && result.getEndDate() == toDay
-            ArrayList<PlanDto> planDtos = container.getPc().planList();
+            ArrayList<PlanDto> planDtos = pc.planList();
             PlanDto selectPlan = null;
             for (PlanDto dto : planDtos) {
                 if (result.getPno()== dto.getPno() ) {
@@ -266,7 +265,7 @@ public class UserView { // class start
     // 2.7.회원탈퇴
     public void withdrawUser(){
         System.out.println("\n7.회원탈퇴\n");
-        boolean result = container.getMhc().withdrawUser();
+        boolean result = mhc.withdrawUser();
         if (result){
             System.out.println("[안내] 회원탈퇴 되었습니다.\n");
             currentMno = 0;
@@ -279,7 +278,7 @@ public class UserView { // class start
     // 2.8. 구독취소
     public void subscribeCancel(){
         System.out.println("\n8.구독취소\n");
-        boolean result = container.getLc().subscribeCancel( currentMno );
+        boolean result = lc.subscribeCancel( currentMno );
         if( result  ) {
             System.out.println("구독 취소되었습니다.\n");
         } else {
@@ -289,7 +288,7 @@ public class UserView { // class start
 
     // 2.9.사용자 메뉴 변경(구독취소 메뉴)
     public String cancelMenu(){
-        LogDto mLog = container.getLc().subscribeState(currentMno);
+        LogDto mLog = lc.subscribeState(currentMno);
         if (mLog != null && mLog.getEndDate() != null) {
             LocalDate endDate = LocalDate.parse(mLog.getEndDate(), formatter);
             if (toDay.isAfter(endDate)) {
@@ -304,7 +303,7 @@ public class UserView { // class start
 
     // 2.10.사용자 메뉴 변경(구독취소 메뉴)
     public String cancelMenu2(){
-        LogDto mLog  = container.getLc().subscribeState(currentMno);
+        LogDto mLog  = lc.subscribeState(currentMno);
         // System.out.println( ": 구독취소 메뉴:" + mLog );
         if (mLog != null && mLog.getEndDate() != null) {
             LocalDate endDate = LocalDate.parse(mLog.getEndDate(), formatter);
@@ -326,7 +325,7 @@ public class UserView { // class start
         System.out.print(" - 비밀번호: "); String mPwd = scan.next();
         System.out.print(" - 이름: "); String mName = scan.next();
         System.out.print(" - 전화번호: "); String mPhone = scan.next();
-        int result = container.getMsc().subSignUp(mCategory,mId,mPwd,mName,mPhone);
+        int result = msc.subSignUp(mCategory,mId,mPwd,mName,mPhone);
         if(result==1){
             System.out.println("[안내] 회원가입이 완료되었습니다.\n");
         }else if(result==2){
@@ -341,7 +340,7 @@ public class UserView { // class start
         System.out.println("\n2.로그인");
         System.out.print(" - 아이디 : ");     String mId = scan.next();
         System.out.print(" - 비밀번호 : ");    String mPwd = scan.next();
-        Member_SubDto result = container.getMsc().subSignIn(mId,mPwd);
+        Member_SubDto result = msc.subSignIn(mId,mPwd);
         if (result.getmId() == null){
             System.out.println("\n[경고] 존재하지 않는 계정입니다.\n");
         }else {

@@ -1,5 +1,6 @@
 package project.controller; // 패키지명
 
+import project.Container;
 import project.model.dao.Member_HeadDao;
 import project.model.dto.Member_HeadDto;
 
@@ -8,15 +9,15 @@ import java.util.Map;
 
 public class Member_HeadController { // class start
     // 싱글톤
-    public Member_HeadController(){}
-    private static final Member_HeadController instance = new Member_HeadController();
-    public static Member_HeadController getInstance(){ return instance; }
+    //public Member_HeadController(){}
+    //private static final Member_HeadController instance = new Member_HeadController();
+    //public static Member_HeadController getInstance(){ return instance; }
 
     // 전역변수 회원번호
     public static int currentMno;
 
     // dao 가져오기
-    private Member_HeadDao memberHeadDao = Member_HeadDao.getInstance();
+    private final Member_HeadDao memberHeadDao = Container.getBean(Member_HeadDao.class);
 
     // 로그인 기능
     public Member_HeadDto logIn(String mId , String mPwd){
@@ -77,7 +78,7 @@ public class Member_HeadController { // class start
 
     //회원목록조회
     public ArrayList<Member_HeadDto> userList() {
-        ArrayList<Member_HeadDto> result = Member_HeadDao.getInstance().userList();
+        ArrayList<Member_HeadDto> result = memberHeadDao.userList();
         return result;
     }//func end
 }// class end

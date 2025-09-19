@@ -1,18 +1,19 @@
 package project.controller; // 패키지명
 
 
+import project.Container;
 import project.model.dao.PlanDao;
 import project.model.dto.PlanDto;
 import java.util.ArrayList;
 
 public class PlanController { // class start
     // 싱글톤
-    private PlanController(){}
-    private static final PlanController instance = new PlanController();
-    public static PlanController getInstance(){ return instance; }
+    //private PlanController(){}
+    //private static final PlanController instance = new PlanController();
+    //public static PlanController getInstance(){ return instance; }
 
     // dao 가져오기
-    private PlanDao planDao = PlanDao.getInstance();
+    private final PlanDao planDao = Container.getBean(PlanDao.class);
 
     // 플랜번호리스트 전역변수
     public static ArrayList<Integer> currentPno = new ArrayList<>();

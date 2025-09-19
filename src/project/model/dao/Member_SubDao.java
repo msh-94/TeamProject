@@ -12,10 +12,10 @@ import java.sql.PreparedStatement;
 import static project.controller.CompanyController.currentCno;
 
 public class Member_SubDao extends Dao { // class start
-    // 싱글톤
-    private Member_SubDao(){}
-    private static final Member_SubDao instance = new Member_SubDao();
-    public static Member_SubDao getInstance(){ return instance; }
+    //// 싱글톤
+    //private Member_SubDao(){}
+    //private static final Member_SubDao instance = new Member_SubDao();
+    //public static Member_SubDao getInstance(){ return instance; }
 
 
     // [구독회사] 회원가입 (구독회사 테이블 만들어지고 구현)
