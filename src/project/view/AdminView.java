@@ -1,5 +1,6 @@
 package project.view; // 패키지명
 
+import project.Container;
 import project.controller.*;
 import project.model.dto.Member_HeadDto;
 import project.model.dto.Member_SubDto;
@@ -15,15 +16,16 @@ import static project.controller.PlanController.currentPno;
 
 public class AdminView {// class start
     // 싱글톤
-    private AdminView(){}
-    private static final AdminView instance = new AdminView();
-    public static AdminView getInstance(){return instance;}
-    // 싱글톤 호출
-    private Member_HeadController mhc = Member_HeadController.getInstance();
-    private Member_SubController msc = Member_SubController.getInstance();
-    private PlanController pc = PlanController.getInstance();
-    private LogController lc = LogController.getInstance();
-    private CompanyController cc = CompanyController.getInstance();
+    //private AdminView(){}
+    //private static final AdminView instance = new AdminView();
+    //public static AdminView getInstance(){return instance;}
+    //// 싱글톤 호출
+    //private Member_HeadController mhc = Member_HeadController.getInstance();
+    //private Member_SubController msc = Member_SubController.getInstance();
+    //private PlanController pc = PlanController.getInstance();
+    //private LogController lc = LogController.getInstance();
+    //private CompanyController cc = CompanyController.getInstance();
+    private final Container container = Container.getInstance();
 
     /* (3) [본사]관리자단: admin(시스템관리자) 로그인 화면 -----------------------------------------------------------------*/
     // 3.1.구독플랜 등록
@@ -32,7 +34,7 @@ public class AdminView {// class start
         System.out.print("- 구독플랜명: ");      String pName = TotalView.scan.next();
         System.out.print("- 구독기간(월단위): ");  int pDate = TotalView.scan.nextInt();
         System.out.print("- 금액(VAT포함가): ");  int pMoney = TotalView.scan.nextInt();
-        boolean result = pc.planAdd(pName,pDate,pMoney);
+        boolean result = container.getPc().planAdd(pName,pDate,pMoney);
         if(result){
             System.out.println("[안내] 구독플랜이 등록되었습니다.\n");
         }else {
@@ -43,7 +45,7 @@ public class AdminView {// class start
 
     // 3.2.구독플랜 조회
     public void planList(){
-        ArrayList<PlanDto> result = pc.planList();
+        ArrayList<PlanDto> result = container.getPc().planList();
         String 노출여부 = "활성화";
         DecimalFormat formatter = new DecimalFormat("#,###");
         System.out.println("--------------------------------------------------------------------------------------------- ");
@@ -58,7 +60,7 @@ public class AdminView {// class start
         System.out.print("플랜 활성화/비활성화/뒤로가기(1/2/3) : ");  int choose = TotalView.scan.nextInt();
         if (choose == 1){
             System.out.print("활성화 하실 플랜번호 : ");     int pno = TotalView.scan.nextInt();
-            boolean check = pc.planRestart(pno);
+            boolean check = container.getPc().planRestart(pno);
             if (check){
                 System.out.println("[안내] 입력하신 플랜상품이 활성화 되었습니다.");
             }else {
@@ -66,7 +68,7 @@ public class AdminView {// class start
             }// if end
         }else if (choose == 2){
             System.out.print("비활성화 하실 플랜번호 : ");     int pno = TotalView.scan.nextInt();
-            boolean check = pc.planStop(pno);
+            boolean check = container.getPc().planStop(pno);
             if (check){
                 System.out.println("[안내] 입력하신 플랜상품이 비활성화 되었습니다.\n");
             }else {
@@ -87,7 +89,7 @@ public class AdminView {// class start
         System.out.print("- 구독플랜명 : "); String pName = TotalView.scan.next();
         System.out.print("- 구독기간(월단위) : "); int pDate = TotalView.scan.nextInt();
         System.out.print("- 금액(VAT포함가) : "); int pMoney = TotalView.scan.nextInt();
-        int result = pc.planEdit(new PlanDto(pno,pName,pDate,pMoney));  //플랜수정 호출
+        int result = container.getPc().planEdit(new PlanDto(pno,pName,pDate,pMoney));  //플랜수정 호출
         if(result==1){
             System.out.println("[안내] 구독플랜이 수정되었습니다.\n");
         }else if(result==2){
@@ -97,7 +99,7 @@ public class AdminView {// class start
 
     // 3.4.구독플랜 삭제
     public void planDelete(){
-        ArrayList<PlanDto> result = pc.planList();
+        ArrayList<PlanDto> result = container.getPc().planList();
         System.out.println("--------------------------------------------------------------------------------------------- ");
         System.out.printf("%-8s %-11s %-9s %s\n","No","구독플랜명","구독기간","금액(원)");
         System.out.println("--------------------------------------------------------------------------------------------- ");
@@ -106,7 +108,7 @@ public class AdminView {// class start
                     dto.getPno(), dto.getpName(), dto.getpDate(), dto.getpMoney());
         }// for end
         System.out.print(" - 삭제할 플랜번호: "); int pno = TotalView.scan.nextInt();
-        boolean resultDelete = pc.planDelete(pno);
+        boolean resultDelete = container.getPc().planDelete(pno);
         if(resultDelete){
             System.out.println("[안내] 구독플랜이 삭제되었습니다.\n");
         }else{
@@ -120,7 +122,7 @@ public class AdminView {// class start
             System.out.println("----------------------------------------------------------------------------------");
             System.out.printf("%s\t%10s\t%7s\t%9s\t%11s\t%9s \n","No","회원유형","아이디","이름","휴대폰번호","가입일");
             System.out.println("----------------------------------------------------------------------------------");
-            ArrayList<Member_HeadDto> result = mhc.userList();
+            ArrayList<Member_HeadDto> result = container.getMhc().userList();
             String memberType;
             for(Member_HeadDto dto : result) {
                 int Category = dto.getmCategory();
@@ -141,7 +143,7 @@ public class AdminView {// class start
 
     // 3.6.현재구독중인 회원목록 조회
     public void planUserList(){
-        ArrayList<Map<String,Object>> result = mhc.planUserList();
+        ArrayList<Map<String,Object>> result = container.getMhc().planUserList();
         int no = 1;
         System.out.println("------------------------------------------- 현재 구독중인 회원  ------------------------------------------- ");
         System.out.println("---------------------------------------------------------------------------------------------------------- ");
@@ -161,7 +163,7 @@ public class AdminView {// class start
 
     // 3.6.구독만료된 회원목록 조회
     public void planEndUserList(){
-        ArrayList<Map<String,Object>> result = mhc.planEndUserList();
+        ArrayList<Map<String,Object>> result = container.getMhc().planEndUserList();
         int no = 1;
         System.out.println("\n\n------------------------------------------- 구독 만료된 회원  ------------------------------------------- ");
         System.out.println("---------------------------------------------------------------------------------------------------------- ");
@@ -182,7 +184,7 @@ public class AdminView {// class start
     // 3.7.구독신청 내역조회
     public void subscribeList() {
         System.out.println("\n7.구독신청 내역조회");
-        ArrayList<LinkedHashMap<String, Object>> result = lc.subscribeList();
+        ArrayList<LinkedHashMap<String, Object>> result = container.getLc().subscribeList();
 
         System.out.println("----------------------------------------------------------------------------");
         if (!result.isEmpty()) { // 헤더(key) 출력
@@ -205,7 +207,7 @@ public class AdminView {// class start
 
     // 하위사이트 회원목록조회
     public void subUserList(){
-        List<Member_SubDto> result = msc.subUserList();
+        List<Member_SubDto> result = container.getMsc().subUserList();
         String memberType;
         System.out.println("\n1.회원목록");
         System.out.println("----------------------------------------------------------------------------");

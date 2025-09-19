@@ -1,5 +1,6 @@
 package project.view; // 패키지명
 
+import project.Container;
 import project.controller.*;
 import project.model.dto.CompanyDto;
 
@@ -10,18 +11,18 @@ import static project.controller.CompanyController.currentCno;
 import static project.controller.Member_SubController.currentSubMno;
 
 public class TotalView {
-    // 싱글톤 생성
-    private TotalView(){}
-    private static final TotalView instance = new TotalView();
-    public static TotalView getInstance(){ return instance; }
-
-    // 싱글톤 호출
-    private Member_HeadController mhc = Member_HeadController.getInstance();
-    private Member_SubController msc = Member_SubController.getInstance();
-    private CompanyController cc = CompanyController.getInstance();
-    private UserView uv = UserView.getInstance();
-    private AdminView av = AdminView.getInstance();
-
+    //// 싱글톤 생성
+    //private TotalView(){}
+    //private static final TotalView instance = new TotalView();
+    //public static TotalView getInstance(){ return instance; }
+    //
+    //// 싱글톤 호출
+    //private Member_HeadController mhc = Member_HeadController.getInstance();
+    //private Member_SubController msc = Member_SubController.getInstance();
+    //private CompanyController cc = CompanyController.getInstance();
+    //private UserView uv = UserView.getInstance();
+    //private AdminView av = AdminView.getInstance();
+    private final Container container = Container.getInstance();
     // 전역변수
     public static Scanner scan = new Scanner(System.in);
 
@@ -50,11 +51,11 @@ public class TotalView {
                     System.out.println("└──────────────────────────────────────────────────────────────────────────┘");
                     System.out.print("✔️ 메뉴선택 > ");
                     int choose = scan.nextInt();
-                    if( choose == 1 ) uv.signUp();
-                    else if( choose == 2 ) uv.logIn();
-                    else if( choose == 3 ) uv.subscribeRequest();
-                    else if( choose == 4 ) uv.siteManasers();
-                    else if( choose == 5 ) uv.taxiList();
+                    if( choose == 1 ) container.getUserView().signUp();
+                    else if( choose == 2 ) container.getUserView().logIn();
+                    else if( choose == 3 ) container.getUserView().subscribeRequest();
+                    else if( choose == 4 ) container.getUserView().siteManasers();
+                    else if( choose == 5 ) container.getUserView().taxiList();
                     else System.out.println( "\n[경고] 해당하는 메뉴(숫자)를 입력하세요.\n" );
                 }else if( currentMno == 1 ){ //1.본사 관리자단(본사 관리자 전용메뉴): admin 로그인화면
                     System.out.println("┌───────────────────<< 🛡️ MY CALL-TAXI(본사관리자) 🛡️ >>─────────────────────┐");
@@ -63,18 +64,18 @@ public class TotalView {
                     System.out.println("└──────────────────────────────────────────────────────────────────────────┘");
                     System.out.print("✔️ 메뉴선택 > ");
                     int choose = scan.nextInt();
-                    if( choose == 1 ) av.planAdd();
-                    else if( choose == 2 ) av.planList();
-                    else if( choose == 3 ) av.planEdit();
-                    else if( choose == 4 ) av.planDelete();
-                    else if( choose == 5 ) av.userList();
-                    else if( choose == 6 ) { av.planUserList(); av.planEndUserList(); }
-                    else if( choose == 7 ) av.subscribeList();
-                    else if( choose == 8 ) uv.signOut();
+                    if( choose == 1 ) container.getAdminView().planAdd();
+                    else if( choose == 2 ) container.getAdminView().planList();
+                    else if( choose == 3 ) container.getAdminView().planEdit();
+                    else if( choose == 4 ) container.getAdminView().planDelete();
+                    else if( choose == 5 ) container.getAdminView().userList();
+                    else if( choose == 6 ) { container.getAdminView().planUserList(); container.getAdminView().planEndUserList(); }
+                    else if( choose == 7 ) container.getAdminView().subscribeList();
+                    else if( choose == 8 ) container.getUserView().signOut();
                     else System.out.println("\n[경고] 올바른 메뉴(숫자)를 입력하세요.\n");
                 }else if( currentMno >= 2 ){ //★☆★☆ [본사]사용자단: 회원(구독X/구독O) 로그인 화면
-                    CompanyDto result = cc.siteManaser(currentMno);
-                    boolean answer = mhc.checkMember(); // 사이트 정보 존재 여부
+                    CompanyDto result = container.getCc().siteManaser(currentMno);
+                    boolean answer = container.getMhc().checkMember(); // 사이트 정보 존재 여부
                     existSite();
                 }else{
                     System.out.println("[안내] 회원정보가 없습니다.");
@@ -93,25 +94,25 @@ public class TotalView {
     //  ★☆★☆ [본사]사용자단: 회원(구독 O,X / 사이트 O,X) 로그인 화면
     public void existSite(){
         System.out.println("┌───────────────────<< 🧑 MY CALL-TAXI(회원 전용) 👩 >>────────────────────┐");
-        System.out.printf("       1.정보수정   2.로그아웃   3.구독신청   %s   5.지역콜택시조회\n", uv.cancelMenu2());
-        System.out.printf("       6.구독현황   7.회원탈퇴   %s\n",uv.cancelMenu() ); //
+        System.out.printf("       1.정보수정   2.로그아웃   3.구독신청   %s   5.지역콜택시조회\n", container.getUserView().cancelMenu2());
+        System.out.printf("       6.구독현황   7.회원탈퇴   %s\n",container.getUserView().cancelMenu() ); //
         System.out.println("└─────────────────────────────────────────────────────────────────────────┘");
         System.out.print("✔️ 메뉴선택 > ");
         int choose = scan.nextInt();
-        if( choose == 1 ) uv.updateProfile();
-        else if( choose == 2 ) uv.signOut();
-        else if( choose == 3 ) uv.subscribeRequest();
+        if( choose == 1 ) container.getUserView().updateProfile();
+        else if( choose == 2 ) container.getUserView().signOut();
+        else if( choose == 3 ) container.getUserView().subscribeRequest();
         else if( choose == 4 ) {
-            if (uv.cancelMenu2().equals("4.데모체험")){
-                uv.siteManasers();
+            if (container.getUserView().cancelMenu2().equals("4.데모체험")){
+                container.getUserView().siteManasers();
             }else{
-                currentCno = cc.siteManaser(currentMno).getCno();
-                uv.siteManaser();
+                currentCno = container.getCc().siteManaser(currentMno).getCno();
+                container.getUserView().siteManaser();
             }// if end
-        } else if( choose == 5 ) uv.taxiList();
-        else if( choose == 6 ) uv.subscribeState();
-        else if( choose == 7 ) { uv.withdrawUser();  }
-        else if( choose == 8 ) uv.subscribeCancel();
+        } else if( choose == 5 ) container.getUserView().taxiList();
+        else if( choose == 6 ) container.getUserView().subscribeState();
+        else if( choose == 7 ) { container.getUserView().withdrawUser();  }
+        else if( choose == 8 ) container.getUserView().subscribeCancel();
         else System.out.println("\n[경고] 올바른 메뉴(숫자)를 입력하세요.\n");
     }// func end
 
@@ -119,7 +120,7 @@ public class TotalView {
     /* ======================================== ★ 하위사이트 화면(view) ★ =========================================== */
     // 하위사이트 관리자 화면
     public void subAdmin(){
-        CompanyDto dto = cc.siteManaser(currentMno);
+        CompanyDto dto = container.getCc().siteManaser(currentMno);
         for ( ; ;){
             try{
                 System.out.printf("┌───────<<👑 %s(%s_사이트관리자) 👑>>─────┐\n",dto.getcName(),dto.getArea());
@@ -127,8 +128,8 @@ public class TotalView {
                 System.out.println("└──────────────────────────────────────┘");
                 System.out.print("✔️ 메뉴선택 > ");
                 int choose = scan.nextInt();
-                if (choose == 1) av.subUserList();
-                else if (choose == 2) {msc.subSignOut(); break;}
+                if (choose == 1) container.getAdminView().subUserList();
+                else if (choose == 2) {container.getMsc().subSignOut(); break;}
                 else System.out.println("\n[경고] 해당하는 메뉴(숫자)를 입력하세요.\n");
             }catch (InputMismatchException e){
                 System.out.println( "\n[경고] 입력타입 불일치! 숫자를 입력하세요." + e + "\n" );
@@ -142,16 +143,16 @@ public class TotalView {
     // 하위사이트 유저 화면
     public void subUser(){
         for ( ; ;){
-            CompanyDto dto = cc.siteManaser(currentMno);
+            CompanyDto dto = container.getCc().siteManaser(currentMno);
             try{
                 System.out.printf("=============<<🙂 %s(%s_택시사이트) 🙂>>=============\n",dto.getcName(),dto.getArea());
                 System.out.println("      1.회원가입   2.로그인   3.로그아웃");
                 System.out.println("===================================================");
                 System.out.print("✔️ 메뉴선택 > ");
                 int choose = scan.nextInt();
-                if (choose == 1) uv.subSignUp();
-                else if (choose == 2) {uv.subLogIn();}
-                else if (choose == 3 ) {uv.subSignOut(); break; }
+                if (choose == 1) container.getUserView().subSignUp();
+                else if (choose == 2) {container.getUserView().subLogIn();}
+                else if (choose == 3 ) {container.getUserView().subSignOut(); break; }
                 else System.out.println("\n[경고] 해당하는 메뉴(숫자)를 입력하세요.\n");
             }catch (InputMismatchException e){
                 System.out.println( "\n[경고] 입력타입 불일치! 숫자를 입력하세요." + e + "\n" );
