@@ -8,7 +8,6 @@ import java.util.InputMismatchException;
 import java.util.Scanner;
 import static project.controller.Member_HeadController.currentMno;
 import static project.controller.CompanyController.currentCno;
-import static project.controller.Member_SubController.currentSubMno;
 
 public class TotalView {
     //// 싱글톤 생성

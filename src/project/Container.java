@@ -20,6 +20,7 @@ public class Container { // class start
      * value: 실제 객체
      */
     private static final Map< Class<?> , Object > beans = new HashMap<>();
+
     public static void find(String base){
         try{ // 클래스 스캔
             List<Class<?>> classes = ClassScanner.scan(base);
@@ -43,8 +44,8 @@ public class Container { // class start
                         field.setAccessible(true);
                         field.set(bean,beans.get(type));
                     }// if end
-                }
-            }
+                }// for end
+            }// for end
         } catch (Exception e) { System.out.println("e = " + e); }
     }// func end
 

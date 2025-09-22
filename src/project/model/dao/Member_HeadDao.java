@@ -94,6 +94,7 @@ public class Member_HeadDao extends Dao { // class start
                     if( objectMap.get("아이디").equals( rs.getObject("mId"))){
                         if (!종료일.after(lastDate)){
                             objectMap.put("종료일", lastDate);
+                            objectMap.put("플랜이름",rs.getObject("pName"));
                             if (시작일.after(firstDate)){
                                 objectMap.put("시작일",firstDate);
                             }// if end
